@@ -1,0 +1,252 @@
+<div class="digicomply-setup-wizard">
+    <div class="setup-container">
+        <div class="setup-logo">
+            <img src="/assets/digicomply/images/logo-full.svg" alt="DigiComply" />
+        </div>
+
+        <div class="setup-progress">
+            <div class="step active" data-step="1"><span>1</span> Company</div>
+            <div class="step" data-step="2"><span>2</span> Currency</div>
+            <div class="step" data-step="3"><span>3</span> ASP</div>
+            <div class="step" data-step="4"><span>4</span> Users</div>
+            <div class="step" data-step="5"><span>5</span> Complete</div>
+        </div>
+
+        <div class="setup-content">
+            <div class="setup-step" data-step="1">
+                <h2>Welcome to DigiComply</h2>
+                <p>Let's set up your UAE e-invoicing compliance platform.</p>
+                <div class="form-group">
+                    <label>Company Name *</label>
+                    <input type="text" class="form-control" id="company_name" required />
+                </div>
+                <div class="form-group">
+                    <label>Tax Registration Number (TRN) *</label>
+                    <input type="text" class="form-control" id="trn" placeholder="100000000000003" maxlength="15" required />
+                    <small>15-digit UAE TRN</small>
+                </div>
+            </div>
+
+            <div class="setup-step" data-step="2" style="display: none;">
+                <h2>Financial Settings</h2>
+                <div class="form-group">
+                    <label>Default Currency</label>
+                    <select class="form-control" id="currency">
+                        <option value="AED" selected>AED - UAE Dirham</option>
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Fiscal Year Start</label>
+                    <select class="form-control" id="fiscal_year_start">
+                        <option value="January" selected>January</option>
+                        <option value="April">April</option>
+                        <option value="July">July</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="setup-step" data-step="3" style="display: none;">
+                <h2>ASP Connection</h2>
+                <p>Select your Accredited Service Provider for e-invoicing.</p>
+                <div class="form-group">
+                    <label>ASP Provider</label>
+                    <select class="form-control" id="asp_provider">
+                        <option value="">-- Select ASP --</option>
+                        <option value="ClearTax">ClearTax</option>
+                        <option value="Zoho">Zoho</option>
+                        <option value="Cygnet">Cygnet</option>
+                        <option value="Tally">Tally</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ASP API Key (Optional)</label>
+                    <input type="password" class="form-control" id="asp_api_key" />
+                    <small>You can configure this later in Settings</small>
+                </div>
+            </div>
+
+            <div class="setup-step" data-step="4" style="display: none;">
+                <h2>Add Team Members</h2>
+                <p>Invite users who will manage compliance.</p>
+                <div id="users-container">
+                    <div class="user-row">
+                        <input type="email" class="form-control" placeholder="Email address" />
+                        <select class="form-control">
+                            <option value="Accounts User">Accounts User</option>
+                            <option value="Accounts Manager">Accounts Manager</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-secondary" id="add-user">+ Add Another User</button>
+            </div>
+
+            <div class="setup-step" data-step="5" style="display: none;">
+                <h2>You're All Set!</h2>
+                <div class="setup-complete">
+                    <div class="check-icon">✓</div>
+                    <p>DigiComply is ready to ensure your UAE e-invoicing compliance.</p>
+                    <ul>
+                        <li>Upload ASP data via CSV Import</li>
+                        <li>Run reconciliation against your ERP invoices</li>
+                        <li>Generate audit-ready compliance reports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="setup-nav">
+            <button class="btn btn-secondary" id="prev-btn" style="display: none;">Previous</button>
+            <button class="btn btn-primary" id="next-btn">Next</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.digicomply-setup-wizard {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.setup-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    padding: 3rem;
+}
+
+.setup-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.setup-logo img {
+    height: 60px;
+}
+
+.setup-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.setup-progress .step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #94a3b8;
+    font-size: 0.875rem;
+}
+
+.setup-progress .step.active {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+.setup-progress .step.completed {
+    color: #16a34a;
+}
+
+.setup-progress .step span {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.setup-progress .step.active span {
+    background: #1e40af;
+    color: white;
+}
+
+.setup-progress .step.completed span {
+    background: #16a34a;
+    color: white;
+}
+
+.setup-content h2 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.setup-content p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #334155;
+    font-weight: 500;
+}
+
+.form-group small {
+    color: #94a3b8;
+    font-size: 0.75rem;
+}
+
+.setup-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.setup-complete {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.check-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    margin: 0 auto 1.5rem;
+}
+
+.setup-complete ul {
+    text-align: left;
+    max-width: 300px;
+    margin: 1rem auto;
+}
+
+.user-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.user-row input {
+    flex: 2;
+}
+
+.user-row select {
+    flex: 1;
+}
+</style>
