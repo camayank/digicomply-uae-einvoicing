@@ -369,7 +369,7 @@ digicomply.onboarding = {
                     <div style="font-size:48px;margin-bottom:16px;">🎉</div>
                     <h4 style="margin-bottom:8px;">Your UAE E-Invoicing Compliance Platform</h4>
                     <p style="color:#64748b;margin-bottom:24px;">
-                        Easily reconcile your ERP invoices with ASP data and stay FTA compliant.
+                        Easily reconcile your invoices with ASP data and stay FTA compliant.
                     </p>
                     <div style="text-align:left;background:#f8fafc;padding:16px;border-radius:8px;">
                         <p style="margin-bottom:8px;"><strong>Quick Start:</strong></p>
@@ -431,7 +431,7 @@ digicomply.onboarding = {
                         <div style="width:28px;height:28px;background:#1e40af;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;">2</div>
                         <div>
                             <h5 style="font-size:0.875rem;font-weight:600;margin:0 0 4px 0;">Run Reconciliation</h5>
-                            <p style="font-size:0.8125rem;color:#64748b;margin:0;">Match your ERP invoices against ASP data automatically</p>
+                            <p style="font-size:0.8125rem;color:#64748b;margin:0;">Match your invoices against ASP data automatically</p>
                         </div>
                     </div>
                     <div style="flex:1;min-width:200px;display:flex;gap:12px;">
@@ -490,7 +490,7 @@ digicomply.overrideAbout = function() {
                         <p style="font-size:13px;color:#94a3b8;">Version 1.0.0</p>
                         <hr style="margin:16px 0;border-color:#e2e8f0;">
                         <p style="font-size:12px;color:#94a3b8;">
-                            Reconcile ERP invoices with ASP data.<br>
+                            Reconcile invoices with ASP data.<br>
                             Stay compliant with FTA requirements.
                         </p>
                     </div>

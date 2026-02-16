@@ -556,7 +556,7 @@ frappe.ui.form.on('Reconciliation Run', {
                 show = true;
             } else if (filter === 'mismatched' && item.match_status === 'Mismatched') {
                 show = true;
-            } else if (filter === 'missing' && (item.match_status === 'Missing in ASP' || item.match_status === 'Missing in ERP')) {
+            } else if (filter === 'missing' && (item.match_status === 'Missing in ASP' || item.match_status === 'Missing in Books')) {
                 show = true;
             }
 
@@ -1005,9 +1005,9 @@ frappe.ui.form.on('Reconciliation Run', {
             'Invoice No',
             'Customer',
             'Posting Date',
-            'ERP Grand Total',
+            'Book Grand Total',
             'ASP Grand Total',
-            'ERP VAT Amount',
+            'Book VAT Amount',
             'ASP VAT Amount',
             'Match Status',
             'Resolution Status'

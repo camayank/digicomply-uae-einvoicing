@@ -9,10 +9,10 @@ class ReconciliationItem(Document):
     Reconciliation Item - Child table for Reconciliation Run
 
     Stores individual invoice match results with status:
-    - Matched (green): ERP and ASP data match
+    - Matched (green): Book and ASP data match
     - Mismatched (yellow): Data differs between systems
-    - Missing in ASP (red): Invoice in ERP but not reported to ASP
-    - Missing in ERP (red): Invoice in ASP but not in ERP (potential fraud?)
+    - Missing in ASP (red): Invoice in Books but not reported to ASP
+    - Missing in Books (red): Invoice in ASP but not in Books (potential fraud?)
     """
 
     def get_status_color(self):
@@ -21,7 +21,7 @@ class ReconciliationItem(Document):
             "Matched": "green",
             "Mismatched": "yellow",
             "Missing in ASP": "red",
-            "Missing in ERP": "red",
+            "Missing in Books": "red",
         }
         return colors.get(self.match_status, "gray")
 

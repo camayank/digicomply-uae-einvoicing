@@ -545,7 +545,7 @@ class ReconciliationRun(Document):
         for item in results["missing_in_erp"]:
             self.append("items", {
                 "invoice_no": item["invoice_no"],
-                "match_status": "Missing in ERP",
+                "match_status": "Missing in Books",
                 "asp_grand_total": item["asp_data"].get("grand_total") or item["asp_data"].get("total"),
             })
 
@@ -572,7 +572,7 @@ class ReconciliationRun(Document):
             html_parts.append(f'''
                 <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 4px; padding: 6px 10px; font-size: 12px;">
                     <span style="font-weight: 600; color: #92400e;">{field}:</span>
-                    <span style="color: #78350f;">ERP {erp_val} vs ASP {asp_val}</span>
+                    <span style="color: #78350f;">Book {erp_val} vs ASP {asp_val}</span>
                 </div>
             ''')
 

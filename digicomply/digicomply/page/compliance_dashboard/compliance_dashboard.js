@@ -359,7 +359,7 @@ class ComplianceDashboard {
                     <div class="quick-action-btn" onclick="frappe.new_doc('Reconciliation Run')">
                         <div class="quick-action-icon">🔄</div>
                         <div class="quick-action-label">New Reconciliation</div>
-                        <div class="quick-action-desc">Match ERP vs ASP</div>
+                        <div class="quick-action-desc">Match Books vs ASP</div>
                     </div>
                     <div class="quick-action-btn" onclick="frappe.new_doc('CSV Import')">
                         <div class="quick-action-icon">📤</div>
@@ -369,7 +369,7 @@ class ComplianceDashboard {
                     <div class="quick-action-btn" onclick="frappe.set_route('List', 'Sales Invoice')">
                         <div class="quick-action-icon">📄</div>
                         <div class="quick-action-label">View Invoices</div>
-                        <div class="quick-action-desc">ERP Sales Invoices</div>
+                        <div class="quick-action-desc">Sales Invoices</div>
                     </div>
                     <div class="quick-action-btn" onclick="frappe.set_route('List', 'Reconciliation Run')">
                         <div class="quick-action-icon">📊</div>

@@ -59,7 +59,7 @@ class MismatchReport(Document):
 
         mismatched = [i for i in items if i.match_status == "Mismatched"]
         missing_asp = [i for i in items if i.match_status == "Missing in ASP"]
-        missing_erp = [i for i in items if i.match_status == "Missing in ERP"]
+        missing_erp = [i for i in items if i.match_status == "Missing in Books"]
 
         html = f"""
         <style>
@@ -92,7 +92,7 @@ class MismatchReport(Document):
                     <span class="status-badge badge-green">✓ Matched</span>
                     {rec.matched_count or 0} invoices
                 </div>
-                <p>These invoices match between ERP and ASP - no action required.</p>
+                <p>These invoices match between your Books and ASP - no action required.</p>
             </div>
         """
 
@@ -104,13 +104,13 @@ class MismatchReport(Document):
                     <span class="status-badge badge-yellow">⚠ Mismatched</span>
                     {len(mismatched)} invoices
                 </div>
-                <p>These invoices have differences between ERP and ASP data.</p>
+                <p>These invoices have differences between Book and ASP data.</p>
                 <table class="findings-table">
                     <thead>
                         <tr>
                             <th>Invoice</th>
                             <th>Customer</th>
-                            <th class="amount">ERP Total</th>
+                            <th class="amount">Book Total</th>
                             <th class="amount">ASP Total</th>
                             <th class="amount">Difference</th>
                         </tr>
@@ -144,7 +144,7 @@ class MismatchReport(Document):
                     <span class="status-badge badge-red">✗ Missing in ASP</span>
                     {len(missing_asp)} invoices - CRITICAL
                 </div>
-                <p><strong>These invoices exist in ERP but were not reported to ASP.</strong>
+                <p><strong>These invoices exist in your Books but were not reported to ASP.</strong>
                 This may result in FTA penalties.</p>
                 <table class="findings-table">
                     <thead>
@@ -172,15 +172,15 @@ class MismatchReport(Document):
             </div>
             """
 
-        # Missing in ERP
+        # Missing in Books
         if missing_erp:
             html += f"""
             <div class="findings-section">
                 <div class="findings-title">
-                    <span class="status-badge badge-red">? Missing in ERP</span>
+                    <span class="status-badge badge-red">? Missing in Books</span>
                     {len(missing_erp)} invoices
                 </div>
-                <p>These invoices appear in ASP but not in ERP. This may indicate
+                <p>These invoices appear in ASP but not in your books. This may indicate
                 data entry issues or unauthorized invoices.</p>
                 <table class="findings-table">
                     <thead>
@@ -221,12 +221,12 @@ class MismatchReport(Document):
         if rec.mismatched_count > 0:
             recommendations.append(
                 f"**Review:** {rec.mismatched_count} invoice(s) have data differences. "
-                "Compare ERP and ASP values, correct the source system, and resubmit if needed."
+                "Compare Book and ASP values, correct the source system, and resubmit if needed."
             )
 
         if rec.missing_in_erp > 0:
             recommendations.append(
-                f"**Investigate:** {rec.missing_in_erp} invoice(s) appear in ASP but not in ERP. "
+                f"**Investigate:** {rec.missing_in_erp} invoice(s) appear in ASP but not in your Books. "
                 "Verify these are legitimate transactions. If not, report to ASP for cancellation."
             )
 

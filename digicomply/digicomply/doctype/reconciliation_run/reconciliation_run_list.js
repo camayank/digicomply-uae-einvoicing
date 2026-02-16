@@ -69,7 +69,7 @@ frappe.listview_settings['Reconciliation Run'] = {
         // Add custom header styling
         listview.page.set_title_sub(`
             <span style="font-size: 13px; color: #64748b;">
-                Track and reconcile invoice data between your ERP and ASP provider
+                Track and reconcile invoice data between your Books and ASP provider
             </span>
         `);
 

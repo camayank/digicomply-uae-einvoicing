@@ -41,7 +41,7 @@
             "fieldtype": "Select",
             "in_list_view": 1,
             "label": "Status",
-            "options": "Matched\nMismatched\nMissing in ASP\nMissing in ERP",
+            "options": "Matched\nMismatched\nMissing in ASP\nMissing in Books",
             "reqd": 1
         },
         {
@@ -121,7 +121,7 @@
             "fieldtype": "Select",
             "in_list_view": 1,
             "label": "Resolution Status",
-            "options": "Pending Review\nUnder Investigation\nResolved - ERP Correct\nResolved - ASP Correct\nResolved - Adjustment Made\nWritten Off"
+            "options": "Pending Review\nUnder Investigation\nResolved - Book Correct\nResolved - ASP Correct\nResolved - Adjustment Made\nWritten Off"
         },
         {
             "fieldname": "resolution_notes",

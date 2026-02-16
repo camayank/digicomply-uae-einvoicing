@@ -49,7 +49,7 @@ def run_test():
     print(f"  Matched:           {recon.matched_count} (green)")
     print(f"  Mismatched:        {recon.mismatched_count} (yellow)")
     print(f"  Missing in ASP:    {recon.missing_in_asp} (red)")
-    print(f"  Missing in ERP:    {recon.missing_in_erp} (red)")
+    print(f"  Missing in Books:  {recon.missing_in_erp} (red)")
     print(f"  Match Percentage:  {recon.match_percentage}%")
 
     # Show details
@@ -59,7 +59,7 @@ def run_test():
             "Matched": "✓",
             "Mismatched": "!",
             "Missing in ASP": "✗",
-            "Missing in ERP": "?"
+            "Missing in Books": "?"
         }.get(item.match_status, "-")
         print(f"  {status_icon} {item.invoice_no}: {item.match_status}")
         if item.differences:
@@ -253,7 +253,7 @@ def create_csv_import_from_invoices(company, invoices):
             f"{inv_doc.name},{inv_doc.posting_date},{inv_doc.customer_name},{grand_total:.2f},{vat_amount:.2f},{customer_trn}"
         )
 
-    # Add one extra invoice that doesn't exist in ERP (Missing in ERP)
+    # Add one extra invoice that doesn't exist in Books (Missing in Books)
     csv_lines.append(f"MISSING-IN-ERP-001,{today()},Unknown Customer,5000.00,250.00,100000000000000")
 
     csv_content = "\n".join(csv_lines)

@@ -187,7 +187,7 @@
             "default": "0",
             "fieldname": "missing_in_erp",
             "fieldtype": "Int",
-            "label": "Missing in ERP",
+            "label": "Missing in Books",
             "read_only": 1
         },
         {
