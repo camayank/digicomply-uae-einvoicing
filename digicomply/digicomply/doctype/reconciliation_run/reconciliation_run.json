@@ -9,6 +9,10 @@
         "section_details",
         "company",
         "asp_provider",
+        "company_group",
+        "tolerance_amount",
+        "use_fuzzy_matching",
+        "batch_size",
         "column_break_1",
         "posting_date",
         "status",
@@ -56,6 +60,35 @@
             "label": "ASP Provider",
             "options": "\nClearTax\nCygnet\nZoho\nTabadul\nOther",
             "reqd": 1
+        },
+        {
+            "description": "Select a Company Group to reconcile all member companies at once",
+            "fieldname": "company_group",
+            "fieldtype": "Link",
+            "in_standard_filter": 1,
+            "label": "Company Group",
+            "options": "Company Group"
+        },
+        {
+            "default": "0.5",
+            "description": "Maximum acceptable variance for amount matching (in currency)",
+            "fieldname": "tolerance_amount",
+            "fieldtype": "Currency",
+            "label": "Tolerance Amount"
+        },
+        {
+            "default": "1",
+            "description": "Enable fuzzy matching on invoice numbers to catch similar invoices",
+            "fieldname": "use_fuzzy_matching",
+            "fieldtype": "Check",
+            "label": "Use Fuzzy Matching"
+        },
+        {
+            "default": "1000",
+            "description": "Process invoices in batches for better performance",
+            "fieldname": "batch_size",
+            "fieldtype": "Int",
+            "label": "Batch Size"
         },
         {
             "fieldname": "column_break_1",
