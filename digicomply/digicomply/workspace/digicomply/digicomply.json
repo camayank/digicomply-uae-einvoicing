@@ -1,6 +1,6 @@
 {
   "charts": [],
-  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}}]",
+  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bulk Import Center\",\"col\":3}},{\"id\":\"sc5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Multi-Company Reconciliation\",\"col\":3}}]",
   "creation": "2026-02-16 00:00:00.000000",
   "docstatus": 0,
   "doctype": "Workspace",
@@ -11,6 +11,35 @@
   "is_hidden": 0,
   "label": "DigiComply",
   "links": [
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Quick Actions",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Bulk Import Center",
+      "link_count": 0,
+      "link_to": "bulk_import_center",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Multi-Company Reconciliation",
+      "link_count": 0,
+      "link_to": "multi_company_reconciliation",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
     {
       "hidden": 0,
       "is_query_report": 0,
@@ -78,6 +107,55 @@
       "link_type": "DocType",
       "onboard": 0,
       "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Master Data",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "TRN Registry",
+      "link_count": 0,
+      "link_to": "TRN Registry",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Company Groups",
+      "link_count": 0,
+      "link_to": "Company Groups",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Import Templates",
+      "link_count": 0,
+      "link_to": "Import Templates",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Bulk Import Logs",
+      "link_count": 0,
+      "link_to": "Bulk Import Logs",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
     }
   ],
   "modified": "2026-02-16 00:00:00.000000",
@@ -110,6 +188,20 @@
       "doc_view": "",
       "label": "Dashboard",
       "link_to": "compliance_dashboard",
+      "type": "Page"
+    },
+    {
+      "color": "Purple",
+      "doc_view": "",
+      "label": "Bulk Import Center",
+      "link_to": "bulk_import_center",
+      "type": "Page"
+    },
+    {
+      "color": "Cyan",
+      "doc_view": "",
+      "label": "Multi-Company Reconciliation",
+      "link_to": "multi_company_reconciliation",
       "type": "Page"
     }
   ],
