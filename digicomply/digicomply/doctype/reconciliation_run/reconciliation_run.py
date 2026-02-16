@@ -13,7 +13,7 @@ class ReconciliationRun(Document):
     """
     Reconciliation Run - Core MVP DocType
 
-    Matches ERP invoices against ASP (Accredited Service Provider) data
+    Matches book invoices against ASP (Accredited Service Provider) data
     to identify compliance gaps before FTA deadlines.
     """
 
@@ -81,11 +81,11 @@ class ReconciliationRun(Document):
         Enhanced reconciliation logic with multi-company and fuzzy matching support.
 
         1. Get companies to reconcile (single or from group)
-        2. Fetch ERP invoices for all companies in date range
+        2. Fetch book invoices for all companies in date range
         3. Fetch ASP data (from CSV or API)
         4. Do exact matching first
         5. Then fuzzy matching if enabled
-        6. Track missing in ASP/ERP
+        6. Track missing in ASP/books
         7. Use tolerance for amount comparison
         8. Update counts and match percentage
         """
@@ -96,7 +96,7 @@ class ReconciliationRun(Document):
             # Step 1: Get companies to reconcile
             companies = self.get_companies_to_reconcile()
 
-            # Step 2: Get ERP invoices for all companies
+            # Step 2: Get book invoices for all companies
             erp_invoices = {}
             batch_size = cint(self.batch_size) or 1000
 
@@ -128,12 +128,12 @@ class ReconciliationRun(Document):
             frappe.throw(_("Reconciliation failed: {0}").format(str(e)))
 
     def get_erp_invoices(self):
-        """Fetch Sales Invoices from ERPNext (legacy single-company method)"""
+        """Fetch Sales Invoices from books (legacy single-company method)"""
         return self.get_erp_invoices_for_company(self.company)
 
     def get_erp_invoices_for_company(self, company, batch_size=None):
         """
-        Fetch Sales Invoices from ERPNext for a specific company.
+        Fetch Sales Invoices from books for a specific company.
         Supports batch processing for large datasets.
         """
         if batch_size is None:

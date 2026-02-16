@@ -103,7 +103,7 @@ digicomply.config = {
         .indicator-pill.yellow, .indicator-pill.orange { background: #fef3c7 !important; color: #92400e !important; }
         .indicator-pill.blue { background: #f3e8ff !important; color: #a404e4 !important; }
 
-        /* ===== HIDE FRAPPE/ERPNEXT BRANDING ===== */
+        /* ===== HIDE SYSTEM BRANDING ===== */
         .powered-by-frappe, .footer-powered, .setup-wizard-brand,
         a[href*="/app/stock"], a[href*="/app/assets"],
         a[href*="/app/manufacturing"], a[href*="/app/quality"],
@@ -189,8 +189,8 @@ digicomply.filter = {
 // ============================================
 digicomply.branding = {
     apply: function() {
-        // Page title
-        document.title = document.title.replace(/Frappe|ERPNext/g, digicomply.config.BRAND_NAME);
+        // Page title - replace generic branding
+        document.title = document.title.replace(/Frappe|ERPNext/gi, digicomply.config.BRAND_NAME);
 
         // Navbar brand - complete replacement matching website style
         if ($(".navbar-brand").length && !$(".navbar-brand").hasClass("dc-branded")) {
@@ -214,7 +214,7 @@ digicomply.branding = {
         // Search placeholder
         $("input[data-doctype='Search'], .search-bar input").attr("placeholder", "Search...");
 
-        // Remove Frappe footers and branding
+        // Remove system footers and branding
         $(".powered-by-frappe, .footer-powered, .app-logo").remove();
 
         // Fix any "App Logo" text

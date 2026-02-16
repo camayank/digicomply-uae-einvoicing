@@ -68,7 +68,7 @@
             "fieldname": "erp_grand_total",
             "fieldtype": "Currency",
             "in_list_view": 1,
-            "label": "ERP Total"
+            "label": "Book Total"
         },
         {
             "fieldname": "asp_grand_total",
@@ -83,7 +83,7 @@
         {
             "fieldname": "erp_vat_amount",
             "fieldtype": "Currency",
-            "label": "ERP VAT"
+            "label": "Book VAT"
         },
         {
             "fieldname": "asp_vat_amount",

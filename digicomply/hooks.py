@@ -12,7 +12,7 @@ app_logo_url = "/assets/digicomply/images/logo.png"
 # Required Apps
 required_apps = ["frappe"]
 
-# App Includes (must be lists for Frappe v15)
+# App Includes (must be lists)
 app_include_css = ["/assets/digicomply/css/digicomply.css"]
 app_include_js = ["/assets/digicomply/js/digicomply.js"]
 

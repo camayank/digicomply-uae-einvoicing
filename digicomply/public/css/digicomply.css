@@ -1,7 +1,7 @@
 /* ============================================
    DigiComply UI Transformation
-   A complete visual overhaul of the Frappe framework
-   to create a modern, branded compliance platform
+   A complete visual overhaul for the DigiComply
+   modern, branded compliance platform
    ============================================ */
 
 /* ============================================
@@ -58,7 +58,7 @@
 /* Import Poppins font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Override Frappe's CSS variables */
+/* Override default CSS variables */
 body {
   --primary: var(--dc-primary);
   --primary-color: var(--dc-primary);
@@ -75,10 +75,10 @@ body {
 }
 
 /* ============================================
-   2. Hide Frappe/ERPNext Branding & Clutter
+   2. Hide System Branding & Clutter
    ============================================ */
 
-/* Hide Frappe branding */
+/* Hide system branding */
 .footer-powered,
 .powered-by-frappe,
 .frappe-control[data-fieldname="company_description"],
@@ -92,7 +92,7 @@ body {
   display: none !important;
 }
 
-/* Hide ERPNext setup wizard branding */
+/* Hide setup wizard branding */
 .setup-wizard-brand {
   display: none !important;
 }
@@ -122,7 +122,7 @@ body {
   gap: 10px !important;
 }
 
-/* Hide default Frappe logo */
+/* Hide default logo */
 .navbar .navbar-brand img,
 .navbar .navbar-brand .app-logo {
   display: none !important;
