@@ -20,7 +20,13 @@
         "section_details",
         "differences",
         "differences_html",
-        "action_required"
+        "action_required",
+        "section_resolution",
+        "resolution_status",
+        "resolution_notes",
+        "column_break_resolution",
+        "resolved_by",
+        "resolved_on"
     ],
     "fields": [
         {
@@ -104,6 +110,40 @@
             "fieldname": "action_required",
             "fieldtype": "Small Text",
             "label": "Action Required"
+        },
+        {
+            "fieldname": "section_resolution",
+            "fieldtype": "Section Break",
+            "label": "Resolution"
+        },
+        {
+            "fieldname": "resolution_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Resolution Status",
+            "options": "Pending Review\nUnder Investigation\nResolved - ERP Correct\nResolved - ASP Correct\nResolved - Adjustment Made\nWritten Off"
+        },
+        {
+            "fieldname": "resolution_notes",
+            "fieldtype": "Small Text",
+            "label": "Resolution Notes"
+        },
+        {
+            "fieldname": "column_break_resolution",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "resolved_by",
+            "fieldtype": "Link",
+            "label": "Resolved By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "resolved_on",
+            "fieldtype": "Datetime",
+            "label": "Resolved On",
+            "read_only": 1
         }
     ],
     "index_web_pages_for_search": 0,
