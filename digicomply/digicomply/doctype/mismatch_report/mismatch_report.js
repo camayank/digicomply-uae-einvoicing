@@ -145,7 +145,7 @@ frappe.ui.form.on('Mismatch Report', {
                 }
 
                 .dc-status-badge.draft { background: #e5e7eb; color: #4b5563; }
-                .dc-status-badge.generated { background: #dbeafe; color: #1e40af; }
+                .dc-status-badge.generated { background: #f3e8ff; color: #a404e4; }
                 .dc-status-badge.reviewed { background: #fef3c7; color: #92400e; }
                 .dc-status-badge.actioned { background: #dcfce7; color: #166534; }
 

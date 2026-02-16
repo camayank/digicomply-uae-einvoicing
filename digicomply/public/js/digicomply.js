@@ -401,8 +401,8 @@ digicomply.onboarding = {
 
         const banner = $(`
             <div id="dc-getting-started" class="dc-getting-started" style="
-                background: linear-gradient(135deg, #eff6ff 0%, #fff 100%);
-                border: 1px solid #dbeafe;
+                background: linear-gradient(135deg, #faf5ff 0%, #fff 100%);
+                border: 1px solid #f3e8ff;
                 border-radius: 12px;
                 padding: 1.5rem;
                 margin-bottom: 1.5rem;
@@ -418,24 +418,24 @@ digicomply.onboarding = {
                     cursor: pointer;
                     font-size: 18px;
                 ">&times;</button>
-                <h4 style="color:#1e40af;margin:0 0 1rem 0;font-size:1rem;">Getting Started with DigiComply</h4>
+                <h4 style="color:#a404e4;margin:0 0 1rem 0;font-size:1rem;">Getting Started with DigiComply</h4>
                 <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
                     <div style="flex:1;min-width:200px;display:flex;gap:12px;">
-                        <div style="width:28px;height:28px;background:#1e40af;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;">1</div>
+                        <div style="width:28px;height:28px;background:#a404e4;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;">1</div>
                         <div>
                             <h5 style="font-size:0.875rem;font-weight:600;margin:0 0 4px 0;">Upload ASP Data</h5>
                             <p style="font-size:0.8125rem;color:#64748b;margin:0;">Import your CSV export from ClearTax, Cygnet, or Zoho</p>
                         </div>
                     </div>
                     <div style="flex:1;min-width:200px;display:flex;gap:12px;">
-                        <div style="width:28px;height:28px;background:#1e40af;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;">2</div>
+                        <div style="width:28px;height:28px;background:#a404e4;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;">2</div>
                         <div>
                             <h5 style="font-size:0.875rem;font-weight:600;margin:0 0 4px 0;">Run Reconciliation</h5>
                             <p style="font-size:0.8125rem;color:#64748b;margin:0;">Match your invoices against ASP data automatically</p>
                         </div>
                     </div>
                     <div style="flex:1;min-width:200px;display:flex;gap:12px;">
-                        <div style="width:28px;height:28px;background:#1e40af;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;">3</div>
+                        <div style="width:28px;height:28px;background:#a404e4;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;">3</div>
                         <div>
                             <h5 style="font-size:0.875rem;font-weight:600;margin:0 0 4px 0;">Review & Fix</h5>
                             <p style="font-size:0.8125rem;color:#64748b;margin:0;">Identify mismatches and resolve them before FTA deadline</p>
@@ -482,10 +482,10 @@ digicomply.overrideAbout = function() {
                     <div style="text-align:center;padding:20px;">
                         <div style="font-size:40px;margin-bottom:12px;">
                             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#1e40af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#a404e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <h3 style="color:#1e40af;margin-bottom:4px;">DigiComply</h3>
+                        <h3 style="color:#a404e4;margin-bottom:4px;">DigiComply</h3>
                         <p style="color:#64748b;margin-bottom:16px;">UAE E-Invoicing Compliance Platform</p>
                         <p style="font-size:13px;color:#94a3b8;">Version 1.0.0</p>
                         <hr style="margin:16px 0;border-color:#e2e8f0;">

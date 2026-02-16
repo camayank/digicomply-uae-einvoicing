@@ -222,8 +222,8 @@ class BulkImportCenter {
 				}
 
 				.dc-status-processing {
-					background: #cce5ff;
-					color: #004085;
+					background: #f3e8ff;
+					color: #a404e4;
 				}
 
 				.dc-status-completed {

@@ -168,8 +168,8 @@ frappe.ui.form.on('Company Group', {
                 }
 
                 .dc-role-badge.parent {
-                    background: #dbeafe;
-                    color: #1e40af;
+                    background: #f3e8ff;
+                    color: #a404e4;
                 }
 
                 .dc-role-badge.subsidiary {

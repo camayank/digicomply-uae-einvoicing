@@ -200,8 +200,8 @@ frappe.ui.form.on('TRN Registry', {
                 }
 
                 .dc-form-wrapper .indicator-pill.blue {
-                    background: #dbeafe;
-                    color: #1e40af;
+                    background: #f3e8ff;
+                    color: #a404e4;
                 }
 
                 /* Animation */
