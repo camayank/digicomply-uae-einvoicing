@@ -1,0 +1,3 @@
+# DigiComply UAE E-Invoicing Dependencies
+frappe
+lxml>=4.9.0

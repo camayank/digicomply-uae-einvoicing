@@ -1,0 +1,255 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "REC-.YYYY.-.#####",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_details",
+        "company",
+        "asp_provider",
+        "column_break_1",
+        "posting_date",
+        "status",
+        "section_source",
+        "csv_import",
+        "asp_data_source",
+        "column_break_2",
+        "from_date",
+        "to_date",
+        "section_results",
+        "total_invoices",
+        "matched_count",
+        "mismatched_count",
+        "column_break_3",
+        "missing_in_asp",
+        "missing_in_erp",
+        "match_percentage",
+        "section_items",
+        "items",
+        "section_actions",
+        "run_reconciliation",
+        "generate_report",
+        "amended_from"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_details",
+            "fieldtype": "Section Break",
+            "label": "Reconciliation Details"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "fieldname": "asp_provider",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "ASP Provider",
+            "options": "\nClearTax\nCygnet\nZoho\nTabadul\nOther",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "Today",
+            "fieldname": "posting_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Posting Date",
+            "reqd": 1
+        },
+        {
+            "default": "Draft",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Draft\nIn Progress\nCompleted\nFailed",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_source",
+            "fieldtype": "Section Break",
+            "label": "Data Sources"
+        },
+        {
+            "fieldname": "csv_import",
+            "fieldtype": "Link",
+            "label": "CSV Import",
+            "options": "CSV Import"
+        },
+        {
+            "description": "How to fetch ASP data",
+            "fieldname": "asp_data_source",
+            "fieldtype": "Select",
+            "label": "ASP Data Source",
+            "options": "CSV Upload\nAPI Fetch\nManual Entry"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "from_date",
+            "fieldtype": "Date",
+            "label": "From Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "to_date",
+            "fieldtype": "Date",
+            "label": "To Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "section_results",
+            "fieldtype": "Section Break",
+            "label": "Results Summary"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_invoices",
+            "fieldtype": "Int",
+            "label": "Total Invoices",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "matched_count",
+            "fieldtype": "Int",
+            "label": "Matched",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "mismatched_count",
+            "fieldtype": "Int",
+            "label": "Mismatched",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "missing_in_asp",
+            "fieldtype": "Int",
+            "label": "Missing in ASP",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "missing_in_erp",
+            "fieldtype": "Int",
+            "label": "Missing in ERP",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "match_percentage",
+            "fieldtype": "Percent",
+            "label": "Match %",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_items",
+            "fieldtype": "Section Break",
+            "label": "Reconciliation Items"
+        },
+        {
+            "fieldname": "items",
+            "fieldtype": "Table",
+            "label": "Items",
+            "options": "Reconciliation Item"
+        },
+        {
+            "fieldname": "section_actions",
+            "fieldtype": "Section Break",
+            "label": "Actions"
+        },
+        {
+            "fieldname": "run_reconciliation",
+            "fieldtype": "Button",
+            "label": "Run Reconciliation"
+        },
+        {
+            "fieldname": "generate_report",
+            "fieldtype": "Button",
+            "label": "Generate Report"
+        },
+        {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "hidden": 1,
+            "label": "Amended From",
+            "no_copy": 1,
+            "options": "Reconciliation Run",
+            "print_hide": 1,
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Reconciliation Run",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "submit": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User",
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "company",
+    "track_changes": 1
+}

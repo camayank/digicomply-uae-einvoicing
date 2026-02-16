@@ -1,0 +1,116 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "invoice_no",
+        "match_status",
+        "column_break_1",
+        "customer",
+        "posting_date",
+        "section_amounts",
+        "erp_grand_total",
+        "asp_grand_total",
+        "column_break_2",
+        "erp_vat_amount",
+        "asp_vat_amount",
+        "section_details",
+        "differences",
+        "action_required"
+    ],
+    "fields": [
+        {
+            "fieldname": "invoice_no",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Invoice No",
+            "reqd": 1
+        },
+        {
+            "fieldname": "match_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Status",
+            "options": "Matched\nMismatched\nMissing in ASP\nMissing in ERP",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "customer",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Customer"
+        },
+        {
+            "fieldname": "posting_date",
+            "fieldtype": "Date",
+            "label": "Invoice Date"
+        },
+        {
+            "fieldname": "section_amounts",
+            "fieldtype": "Section Break",
+            "label": "Amounts"
+        },
+        {
+            "fieldname": "erp_grand_total",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "ERP Total"
+        },
+        {
+            "fieldname": "asp_grand_total",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "ASP Total"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "erp_vat_amount",
+            "fieldtype": "Currency",
+            "label": "ERP VAT"
+        },
+        {
+            "fieldname": "asp_vat_amount",
+            "fieldtype": "Currency",
+            "label": "ASP VAT"
+        },
+        {
+            "fieldname": "section_details",
+            "fieldtype": "Section Break",
+            "label": "Details"
+        },
+        {
+            "fieldname": "differences",
+            "fieldtype": "Small Text",
+            "label": "Differences (JSON)"
+        },
+        {
+            "fieldname": "action_required",
+            "fieldtype": "Small Text",
+            "label": "Action Required"
+        }
+    ],
+    "index_web_pages_for_search": 0,
+    "istable": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Reconciliation Item",
+    "naming_rule": "Random",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 0
+}

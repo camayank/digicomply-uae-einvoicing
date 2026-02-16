@@ -1,0 +1,19 @@
+[project]
+name = "digicomply"
+version = "0.1.0"
+description = "UAE E-Invoicing Compliance & Reconciliation Platform"
+authors = [
+    {name = "DigiComply", email = "hello@digicomply.ae"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "frappe",
+    "lxml>=4.9.0",
+]
+
+[build-system]
+requires = ["flit_core>=3.4"]
+build-backend = "flit_core.buildapi"
+
+[tool.bench]
+frappe-version = ">=15.0.0"

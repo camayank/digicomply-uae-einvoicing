@@ -1,0 +1,210 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_asp",
+        "default_asp_provider",
+        "enable_auto_sync",
+        "column_break_1",
+        "sync_frequency",
+        "last_sync",
+        "section_cleartax",
+        "cleartax_enabled",
+        "cleartax_api_key",
+        "cleartax_api_secret",
+        "cleartax_environment",
+        "section_cygnet",
+        "cygnet_enabled",
+        "cygnet_username",
+        "cygnet_password",
+        "cygnet_endpoint",
+        "section_notifications",
+        "enable_email_alerts",
+        "alert_recipients",
+        "column_break_2",
+        "alert_threshold",
+        "section_compliance",
+        "compliance_target",
+        "penalty_per_invoice",
+        "fta_deadline_reminder_days"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_asp",
+            "fieldtype": "Section Break",
+            "label": "ASP Configuration"
+        },
+        {
+            "fieldname": "default_asp_provider",
+            "fieldtype": "Select",
+            "label": "Default ASP Provider",
+            "options": "\nClearTax\nCygnet\nZoho\nTabadul\nManual"
+        },
+        {
+            "default": "0",
+            "fieldname": "enable_auto_sync",
+            "fieldtype": "Check",
+            "label": "Enable Auto Sync"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "Daily",
+            "depends_on": "enable_auto_sync",
+            "fieldname": "sync_frequency",
+            "fieldtype": "Select",
+            "label": "Sync Frequency",
+            "options": "Hourly\nDaily\nWeekly"
+        },
+        {
+            "fieldname": "last_sync",
+            "fieldtype": "Datetime",
+            "label": "Last Sync",
+            "read_only": 1
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_cleartax",
+            "fieldtype": "Section Break",
+            "label": "ClearTax Integration"
+        },
+        {
+            "default": "0",
+            "fieldname": "cleartax_enabled",
+            "fieldtype": "Check",
+            "label": "Enable ClearTax"
+        },
+        {
+            "depends_on": "cleartax_enabled",
+            "fieldname": "cleartax_api_key",
+            "fieldtype": "Data",
+            "label": "API Key"
+        },
+        {
+            "depends_on": "cleartax_enabled",
+            "fieldname": "cleartax_api_secret",
+            "fieldtype": "Password",
+            "label": "API Secret"
+        },
+        {
+            "default": "Sandbox",
+            "depends_on": "cleartax_enabled",
+            "fieldname": "cleartax_environment",
+            "fieldtype": "Select",
+            "label": "Environment",
+            "options": "Sandbox\nProduction"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_cygnet",
+            "fieldtype": "Section Break",
+            "label": "Cygnet Integration"
+        },
+        {
+            "default": "0",
+            "fieldname": "cygnet_enabled",
+            "fieldtype": "Check",
+            "label": "Enable Cygnet"
+        },
+        {
+            "depends_on": "cygnet_enabled",
+            "fieldname": "cygnet_username",
+            "fieldtype": "Data",
+            "label": "Username"
+        },
+        {
+            "depends_on": "cygnet_enabled",
+            "fieldname": "cygnet_password",
+            "fieldtype": "Password",
+            "label": "Password"
+        },
+        {
+            "depends_on": "cygnet_enabled",
+            "fieldname": "cygnet_endpoint",
+            "fieldtype": "Data",
+            "label": "API Endpoint"
+        },
+        {
+            "fieldname": "section_notifications",
+            "fieldtype": "Section Break",
+            "label": "Notifications"
+        },
+        {
+            "default": "1",
+            "fieldname": "enable_email_alerts",
+            "fieldtype": "Check",
+            "label": "Enable Email Alerts"
+        },
+        {
+            "depends_on": "enable_email_alerts",
+            "fieldname": "alert_recipients",
+            "fieldtype": "Small Text",
+            "label": "Alert Recipients (comma-separated)"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "85",
+            "depends_on": "enable_email_alerts",
+            "description": "Send alert if compliance score falls below this",
+            "fieldname": "alert_threshold",
+            "fieldtype": "Percent",
+            "label": "Alert Threshold %"
+        },
+        {
+            "fieldname": "section_compliance",
+            "fieldtype": "Section Break",
+            "label": "Compliance Settings"
+        },
+        {
+            "default": "95",
+            "fieldname": "compliance_target",
+            "fieldtype": "Percent",
+            "label": "Target Compliance %"
+        },
+        {
+            "default": "5000",
+            "description": "FTA penalty amount per unreported invoice",
+            "fieldname": "penalty_per_invoice",
+            "fieldtype": "Currency",
+            "label": "Penalty per Invoice (AED)"
+        },
+        {
+            "default": "7",
+            "fieldname": "fta_deadline_reminder_days",
+            "fieldtype": "Int",
+            "label": "Deadline Reminder (days before)"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "issingle": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "DigiComply Settings",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

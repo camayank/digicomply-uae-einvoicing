@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include digicomply *.css
+recursive-include digicomply *.csv
+recursive-include digicomply *.html
+recursive-include digicomply *.ico
+recursive-include digicomply *.js
+recursive-include digicomply *.json
+recursive-include digicomply *.md
+recursive-include digicomply *.png
+recursive-include digicomply *.py
+recursive-include digicomply *.svg
+recursive-include digicomply *.txt
+recursive-include digicomply *.xml
