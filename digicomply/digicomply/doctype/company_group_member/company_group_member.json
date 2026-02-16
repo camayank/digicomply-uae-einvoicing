@@ -1,0 +1,68 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "company",
+        "trn",
+        "column_break_1",
+        "role_in_group",
+        "is_primary"
+    ],
+    "fields": [
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "fieldname": "trn",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "TRN",
+            "options": "TRN Registry",
+            "description": "Tax Registration Number for this company"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "Subsidiary",
+            "fieldname": "role_in_group",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Role in Group",
+            "options": "\nParent\nSubsidiary\nBranch\nAffiliate"
+        },
+        {
+            "default": "0",
+            "fieldname": "is_primary",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Is Primary",
+            "description": "Primary company in this group"
+        }
+    ],
+    "index_web_pages_for_search": 0,
+    "istable": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Company Group Member",
+    "naming_rule": "Random",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 0
+}

@@ -1,0 +1,160 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:group_name",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_basic",
+        "group_name",
+        "parent_group",
+        "column_break_basic",
+        "group_type",
+        "is_active",
+        "section_companies",
+        "companies",
+        "section_settings",
+        "default_asp_provider",
+        "reconciliation_tolerance",
+        "column_break_settings",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_basic",
+            "fieldtype": "Section Break",
+            "label": "Basic Information"
+        },
+        {
+            "fieldname": "group_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Group Name",
+            "reqd": 1,
+            "unique": 1,
+            "description": "Unique name for this company group"
+        },
+        {
+            "fieldname": "parent_group",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Parent Group",
+            "options": "Company Group",
+            "description": "Parent group for hierarchical structure"
+        },
+        {
+            "fieldname": "column_break_basic",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "group_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Group Type",
+            "options": "\nHolding Company\nRegional Group\nBusiness Unit\nJoint Venture"
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Is Active"
+        },
+        {
+            "fieldname": "section_companies",
+            "fieldtype": "Section Break",
+            "label": "Member Companies"
+        },
+        {
+            "fieldname": "companies",
+            "fieldtype": "Table",
+            "label": "Companies",
+            "options": "Company Group Member",
+            "description": "Companies that belong to this group"
+        },
+        {
+            "fieldname": "section_settings",
+            "fieldtype": "Section Break",
+            "label": "Reconciliation Settings"
+        },
+        {
+            "fieldname": "default_asp_provider",
+            "fieldtype": "Select",
+            "label": "Default ASP Provider",
+            "options": "\nClearTax\nCygnet\nZoho\nTabadul\nOther",
+            "description": "Default Accredited Service Provider for this group"
+        },
+        {
+            "default": "0.5",
+            "fieldname": "reconciliation_tolerance",
+            "fieldtype": "Currency",
+            "label": "Reconciliation Tolerance",
+            "description": "Maximum allowed difference for auto-matching (in AED)"
+        },
+        {
+            "fieldname": "column_break_settings",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Small Text",
+            "label": "Notes"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Company Group",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User",
+            "share": 0,
+            "write": 0
+        }
+    ],
+    "search_fields": "group_name,group_type,parent_group",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "group_name",
+    "track_changes": 1
+}
