@@ -1,0 +1,144 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:template_name",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_basic",
+        "template_name",
+        "import_type",
+        "column_break_basic",
+        "is_default",
+        "description",
+        "section_columns",
+        "columns",
+        "section_sample",
+        "sample_file"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_basic",
+            "fieldtype": "Section Break",
+            "label": "Template Details"
+        },
+        {
+            "fieldname": "template_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Template Name",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "import_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Import Type",
+            "options": "Customer\nSupplier\nItem\nTRN Registry\nCompany\nInvoice\nASP Data",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_basic",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "description": "Only one template can be default per import type",
+            "fieldname": "is_default",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Is Default"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        },
+        {
+            "fieldname": "section_columns",
+            "fieldtype": "Section Break",
+            "label": "Column Mappings"
+        },
+        {
+            "fieldname": "columns",
+            "fieldtype": "Table",
+            "label": "Columns",
+            "options": "Import Template Column",
+            "reqd": 1
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_sample",
+            "fieldtype": "Section Break",
+            "label": "Sample File"
+        },
+        {
+            "fieldname": "sample_file",
+            "fieldtype": "Attach",
+            "label": "Sample File",
+            "read_only": 1,
+            "description": "Auto-generated sample CSV file"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [
+        {
+            "link_doctype": "Bulk Import Log",
+            "link_fieldname": "import_type"
+        }
+    ],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Import Template",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User",
+            "share": 0,
+            "write": 0
+        }
+    ],
+    "search_fields": "template_name,import_type",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "template_name",
+    "track_changes": 1
+}
