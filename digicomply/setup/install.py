@@ -11,22 +11,35 @@ from frappe import _
 
 def after_install():
     """Run after DigiComply app is installed."""
+    from digicomply.setup.roles import create_digicomply_roles, setup_role_permissions
+
     setup_branding()
     setup_workspace_order()
     hide_unwanted_workspaces()
     create_placeholder_logos()
+    create_digicomply_roles()
+    setup_role_permissions()
     frappe.db.commit()
 
 
 def before_uninstall():
     """Run before DigiComply app is uninstalled."""
-    pass
+    from digicomply.setup.roles import remove_digicomply_roles
+
+    try:
+        remove_digicomply_roles()
+    except Exception as e:
+        frappe.log_error(f"Error removing DigiComply roles: {e}")
 
 
 def after_migrate():
     """Run after bench migrate."""
+    from digicomply.setup.roles import create_digicomply_roles, setup_role_permissions
+
     setup_branding()
     hide_unwanted_workspaces()
+    create_digicomply_roles()
+    setup_role_permissions()
     frappe.db.commit()
 
 
