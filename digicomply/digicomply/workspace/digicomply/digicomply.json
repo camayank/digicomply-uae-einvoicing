@@ -1,0 +1,107 @@
+{
+  "charts": [],
+  "content": "[{\"id\":\"hero\",\"type\":\"hero\",\"data\":{\"title\":\"DigiComply\",\"subtitle\":\"UAE E-Invoicing Compliance Platform\"}},{\"id\":\"shortcuts\",\"type\":\"shortcut\",\"data\":{\"shortcut_type\":\"DocType\",\"link_to\":\"Reconciliation Run\",\"label\":\"New Reconciliation\",\"icon\":\"check\",\"color\":\"#1e40af\"}},{\"id\":\"shortcut2\",\"type\":\"shortcut\",\"data\":{\"shortcut_type\":\"DocType\",\"link_to\":\"CSV Import\",\"label\":\"Import CSV\",\"icon\":\"upload\",\"color\":\"#16a34a\"}},{\"id\":\"shortcut3\",\"type\":\"shortcut\",\"data\":{\"shortcut_type\":\"DocType\",\"link_to\":\"Mismatch Report\",\"label\":\"View Mismatches\",\"icon\":\"alert-circle\",\"color\":\"#dc2626\"}},{\"id\":\"shortcut4\",\"type\":\"shortcut\",\"data\":{\"shortcut_type\":\"Page\",\"link_to\":\"compliance-dashboard\",\"label\":\"Dashboard\",\"icon\":\"grid\",\"color\":\"#1e40af\"}}]",
+  "creation": "2026-02-16 00:00:00.000000",
+  "docstatus": 0,
+  "doctype": "Workspace",
+  "for_user": "",
+  "hide_custom": 0,
+  "icon": "check-circle",
+  "idx": 0,
+  "is_hidden": 0,
+  "label": "DigiComply",
+  "links": [
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Reconciliation Run",
+      "link_count": 0,
+      "link_to": "Reconciliation Run",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "CSV Import",
+      "link_count": 0,
+      "link_to": "CSV Import",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Mismatch Report",
+      "link_count": 0,
+      "link_to": "Mismatch Report",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Settings",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "DigiComply Settings",
+      "link_count": 0,
+      "link_to": "DigiComply Settings",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    }
+  ],
+  "modified": "2026-02-16 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "DigiComply",
+  "name": "DigiComply",
+  "owner": "Administrator",
+  "parent_page": "",
+  "public": 1,
+  "restrict_to_domain": "",
+  "roles": [],
+  "sequence_id": 1,
+  "shortcuts": [
+    {
+      "color": "#1e40af",
+      "icon": "file-plus",
+      "label": "New Reconciliation",
+      "link_to": "Reconciliation Run",
+      "type": "DocType"
+    },
+    {
+      "color": "#16a34a",
+      "icon": "upload",
+      "label": "Import CSV",
+      "link_to": "CSV Import",
+      "type": "DocType"
+    },
+    {
+      "color": "#1e40af",
+      "icon": "grid",
+      "label": "Dashboard",
+      "link_to": "compliance-dashboard",
+      "type": "Page"
+    }
+  ],
+  "title": "DigiComply"
+}
