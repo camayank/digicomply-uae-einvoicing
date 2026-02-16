@@ -45,9 +45,9 @@ class ComplianceDashboard {
                         min-width: 250px;
                     }
 
-                    /* FTA Deadline Card */
+                    /* FTA Deadline Card - Purple Theme */
                     .deadline-card {
-                        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+                        background: linear-gradient(135deg, #a404e4 0%, #8501b9 100%);
                         color: white;
                         border-radius: 12px;
                         padding: 24px;
@@ -55,12 +55,15 @@ class ComplianceDashboard {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+                        box-shadow: 0 4px 14px rgba(164, 4, 228, 0.25);
                     }
                     .deadline-card.warning {
                         background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+                        box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);
                     }
                     .deadline-card.critical {
                         background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+                        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
                     }
                     .deadline-left h4 {
                         margin: 0 0 4px 0;
@@ -90,7 +93,7 @@ class ComplianceDashboard {
                         opacity: 0.9;
                     }
 
-                    /* Quick Actions */
+                    /* Quick Actions - Purple Hover */
                     .quick-actions {
                         display: grid;
                         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -107,9 +110,10 @@ class ComplianceDashboard {
                         transition: all 0.2s;
                     }
                     .quick-action-btn:hover {
-                        border-color: #3b82f6;
-                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+                        border-color: #a404e4;
+                        box-shadow: 0 4px 12px rgba(164, 4, 228, 0.15);
                         transform: translateY(-2px);
+                        background: #faf5ff;
                     }
                     .quick-action-icon {
                         font-size: 28px;
@@ -180,7 +184,7 @@ class ComplianceDashboard {
                     .metric-green { color: #059669; }
                     .metric-yellow { color: #d97706; }
                     .metric-red { color: #dc2626; }
-                    .metric-blue { color: #2563eb; }
+                    .metric-purple { color: #a404e4; }
 
                     /* Status Section */
                     .status-section {
@@ -390,7 +394,7 @@ class ComplianceDashboard {
                 <!-- Metrics -->
                 <div class="metrics-row">
                     <div class="metric-card">
-                        <div class="metric-value metric-blue" id="total-invoices">-</div>
+                        <div class="metric-value metric-purple" id="total-invoices">-</div>
                         <div class="metric-label">Total Invoices</div>
                     </div>
                     <div class="metric-card">
@@ -627,7 +631,7 @@ class ComplianceDashboard {
                     <div class="recent-item-left">
                         <div class="status-indicator ${statusClass}"></div>
                         <div>
-                            <a href="/app/reconciliation-run/${run.name}" style="font-weight:500; color:#2563eb;">${run.name}</a>
+                            <a href="/app/reconciliation-run/${run.name}" style="font-weight:500; color:#a404e4;">${run.name}</a>
                             <div style="font-size:12px;color:#6b7280;">
                                 ${run.company} &bull; ${run.posting_date}
                             </div>
@@ -654,7 +658,7 @@ class ComplianceDashboard {
             return `
                 <li class="import-item">
                     <div>
-                        <a href="/app/csv-import/${imp.name}" style="font-weight:500; color:#2563eb;">${imp.name}</a>
+                        <a href="/app/csv-import/${imp.name}" style="font-weight:500; color:#a404e4;">${imp.name}</a>
                         <div style="font-size:12px;color:#6b7280;">
                             ${imp.asp_provider || 'Unknown'} &bull; ${imp.row_count || 0} rows
                         </div>

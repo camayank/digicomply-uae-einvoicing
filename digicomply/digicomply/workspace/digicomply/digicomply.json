@@ -170,21 +170,21 @@
   "sequence_id": 1,
   "shortcuts": [
     {
-      "color": "Blue",
+      "color": "Purple",
       "doc_view": "List",
       "label": "New Reconciliation",
       "link_to": "Reconciliation Run",
       "type": "DocType"
     },
     {
-      "color": "Green",
+      "color": "Purple",
       "doc_view": "List",
       "label": "Import CSV",
       "link_to": "CSV Import",
       "type": "DocType"
     },
     {
-      "color": "Orange",
+      "color": "Purple",
       "doc_view": "",
       "label": "Dashboard",
       "link_to": "compliance_dashboard",
@@ -198,7 +198,7 @@
       "type": "Page"
     },
     {
-      "color": "Cyan",
+      "color": "Purple",
       "doc_view": "",
       "label": "Multi-Company Reconciliation",
       "link_to": "multi_company_reconciliation",
