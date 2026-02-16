@@ -1,0 +1,264 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "BLK-.YYYY.-.#####",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_import_settings",
+        "import_type",
+        "company",
+        "column_break_settings",
+        "file",
+        "file_name",
+        "section_options",
+        "skip_validation",
+        "update_existing",
+        "column_break_options",
+        "dry_run",
+        "section_status",
+        "status",
+        "started_at",
+        "column_break_status",
+        "completed_at",
+        "section_progress",
+        "total_rows",
+        "processed_rows",
+        "progress_percent",
+        "column_break_progress",
+        "success_count",
+        "error_count",
+        "warning_count",
+        "section_results",
+        "result_summary",
+        "section_errors",
+        "error_log"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_import_settings",
+            "fieldtype": "Section Break",
+            "label": "Import Settings"
+        },
+        {
+            "fieldname": "import_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Import Type",
+            "options": "Customer\nSupplier\nItem\nTRN Registry\nCompany\nInvoice\nASP Data",
+            "reqd": 1
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "remember_last_selected_value": 1
+        },
+        {
+            "fieldname": "column_break_settings",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "file",
+            "fieldtype": "Attach",
+            "label": "Import File",
+            "reqd": 1
+        },
+        {
+            "fieldname": "file_name",
+            "fieldtype": "Data",
+            "label": "File Name",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_options",
+            "fieldtype": "Section Break",
+            "label": "Import Options"
+        },
+        {
+            "default": "0",
+            "description": "Skip validation checks and import directly",
+            "fieldname": "skip_validation",
+            "fieldtype": "Check",
+            "label": "Skip Validation"
+        },
+        {
+            "default": "1",
+            "description": "Update existing records if found",
+            "fieldname": "update_existing",
+            "fieldtype": "Check",
+            "label": "Update Existing"
+        },
+        {
+            "fieldname": "column_break_options",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "description": "Validate data without actually importing",
+            "fieldname": "dry_run",
+            "fieldtype": "Check",
+            "label": "Dry Run (Validate Only)"
+        },
+        {
+            "fieldname": "section_status",
+            "fieldtype": "Section Break",
+            "label": "Status"
+        },
+        {
+            "default": "Pending",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Pending\nValidating\nProcessing\nCompleted\nCompleted with Errors\nFailed\nCancelled",
+            "read_only": 1
+        },
+        {
+            "fieldname": "started_at",
+            "fieldtype": "Datetime",
+            "label": "Started At",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_status",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "completed_at",
+            "fieldtype": "Datetime",
+            "label": "Completed At",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_progress",
+            "fieldtype": "Section Break",
+            "label": "Progress"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_rows",
+            "fieldtype": "Int",
+            "label": "Total Rows",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "processed_rows",
+            "fieldtype": "Int",
+            "label": "Processed Rows",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "progress_percent",
+            "fieldtype": "Percent",
+            "label": "Progress",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_progress",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "success_count",
+            "fieldtype": "Int",
+            "label": "Success Count",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "error_count",
+            "fieldtype": "Int",
+            "label": "Error Count",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "warning_count",
+            "fieldtype": "Int",
+            "label": "Warning Count",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_results",
+            "fieldtype": "Section Break",
+            "label": "Results"
+        },
+        {
+            "fieldname": "result_summary",
+            "fieldtype": "HTML",
+            "label": "Result Summary"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_errors",
+            "fieldtype": "Section Break",
+            "label": "Error Log"
+        },
+        {
+            "fieldname": "error_log",
+            "fieldtype": "Code",
+            "label": "Error Log",
+            "options": "JSON",
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Bulk Import Log",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User",
+            "write": 1
+        }
+    ],
+    "search_fields": "import_type,company,status",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "import_type",
+    "track_changes": 1
+}
