@@ -1,0 +1,186 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "TRN-.#####",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_basic",
+        "trn",
+        "company",
+        "column_break_basic",
+        "entity_name",
+        "entity_type",
+        "section_status",
+        "validation_status",
+        "last_validated",
+        "column_break_status",
+        "fta_registration_date",
+        "fta_expiry_date",
+        "section_settings",
+        "is_primary",
+        "is_active",
+        "column_break_settings",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_basic",
+            "fieldtype": "Section Break",
+            "label": "Basic Information"
+        },
+        {
+            "fieldname": "trn",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "TRN",
+            "reqd": 1,
+            "unique": 1,
+            "description": "15-digit UAE Tax Registration Number"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_basic",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "entity_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Entity Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "entity_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Entity Type",
+            "options": "\nCompany\nBranch\nGroup Entity\nSubsidiary"
+        },
+        {
+            "fieldname": "section_status",
+            "fieldtype": "Section Break",
+            "label": "Validation Status"
+        },
+        {
+            "default": "Not Validated",
+            "fieldname": "validation_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Validation Status",
+            "options": "Not Validated\nValid\nInvalid\nExpired\nPending Verification",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_validated",
+            "fieldtype": "Datetime",
+            "label": "Last Validated",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_status",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "fta_registration_date",
+            "fieldtype": "Date",
+            "label": "FTA Registration Date"
+        },
+        {
+            "fieldname": "fta_expiry_date",
+            "fieldtype": "Date",
+            "label": "FTA Expiry Date"
+        },
+        {
+            "fieldname": "section_settings",
+            "fieldtype": "Section Break",
+            "label": "Settings"
+        },
+        {
+            "default": "0",
+            "description": "Only one TRN can be primary per company",
+            "fieldname": "is_primary",
+            "fieldtype": "Check",
+            "label": "Is Primary"
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "label": "Is Active"
+        },
+        {
+            "fieldname": "column_break_settings",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Small Text",
+            "label": "Notes"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "TRN Registry",
+    "naming_rule": "Expression (old style)",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User",
+            "share": 0,
+            "write": 0
+        }
+    ],
+    "search_fields": "trn,entity_name,company",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "entity_name",
+    "track_changes": 1
+}
