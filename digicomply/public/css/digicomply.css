@@ -1,118 +1,158 @@
-/*
- * DigiComply - UAE E-Invoicing Compliance Platform
- * Global Styles
- */
-
-/* Status badge colors */
-.indicator-green::before { background: #10b981 !important; }
-.indicator-yellow::before { background: #f59e0b !important; }
-.indicator-red::before { background: #ef4444 !important; }
-.indicator-blue::before { background: #2563eb !important; }
-
-/* Reconciliation Item status colors in tables */
-[data-doctype="Reconciliation Run"] .frappe-list .list-row[data-match_status="Matched"] {
-    background-color: rgba(16, 185, 129, 0.05);
+/* DigiComply Brand Colors */
+:root {
+  --dc-primary: #1e40af;
+  --dc-primary-dark: #1e3a8a;
+  --dc-primary-light: #3b82f6;
+  --dc-accent: #dc2626;
+  --dc-accent-light: #ef4444;
+  --dc-success: #16a34a;
+  --dc-warning: #ca8a04;
+  --dc-bg-light: #f8fafc;
+  --dc-text-dark: #1e293b;
 }
 
-[data-doctype="Reconciliation Run"] .frappe-list .list-row[data-match_status="Mismatched"] {
-    background-color: rgba(245, 158, 11, 0.1);
+/* Override Frappe primary colors */
+body {
+  --primary: var(--dc-primary);
+  --primary-color: var(--dc-primary);
 }
 
-[data-doctype="Reconciliation Run"] .frappe-list .list-row[data-match_status="Missing in ASP"],
-[data-doctype="Reconciliation Run"] .frappe-list .list-row[data-match_status="Missing in ERP"] {
-    background-color: rgba(239, 68, 68, 0.1);
+/* Navbar branding */
+.navbar {
+  background-color: var(--dc-primary) !important;
+}
+
+.navbar .navbar-brand {
+  color: white !important;
+}
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.navbar .nav-link:hover {
+  color: white !important;
+}
+
+/* Sidebar styling */
+.desk-sidebar .sidebar-menu a.active,
+.desk-sidebar .sidebar-menu a:hover {
+  background-color: var(--dc-primary-light) !important;
+  color: white !important;
+}
+
+/* Primary buttons */
+.btn-primary,
+.btn-primary-dark {
+  background-color: var(--dc-primary) !important;
+  border-color: var(--dc-primary) !important;
+}
+
+.btn-primary:hover,
+.btn-primary-dark:hover {
+  background-color: var(--dc-primary-dark) !important;
+  border-color: var(--dc-primary-dark) !important;
+}
+
+/* Links */
+a {
+  color: var(--dc-primary);
+}
+
+a:hover {
+  color: var(--dc-primary-dark);
+}
+
+/* Page header */
+.page-head {
+  border-bottom-color: var(--dc-primary) !important;
+}
+
+/* Hide Frappe branding elements */
+.footer-powered,
+.powered-by-frappe,
+[data-page-container] .page-card-container .page-card .page-card-head .indicator-right {
+  display: none !important;
+}
+
+/* Login page styling */
+.login-content .brand {
+  display: none;
+}
+
+.login-content::before {
+  content: "";
+  display: block;
+  width: 200px;
+  height: 60px;
+  background: url("/assets/digicomply/images/logo-full.svg") no-repeat center;
+  background-size: contain;
+  margin: 0 auto 2rem;
+}
+
+/* Page title override */
+.title-area .title-text {
+  color: var(--dc-primary);
+}
+
+/* Compliance status colors */
+.compliance-green {
+  color: var(--dc-success);
+}
+
+.compliance-yellow {
+  color: var(--dc-warning);
+}
+
+.compliance-red {
+  color: var(--dc-accent);
 }
 
 /* Dashboard cards */
 .digicomply-card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.digicomply-card-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.digicomply-card .card-title {
+  font-size: 0.875rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
 }
 
-/* Compliance score colors */
-.compliance-excellent { color: #059669; }
-.compliance-good { color: #10b981; }
-.compliance-warning { color: #d97706; }
-.compliance-critical { color: #dc2626; }
-
-/* Button styles */
-.btn-digicomply-primary {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
+.digicomply-card .card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dc-text-dark);
 }
 
-.btn-digicomply-primary:hover {
-    background: #1d4ed8;
+/* Compliance score circle */
+.compliance-score {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto;
 }
 
-/* Print styles for PDF reports */
-@media print {
-    .digicomply-report {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        color: #1f2937;
-    }
-
-    .digicomply-report table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .digicomply-report th,
-    .digicomply-report td {
-        border: 1px solid #e5e7eb;
-        padding: 8px 12px;
-        text-align: left;
-    }
-
-    .digicomply-report th {
-        background: #f9fafb;
-    }
+.compliance-score.high {
+  background: linear-gradient(135deg, var(--dc-success), #22c55e);
 }
 
-/* Form field enhancements */
-[data-doctype="Reconciliation Run"] .form-dashboard-section {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    color: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
+.compliance-score.medium {
+  background: linear-gradient(135deg, var(--dc-warning), #eab308);
 }
 
-/* Empty state styling */
-.digicomply-empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #6b7280;
-}
-
-.digicomply-empty-state svg {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 16px;
-    color: #d1d5db;
-}
-
-.digicomply-empty-state h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 8px;
+.compliance-score.low {
+  background: linear-gradient(135deg, var(--dc-accent), #f87171);
 }
