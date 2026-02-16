@@ -33,6 +33,107 @@
 
 ---
 
+## UI/UX Core Principles (MANDATORY)
+
+> **CRITICAL:** These principles apply to EVERY screen, component, and line of code across ALL phases.
+
+### 1. Complete White-Labeling
+
+| Rule | Implementation |
+|------|----------------|
+| **No "Frappe" anywhere** | Remove from all UI text, tooltips, error messages, console logs |
+| **No "ERPNext" anywhere** | Replace with "DigiComply" or remove entirely |
+| **No legacy branding** | No default Frappe colors, logos, or styling |
+| **Custom domain feel** | App should feel like standalone DigiComply product |
+
+### 2. Ease of Usage
+
+| Principle | Implementation |
+|-----------|----------------|
+| **3-click rule** | Any task completable in 3 clicks or less |
+| **Zero training** | New user can start reconciliation without documentation |
+| **Guided workflows** | Step-by-step wizards for complex tasks |
+| **Smart defaults** | Pre-fill everything possible |
+| **Bulk-first** | Always show bulk action option before single-record |
+| **Progress indicators** | Always show progress for long operations |
+| **Inline help** | Contextual help tooltips, not external docs |
+
+### 3. Modern UI Standards
+
+| Element | Standard |
+|---------|----------|
+| **Colors** | DigiComply purple (#a404e4) primary, not Frappe blue |
+| **Typography** | Poppins font family throughout |
+| **Spacing** | Generous whitespace, no cramped forms |
+| **Cards** | Modern card-based layouts with shadows |
+| **Tables** | Clean tables with row hover, bulk select |
+| **Buttons** | Clear primary/secondary hierarchy, purple gradient |
+| **Icons** | Consistent icon set (Feather/Lucide style) |
+| **Loading** | Skeleton loaders, not spinners |
+| **Empty states** | Helpful empty states with call-to-action |
+
+### 4. DigiComply Design System
+
+```
+Brand Colors:
+├── Primary:     #a404e4 (Purple)
+├── Primary Dark: #8501b9
+├── Success:     #10b981 (Green)
+├── Warning:     #f59e0b (Amber)
+├── Danger:      #ef4444 (Red)
+├── Background:  #f8fafc
+└── Text:        #1e293b
+
+Typography:
+├── Font Family: Poppins
+├── Headings:    600-700 weight
+├── Body:        400-500 weight
+└── Labels:      500 weight, uppercase for section headers
+
+Spacing:
+├── Section gap: 24px
+├── Card padding: 20px
+├── Field gap:    16px
+└── Border radius: 8-12px
+
+Components to Override:
+├── Navbar (purple gradient, DIGI COMPLY branding)
+├── Sidebar (clean, minimal)
+├── Forms (modern field styling)
+├── Tables/Lists (hover states, bulk actions)
+├── Modals (rounded, clean)
+├── Buttons (gradient primary, outlined secondary)
+├── Alerts (soft colors, icons)
+└── Empty states (illustrations, CTAs)
+```
+
+### 5. Code Standards
+
+| Rule | Implementation |
+|------|----------------|
+| **No hardcoded "Frappe"** | Use config variables for all brand names |
+| **No hardcoded "ERPNext"** | Replace in all strings, comments, logs |
+| **CSS class prefix** | Use `dc-` prefix for all custom classes |
+| **JS namespace** | Use `digicomply.*` namespace |
+| **Error messages** | User-friendly, no technical jargon |
+| **Console logs** | No Frappe references in browser console |
+
+### 6. Screen-by-Screen Checklist
+
+Before marking ANY screen complete:
+- [ ] No Frappe/ERPNext text visible
+- [ ] Purple theme applied
+- [ ] Poppins font rendering
+- [ ] Mobile responsive
+- [ ] Loading states implemented
+- [ ] Empty states designed
+- [ ] Bulk actions available (where applicable)
+- [ ] Tooltips/help text added
+- [ ] Error messages are user-friendly
+- [ ] 3-click task completion verified
+
+---
+
 ## Phase Overview
 
 | Phase | Focus | Timeline | Modules |
