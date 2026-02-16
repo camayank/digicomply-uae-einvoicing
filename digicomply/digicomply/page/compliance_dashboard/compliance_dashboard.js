@@ -1,7 +1,7 @@
 frappe.pages['compliance_dashboard'].on_page_load = function(wrapper) {
     var page = frappe.ui.make_app_page({
         parent: wrapper,
-        title: 'E-Invoice Compliance Dashboard',
+        title: __('Compliance Dashboard'),
         single_column: true
     });
 
@@ -37,12 +37,12 @@ class ComplianceDashboard {
                     }
                     .dashboard-header {
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: flex-end;
                         align-items: center;
-                        margin-bottom: 24px;
+                        margin-bottom: 16px;
                     }
                     .company-selector {
-                        min-width: 250px;
+                        min-width: 280px;
                     }
 
                     /* FTA Deadline Card - Purple Theme */
@@ -338,10 +338,6 @@ class ComplianceDashboard {
                 </style>
 
                 <div class="dashboard-header">
-                    <div>
-                        <h3 style="margin:0; font-size: 24px; font-weight: 700; color: #111827;">UAE E-Invoice Compliance</h3>
-                        <p style="margin:4px 0 0 0; color:#6b7280; font-size: 14px;">Monitor your PINT AE compliance status</p>
-                    </div>
                     <div class="company-selector"></div>
                 </div>
 

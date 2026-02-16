@@ -234,21 +234,47 @@ body {
 /* Page header */
 .page-head {
   background: transparent !important;
-  border-bottom: none !important;
-  padding: 0 0 1rem 0 !important;
-  margin-bottom: 1rem !important;
+  border-bottom: 2px solid var(--dc-primary) !important;
+  padding: 1rem 0 1rem 0 !important;
+  margin-bottom: 1.5rem !important;
 }
 
 .page-head .page-title {
-  font-size: 1.5rem !important;
+  font-size: 1.75rem !important;
   font-weight: 700 !important;
   color: var(--dc-text) !important;
   letter-spacing: -0.02em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.page-head .page-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.5rem;
+  background: linear-gradient(180deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%);
+  border-radius: 2px;
 }
 
 .page-head .page-sub-title {
   color: var(--dc-text-muted) !important;
   font-size: 0.875rem !important;
+  margin-top: 0.25rem !important;
+}
+
+/* Page head actions - purple primary button */
+.page-head .page-actions .btn-primary {
+  background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%) !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(164, 4, 228, 0.25) !important;
+}
+
+.page-head .page-actions .btn-primary:hover {
+  background: linear-gradient(135deg, var(--dc-primary-dark) 0%, #6a0196 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(164, 4, 228, 0.35) !important;
 }
 
 /* Breadcrumbs */
