@@ -1,7 +1,44 @@
 // DigiComply - UAE E-Invoicing Compliance Platform
 // JavaScript customizations for branding and UX
+//
+// 20 Pillars Framework - Only show relevant workspaces:
+// - DigiComply (Core)
+// - Accounting
+// - Selling
+// - Buying
 
 frappe.provide("digicomply");
+
+// Workspaces to SHOW (whitelist)
+digicomply.visible_workspaces = [
+    "DigiComply",
+    "Accounting",
+    "Selling",
+    "Buying",
+    "Receivables",
+    "Payables",
+    "Financial Reports"
+];
+
+// Hide unwanted workspaces from sidebar
+digicomply.filter_workspaces = function() {
+    setTimeout(function() {
+        $(".sidebar-menu .standard-sidebar-section a.sidebar-menu-link").each(function() {
+            const workspace_name = $(this).find(".sidebar-item-label").text().trim();
+            if (workspace_name && !digicomply.visible_workspaces.includes(workspace_name)) {
+                $(this).hide();
+            }
+        });
+
+        // Also hide from workspace switcher dropdown
+        $(".workspace-switcher-dropdown a").each(function() {
+            const workspace_name = $(this).text().trim();
+            if (workspace_name && !digicomply.visible_workspaces.includes(workspace_name)) {
+                $(this).hide();
+            }
+        });
+    }, 500);
+};
 
 // Override app name everywhere
 $(document).ready(function() {
@@ -17,6 +54,14 @@ $(document).ready(function() {
 
     // Update navbar brand if needed
     $(".navbar-brand").text("DigiComply");
+
+    // Filter workspaces
+    digicomply.filter_workspaces();
+});
+
+// Re-filter after page changes
+$(document).on("page-change", function() {
+    digicomply.filter_workspaces();
 });
 
 // Override frappe.boot modifications

@@ -3,7 +3,15 @@
 
 """
 Boot session customization for DigiComply.
-Hides unwanted modules and customizes the desk experience.
+Hides unwanted modules/workspaces and customizes the desk experience.
+
+DigiComply 20 Pillars - Visible Modules:
+- DigiComply (Core product)
+- Accounting (Sales/Purchase invoices)
+- Selling (Customer, Sales Invoice source)
+- Buying (Supplier, Purchase Invoice source)
+
+Everything else is hidden for a focused compliance experience.
 """
 
 import frappe
@@ -14,29 +22,20 @@ def boot_session(bootinfo):
     Customize boot session for DigiComply branding.
     Called via boot_session hook on every page load.
     """
-    # Hide unwanted workspaces/modules
-    hidden_modules = [
-        "Manufacturing",
-        "Stock",
-        "Assets",
-        "CRM",
-        "Projects",
-        "Quality",
-        "Support",
-        "HR",
-        "Loan Management",
-        "Payroll",
-        "Non Profit",
-        "Education",
-        "Healthcare",
-        "Agriculture",
-        "Hospitality",
+    # Modules to KEEP visible (whitelist approach for clarity)
+    visible_modules = [
+        "DigiComply",
+        "Accounts",
+        "Selling",
+        "Buying",
+        "Setup",  # Needed for basic settings
     ]
 
+    # Hide all modules except visible ones
     if "module_app" in bootinfo:
         bootinfo["module_app"] = {
             k: v for k, v in bootinfo["module_app"].items()
-            if k not in hidden_modules
+            if k in visible_modules
         }
 
     # Set DigiComply as app name
@@ -51,6 +50,11 @@ def boot_session(bootinfo):
     bootinfo["digicomply"] = {
         "version": "0.1.0",
         "brand_color": "#1e40af",
+        "pillars_enabled": [
+            "csv_reconciliation",
+            "mismatch_dashboard",
+            "audit_pack_generator",
+        ],
     }
 
 
