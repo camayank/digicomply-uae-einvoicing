@@ -24,6 +24,9 @@ website_route_rules = [
 # Home Page
 home_page = "setup-wizard" if False else "compliance_dashboard"
 
+# Boot Session
+boot_session = "digicomply.boot.boot_session"
+
 # Desk Notifications
 notification_config = "digicomply.notifications.get_notification_config"
 
