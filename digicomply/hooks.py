@@ -12,18 +12,16 @@ app_logo_url = "/assets/digicomply/images/logo.png"
 # Required Apps
 required_apps = ["frappe"]
 
-# App Includes
-app_include_css = "/assets/digicomply/css/digicomply.css"
-app_include_js = "/assets/digicomply/js/digicomply.js"
+# App Includes (must be lists for Frappe v15)
+app_include_css = ["/assets/digicomply/css/digicomply.css"]
+app_include_js = ["/assets/digicomply/js/digicomply.js"]
 
-# Website Route Rules - redirect setup wizard
+# Website Route Rules
 website_route_rules = [
-    {"from_route": "/compliance-dashboard", "to_route": "compliance_dashboard"},
     {"from_route": "/setup-wizard", "to_route": "digicomply-setup"},
 ]
 
-# Default home page after login
-home_page = "compliance-dashboard"
+# Remove home_page override - let users land on workspace then navigate to dashboard
 
 # Override standard pages
 page_js = {
@@ -45,11 +43,9 @@ notification_config = "digicomply.notifications.get_notification_config"
 # DocType Events
 doc_events = {
     "Reconciliation Run": {
-        "on_submit": "digicomply.digicomply.doctype.reconciliation_run.reconciliation_run.run_reconciliation",
+        "on_submit": "digicomply.digicomply.doctype.reconciliation_run.reconciliation_run.on_submit_handler",
     },
-    "CSV Import": {
-        "after_insert": "digicomply.digicomply.doctype.csv_import.csv_import.process_csv",
-    },
+    # CSV Import processes automatically in validate()
 }
 
 # Scheduled Tasks

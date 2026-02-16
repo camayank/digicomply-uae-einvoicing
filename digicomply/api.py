@@ -7,7 +7,45 @@ DigiComply API - Public endpoints for dashboard and integrations
 
 import frappe
 from frappe import _
-from frappe.utils import flt
+from frappe.utils import flt, getdate, today, add_months, get_first_day, get_last_day
+from datetime import datetime, timedelta
+
+
+def get_fta_deadline_info():
+    """
+    Calculate next FTA filing deadline and days remaining.
+    UAE e-invoicing requires monthly filing by the 28th of following month.
+    """
+    today_date = getdate(today())
+    current_month = today_date.month
+    current_year = today_date.year
+
+    # Deadline is 28th of current month for previous month's invoices
+    # If today is past 28th, deadline is next month's 28th
+    if today_date.day <= 28:
+        deadline_date = today_date.replace(day=28)
+        reporting_month = add_months(today_date, -1)
+    else:
+        next_month = add_months(today_date, 1)
+        deadline_date = getdate(next_month).replace(day=28)
+        reporting_month = today_date
+
+    days_remaining = (deadline_date - today_date).days
+
+    # Determine urgency level
+    if days_remaining <= 3:
+        urgency = "critical"
+    elif days_remaining <= 7:
+        urgency = "warning"
+    else:
+        urgency = "normal"
+
+    return {
+        "deadline_date": str(deadline_date),
+        "days_remaining": days_remaining,
+        "reporting_period": reporting_month.strftime("%B %Y"),
+        "urgency": urgency,
+    }
 
 
 @frappe.whitelist()
@@ -21,11 +59,11 @@ def get_dashboard_data(company=None):
     Returns:
         dict with summary metrics and recent runs
     """
-    filters = {"docstatus": 1}  # Only submitted
+    filters = {"status": ["in", ["Completed", "In Progress"]]}
     if company:
         filters["company"] = company
 
-    # Get all submitted reconciliation runs
+    # Get all completed reconciliation runs
     runs = frappe.get_all(
         "Reconciliation Run",
         filters=filters,
@@ -40,6 +78,8 @@ def get_dashboard_data(company=None):
             "missing_in_asp",
             "missing_in_erp",
             "match_percentage",
+            "from_date",
+            "to_date",
         ],
         order_by="posting_date desc",
         limit=20
@@ -68,6 +108,12 @@ def get_dashboard_data(company=None):
         missing_in_erp = 0
         compliance_score = 0
 
+    # Get FTA deadline info
+    fta_deadline = get_fta_deadline_info()
+
+    # Get pending CSV imports count
+    pending_imports = frappe.db.count("CSV Import", {"status": "Pending"})
+
     return {
         "total_invoices": total_invoices,
         "matched_count": matched_count,
@@ -76,6 +122,9 @@ def get_dashboard_data(company=None):
         "missing_in_erp": missing_in_erp,
         "compliance_score": flt(compliance_score, 2),
         "recent_runs": runs[:10],
+        "fta_deadline": fta_deadline,
+        "pending_imports": pending_imports,
+        "potential_penalty": (missing_in_asp + mismatched_count) * 5000,  # AED 5000 per issue
     }
 
 

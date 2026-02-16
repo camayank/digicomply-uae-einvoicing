@@ -23,11 +23,7 @@ class CSVImport(Document):
     """
 
     def validate(self):
-        if self.file:
-            self.process_csv()
-
-    def after_insert(self):
-        """Process CSV after creation"""
+        """Process CSV file on save"""
         if self.file and self.status == "Pending":
             self.process_csv()
 
@@ -198,9 +194,9 @@ class CSVImport(Document):
             return cstr(value)
 
     def generate_preview(self, sample_data: list):
-        """Generate HTML preview table"""
+        """Generate HTML preview table - stored in memory only (HTML field)"""
         if not sample_data:
-            self.db_set("preview_html", "<p>No data to preview</p>")
+            self.preview_html = "<p>No data to preview</p>"
             return
 
         html = """
@@ -243,10 +239,12 @@ class CSVImport(Document):
         </table>
         """
 
-        if len(sample_data) < self.row_count:
-            html += f"<p><em>Showing {len(sample_data)} of {self.row_count} rows</em></p>"
+        row_count = self.row_count or 0
+        if len(sample_data) < row_count:
+            html += f"<p><em>Showing {len(sample_data)} of {row_count} rows</em></p>"
 
-        self.db_set("preview_html", html)
+        # HTML fields don't have DB columns, just set on document
+        self.preview_html = html
 
     def get_invoice_data(self) -> dict:
         """Return parsed data as dict keyed by invoice number"""

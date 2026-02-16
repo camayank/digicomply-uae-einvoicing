@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 50">
+  <!-- Icon with checkmark -->
+  <rect x="2" y="8" width="34" height="34" rx="8" fill="rgba(255,255,255,0.2)"/>
+  <path d="M12 25 L17 30 L26 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- DIGI COMPLY text in white -->
+  <text x="44" y="33" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="700" fill="white">DIGI</text>
+  <text x="102" y="33" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.9)">COMPLY</text>
+</svg>

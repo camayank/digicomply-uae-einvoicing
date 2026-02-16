@@ -1,4 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 200 60">
-  <rect width="200" height="60" fill="#1e40af" rx="8"/>
-  <text x="100" y="38" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">DigiComply</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 50">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a404e4"/>
+      <stop offset="100%" style="stop-color:#8501b9"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon with checkmark -->
+  <rect x="2" y="8" width="34" height="34" rx="8" fill="url(#purpleGrad)"/>
+  <path d="M12 25 L17 30 L26 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- DIGI text -->
+  <text x="44" y="33" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="700" fill="#0a1119">DIGI</text>
+  <!-- COMPLY text in purple -->
+  <text x="102" y="33" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="700" fill="#a404e4">COMPLY</text>
 </svg>

@@ -19,6 +19,7 @@
         "asp_vat_amount",
         "section_details",
         "differences",
+        "differences_html",
         "action_required"
     ],
     "fields": [
@@ -91,7 +92,13 @@
         {
             "fieldname": "differences",
             "fieldtype": "Small Text",
+            "hidden": 1,
             "label": "Differences (JSON)"
+        },
+        {
+            "fieldname": "differences_html",
+            "fieldtype": "HTML",
+            "label": "Differences"
         },
         {
             "fieldname": "action_required",

@@ -1,158 +1,1459 @@
-/* DigiComply Brand Colors */
+/* ============================================
+   DigiComply UI Transformation
+   A complete visual overhaul of the Frappe framework
+   to create a modern, branded compliance platform
+   ============================================ */
+
+/* ============================================
+   1. CSS Variables - Brand Identity
+   Matching www.digicomply.in
+   ============================================ */
 :root {
-  --dc-primary: #1e40af;
-  --dc-primary-dark: #1e3a8a;
-  --dc-primary-light: #3b82f6;
-  --dc-accent: #dc2626;
-  --dc-accent-light: #ef4444;
-  --dc-success: #16a34a;
-  --dc-warning: #ca8a04;
-  --dc-bg-light: #f8fafc;
-  --dc-text-dark: #1e293b;
+  /* Primary Colors - DigiComply Purple */
+  --dc-primary: #a404e4;
+  --dc-primary-dark: #8501b9;
+  --dc-primary-light: #c44df7;
+  --dc-primary-50: #faf5ff;
+  --dc-primary-100: #f3e8ff;
+
+  /* Accent Colors */
+  --dc-accent: #5081f5;
+  --dc-accent-dark: #3b6fe0;
+
+  /* Status Colors */
+  --dc-success: #10b981;
+  --dc-success-light: #d1fae5;
+  --dc-warning: #f59e0b;
+  --dc-warning-light: #fef3c7;
+  --dc-danger: #ef4444;
+  --dc-danger-light: #fee2e2;
+
+  /* Neutrals - Matching website dark theme accents */
+  --dc-bg: #f8fafc;
+  --dc-bg-card: #ffffff;
+  --dc-bg-dark: #0a1119;
+  --dc-border: #e2e8f0;
+  --dc-border-light: #f1f5f9;
+  --dc-text: #1e293b;
+  --dc-text-muted: #64748b;
+  --dc-text-light: #94a3b8;
+
+  /* Shadows */
+  --dc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --dc-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --dc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --dc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --dc-shadow-purple: 0 4px 14px rgba(164, 4, 228, 0.25);
+
+  /* Radius */
+  --dc-radius-sm: 6px;
+  --dc-radius: 8px;
+  --dc-radius-lg: 12px;
+  --dc-radius-xl: 16px;
+
+  /* Typography - Poppins from website */
+  --dc-font: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Override Frappe primary colors */
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Override Frappe's CSS variables */
 body {
   --primary: var(--dc-primary);
   --primary-color: var(--dc-primary);
+  --btn-primary-bg: var(--dc-primary);
+  --bg-color: var(--dc-bg);
+  --card-bg: var(--dc-bg-card);
+  --border-color: var(--dc-border);
+  --text-color: var(--dc-text);
+  --text-muted: var(--dc-text-muted);
+
+  font-family: var(--dc-font) !important;
+  background-color: var(--dc-bg) !important;
+  color: var(--dc-text);
 }
 
-/* Navbar branding */
+/* ============================================
+   2. Hide Frappe/ERPNext Branding & Clutter
+   ============================================ */
+
+/* Hide Frappe branding */
+.footer-powered,
+.powered-by-frappe,
+.frappe-control[data-fieldname="company_description"],
+.frappe-control[data-fieldname="setup_complete"],
+[title="Open in a new tab"],
+.sidebar-toggle-btn,
+.dropdown-help,
+.navbar-nav .nav-item.dropdown:has(.dropdown-notifications),
+.erpnext-footer,
+#page-setup-wizard .setup-wizard-slide .slide-body .form-group:has([data-fieldname="language"]) {
+  display: none !important;
+}
+
+/* Hide ERPNext setup wizard branding */
+.setup-wizard-brand {
+  display: none !important;
+}
+
+/* Hide module sidebar for non-DigiComply modules */
+.desk-sidebar .sidebar-menu .sidebar-group:not(:has([data-doctype="Reconciliation Run"])):not(:has([href*="digicomply"])):not(:has([href*="compliance"])) {
+  /* Keep visible but could hide if needed */
+}
+
+/* ============================================
+   3. Navbar - Clean Top Navigation
+   ============================================ */
 .navbar {
-  background-color: var(--dc-primary) !important;
+  background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%) !important;
+  box-shadow: var(--dc-shadow-purple) !important;
+  border-bottom: none !important;
+  height: 56px !important;
 }
 
-.navbar .navbar-brand {
+.navbar-brand {
+  font-weight: 700 !important;
+  font-size: 1.25rem !important;
   color: white !important;
+  letter-spacing: -0.02em;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+/* Hide default Frappe logo */
+.navbar .navbar-brand img,
+.navbar .navbar-brand .app-logo {
+  display: none !important;
+}
+
+/* DigiComply branding - handled by JavaScript */
+.navbar-brand::before,
+.navbar-brand::after {
+  display: none !important;
 }
 
 .navbar .nav-link {
   color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: var(--dc-radius) !important;
+  transition: all 0.2s ease !important;
 }
 
 .navbar .nav-link:hover {
   color: white !important;
+  background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Sidebar styling */
-.desk-sidebar .sidebar-menu a.active,
-.desk-sidebar .sidebar-menu a:hover {
-  background-color: var(--dc-primary-light) !important;
+/* Search bar styling */
+.navbar .search-bar,
+.navbar #navbar-search {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--dc-radius-lg) !important;
   color: white !important;
 }
 
-/* Primary buttons */
-.btn-primary,
-.btn-primary-dark {
-  background-color: var(--dc-primary) !important;
-  border-color: var(--dc-primary) !important;
+.navbar .search-bar::placeholder,
+.navbar #navbar-search::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.btn-primary:hover,
-.btn-primary-dark:hover {
-  background-color: var(--dc-primary-dark) !important;
-  border-color: var(--dc-primary-dark) !important;
+/* Avatar/user menu */
+.navbar .avatar {
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
 }
 
-/* Links */
-a {
-  color: var(--dc-primary);
+/* ============================================
+   4. Sidebar - Simplified Navigation
+   ============================================ */
+.layout-side-section,
+.desk-sidebar {
+  background: var(--dc-bg-card) !important;
+  border-right: 1px solid var(--dc-border) !important;
+  box-shadow: none !important;
 }
 
-a:hover {
-  color: var(--dc-primary-dark);
+.desk-sidebar .sidebar-menu {
+  padding: 1rem 0.75rem !important;
+}
+
+.desk-sidebar .sidebar-menu .sidebar-label {
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--dc-text-light) !important;
+  padding: 1rem 0.75rem 0.5rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.desk-sidebar .sidebar-menu a {
+  padding: 0.625rem 0.875rem !important;
+  margin: 2px 0 !important;
+  border-radius: var(--dc-radius) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: var(--dc-text) !important;
+  transition: all 0.15s ease !important;
+}
+
+.desk-sidebar .sidebar-menu a:hover {
+  background: var(--dc-primary-50) !important;
+  color: var(--dc-primary) !important;
+}
+
+.desk-sidebar .sidebar-menu a.active,
+.desk-sidebar .sidebar-menu a.selected {
+  background: var(--dc-primary) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.desk-sidebar .sidebar-menu a .sidebar-icon {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 10px !important;
+}
+
+/* ============================================
+   5. Page Layout & Containers
+   ============================================ */
+.page-container {
+  background: var(--dc-bg) !important;
+}
+
+.layout-main-section {
+  background: transparent !important;
+  padding: 1.5rem !important;
 }
 
 /* Page header */
 .page-head {
-  border-bottom-color: var(--dc-primary) !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  padding: 0 0 1rem 0 !important;
+  margin-bottom: 1rem !important;
 }
 
-/* Hide Frappe branding elements */
-.footer-powered,
-.powered-by-frappe,
-[data-page-container] .page-card-container .page-card .page-card-head .indicator-right {
+.page-head .page-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--dc-text) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.page-head .page-sub-title {
+  color: var(--dc-text-muted) !important;
+  font-size: 0.875rem !important;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  background: transparent !important;
+  padding: 0 !important;
+  margin-bottom: 0.5rem !important;
+  font-size: 0.8125rem !important;
+}
+
+.breadcrumb-item a {
+  color: var(--dc-text-muted) !important;
+}
+
+.breadcrumb-item.active {
+  color: var(--dc-text) !important;
+}
+
+/* ============================================
+   6. Cards & Panels
+   ============================================ */
+.frappe-card,
+.form-dashboard,
+.form-group .form-dashboard,
+.widget-group,
+.form-section,
+.section-body,
+.form-page {
+  background: var(--dc-bg-card) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius-lg) !important;
+  box-shadow: var(--dc-shadow-sm) !important;
+}
+
+.frappe-card {
+  padding: 1.25rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Card headers */
+.section-head,
+.head-title,
+.widget-head {
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  color: var(--dc-text) !important;
+  padding-bottom: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+  border-bottom: 1px solid var(--dc-border-light) !important;
+}
+
+/* ============================================
+   7. Form Styling - Clean & Modern
+   ============================================ */
+.form-control,
+.frappe-control input,
+.frappe-control select,
+.frappe-control textarea {
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius) !important;
+  padding: 0.625rem 0.875rem !important;
+  font-size: 0.875rem !important;
+  transition: all 0.15s ease !important;
+  background: var(--dc-bg-card) !important;
+}
+
+.form-control:focus,
+.frappe-control input:focus,
+.frappe-control select:focus,
+.frappe-control textarea:focus {
+  border-color: var(--dc-primary) !important;
+  box-shadow: 0 0 0 3px var(--dc-primary-100) !important;
+  outline: none !important;
+}
+
+/* Labels */
+.frappe-control .control-label,
+.form-group label {
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  color: var(--dc-text) !important;
+  margin-bottom: 0.375rem !important;
+}
+
+/* Help text */
+.help-box,
+.form-group .help {
+  font-size: 0.75rem !important;
+  color: var(--dc-text-muted) !important;
+  margin-top: 0.25rem !important;
+}
+
+/* Required field indicator */
+.reqd .control-label::after {
+  content: " *";
+  color: var(--dc-danger) !important;
+}
+
+/* Form sections */
+.form-section .section-head {
+  background: var(--dc-bg) !important;
+  padding: 0.75rem 1rem !important;
+  margin: -1px -1px 1rem -1px !important;
+  border-radius: var(--dc-radius-lg) var(--dc-radius-lg) 0 0 !important;
+  font-size: 0.875rem !important;
+}
+
+/* ============================================
+   8. Buttons - Modern & Consistent
+   ============================================ */
+.btn {
+  border-radius: var(--dc-radius) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.15s ease !important;
+  border: none !important;
+}
+
+.btn-primary,
+.btn-primary-dark,
+.primary-action {
+  background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%) !important;
+  color: white !important;
+  box-shadow: var(--dc-shadow-purple) !important;
+}
+
+.btn-primary:hover,
+.btn-primary-dark:hover,
+.primary-action:hover {
+  background: linear-gradient(135deg, var(--dc-primary-dark) 0%, #172554 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--dc-shadow-md) !important;
+}
+
+.btn-secondary,
+.btn-default {
+  background: var(--dc-bg-card) !important;
+  color: var(--dc-text) !important;
+  border: 1px solid var(--dc-border) !important;
+}
+
+.btn-secondary:hover,
+.btn-default:hover {
+  background: var(--dc-bg) !important;
+  border-color: var(--dc-primary) !important;
+  color: var(--dc-primary) !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--dc-success) 0%, #059669 100%) !important;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--dc-danger) 0%, #dc2626 100%) !important;
+}
+
+/* Icon buttons */
+.btn-icon {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ============================================
+   9. Tables & Lists - Enhanced
+   ============================================ */
+.frappe-list,
+.result {
+  background: var(--dc-bg-card) !important;
+  border-radius: var(--dc-radius-lg) !important;
+  border: 1px solid var(--dc-border) !important;
+  overflow: hidden !important;
+  box-shadow: var(--dc-shadow-sm) !important;
+}
+
+/* List header with title and subtitle */
+.list-page-header {
+  padding: 1.5rem !important;
+  border-bottom: 1px solid var(--dc-border) !important;
+}
+
+.list-page-header .title-area {
+  margin-bottom: 0.5rem !important;
+}
+
+/* Standard filters bar */
+.standard-filter-section {
+  background: var(--dc-bg) !important;
+  border-bottom: 1px solid var(--dc-border) !important;
+  padding: 1rem 1.25rem !important;
+}
+
+.standard-filter-section .filter-selector {
+  background: var(--dc-bg-card) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius) !important;
+  padding: 0.5rem 0.875rem !important;
+}
+
+/* List rows */
+.list-row,
+.result .list-row {
+  border-bottom: 1px solid var(--dc-border-light) !important;
+  padding: 1rem 1.25rem !important;
+  transition: all 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.list-row:hover {
+  background: var(--dc-primary-50) !important;
+  border-left: 3px solid var(--dc-primary) !important;
+  padding-left: calc(1.25rem - 3px) !important;
+}
+
+.list-row:last-child {
+  border-bottom: none !important;
+}
+
+.list-row-head {
+  background: var(--dc-bg) !important;
+  font-weight: 600 !important;
+  font-size: 0.6875rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: var(--dc-text-muted) !important;
+  padding: 0.75rem 1.25rem !important;
+  border-bottom: 2px solid var(--dc-border) !important;
+}
+
+.list-row-head:hover {
+  background: var(--dc-bg) !important;
+  border-left: none !important;
+  padding-left: 1.25rem !important;
+}
+
+/* List row checkbox */
+.list-row .list-row-checkbox {
+  margin-right: 12px !important;
+}
+
+/* List row columns */
+.list-row .level-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-row .list-subject {
+  font-weight: 600 !important;
+  color: var(--dc-text) !important;
+  font-size: 0.875rem !important;
+}
+
+.list-row .list-subject a {
+  color: var(--dc-text) !important;
+  text-decoration: none !important;
+}
+
+.list-row .list-subject a:hover {
+  color: var(--dc-primary) !important;
+}
+
+/* Status indicators in list */
+.list-row .indicator-pill {
+  font-size: 0.6875rem !important;
+  padding: 0.25rem 0.625rem !important;
+  font-weight: 600 !important;
+}
+
+/* List row actions */
+.list-row-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.list-row .btn-action {
+  padding: 0.375rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  border-radius: var(--dc-radius) !important;
+  background: var(--dc-primary) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 600 !important;
+  transition: all 0.15s ease !important;
+  opacity: 0;
+}
+
+.list-row:hover .btn-action {
+  opacity: 1;
+}
+
+.list-row .btn-action:hover {
+  background: var(--dc-primary-dark) !important;
+  transform: translateY(-1px);
+}
+
+/* Pagination */
+.list-paging-area {
+  background: var(--dc-bg) !important;
+  padding: 1rem 1.25rem !important;
+  border-top: 1px solid var(--dc-border) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.btn-paging {
+  background: var(--dc-bg-card) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius) !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  color: var(--dc-text) !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn-paging:hover {
+  border-color: var(--dc-primary) !important;
+  color: var(--dc-primary) !important;
+}
+
+/* Empty list state */
+.no-result {
+  padding: 4rem 2rem !important;
+  text-align: center !important;
+}
+
+.no-result .text-muted {
+  color: var(--dc-text-muted) !important;
+  font-size: 1rem !important;
+}
+
+/* Level indicators */
+.level-item {
+  padding: 0.25rem 0 !important;
+}
+
+/* List view subtitle */
+.page-head .page-sub-title-area {
+  margin-top: 0.25rem;
+}
+
+.page-head .page-sub-title-area span {
+  font-size: 0.8125rem !important;
+  color: var(--dc-text-muted) !important;
+}
+
+/* ============================================
+   10. Status Indicators & Badges
+   ============================================ */
+.indicator-pill,
+.badge {
+  border-radius: 100px !important;
+  padding: 0.25rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+}
+
+.indicator-pill.green,
+.badge-success {
+  background: var(--dc-success-light) !important;
+  color: #065f46 !important;
+}
+
+.indicator-pill.yellow,
+.badge-warning {
+  background: var(--dc-warning-light) !important;
+  color: #92400e !important;
+}
+
+.indicator-pill.red,
+.badge-danger {
+  background: var(--dc-danger-light) !important;
+  color: #991b1b !important;
+}
+
+.indicator-pill.blue,
+.badge-info {
+  background: var(--dc-primary-100) !important;
+  color: var(--dc-primary-dark) !important;
+}
+
+.indicator-pill.gray,
+.badge-secondary {
+  background: #f1f5f9 !important;
+  color: var(--dc-text-muted) !important;
+}
+
+/* ============================================
+   11. Modals & Dialogs
+   ============================================ */
+.modal-content {
+  border: none !important;
+  border-radius: var(--dc-radius-xl) !important;
+  box-shadow: var(--dc-shadow-lg), 0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--dc-border) !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+.modal-title {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  color: var(--dc-text) !important;
+}
+
+.modal-body {
+  padding: 1.5rem !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--dc-border) !important;
+  padding: 1rem 1.5rem !important;
+  background: var(--dc-bg) !important;
+  border-radius: 0 0 var(--dc-radius-xl) var(--dc-radius-xl) !important;
+}
+
+/* ============================================
+   12. Alerts & Notifications
+   ============================================ */
+.alert {
+  border-radius: var(--dc-radius) !important;
+  border: none !important;
+  padding: 1rem 1.25rem !important;
+  font-size: 0.875rem !important;
+}
+
+.alert-info {
+  background: var(--dc-primary-50) !important;
+  color: var(--dc-primary-dark) !important;
+}
+
+.alert-success {
+  background: var(--dc-success-light) !important;
+  color: #065f46 !important;
+}
+
+.alert-warning {
+  background: var(--dc-warning-light) !important;
+  color: #92400e !important;
+}
+
+.alert-danger {
+  background: var(--dc-danger-light) !important;
+  color: #991b1b !important;
+}
+
+/* Toast notifications */
+.toast {
+  border-radius: var(--dc-radius-lg) !important;
+  box-shadow: var(--dc-shadow-lg) !important;
+}
+
+/* ============================================
+   13. Login Page - Full Branding
+   ============================================ */
+.login-content {
+  background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%) !important;
+  min-height: 100vh !important;
+}
+
+.login-content .page-card {
+  background: var(--dc-bg-card) !important;
+  border-radius: var(--dc-radius-xl) !important;
+  box-shadow: var(--dc-shadow-lg) !important;
+  padding: 2.5rem !important;
+  max-width: 400px !important;
+}
+
+.login-content .brand {
   display: none !important;
 }
 
-/* Login page styling */
-.login-content .brand {
-  display: none;
-}
-
-.login-content::before {
+.login-content .page-card::before {
   content: "";
   display: block;
   width: 200px;
   height: 60px;
-  background: url("/assets/digicomply/images/logo-full.svg") no-repeat center;
+  background: url("/assets/digicomply/images/logo.png") no-repeat center;
   background-size: contain;
   margin: 0 auto 2rem;
 }
 
-/* Page title override */
-.title-area .title-text {
-  color: var(--dc-primary);
+.login-content .page-card .page-card-head {
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
 }
 
-/* Compliance status colors */
-.compliance-green {
-  color: var(--dc-success);
+.login-content .page-card .page-card-head .page-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--dc-text) !important;
 }
 
-.compliance-yellow {
-  color: var(--dc-warning);
+/* ============================================
+   14. Workspace Styling
+   ============================================ */
+.workspace-container {
+  padding: 1.5rem !important;
 }
 
-.compliance-red {
-  color: var(--dc-accent);
+.workspace-sidebar {
+  background: var(--dc-bg-card) !important;
+  border-radius: var(--dc-radius-lg) !important;
+  border: 1px solid var(--dc-border) !important;
+  padding: 1rem !important;
 }
 
-/* Dashboard cards */
-.digicomply-card {
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  background: white;
+.widget-group .widget {
+  margin-bottom: 1rem !important;
+}
+
+/* Workspace Shortcut Cards - Visual Action Cards */
+.shortcut-widget-box,
+.widget.shortcut-widget-box {
+  background: var(--dc-bg-card) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius-lg) !important;
+  padding: 1.5rem !important;
+  transition: all 0.2s ease !important;
+  text-align: center !important;
+  min-height: 120px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.shortcut-widget-box:hover,
+.widget.shortcut-widget-box:hover {
+  border-color: var(--dc-primary) !important;
+  box-shadow: var(--dc-shadow-md) !important;
+  transform: translateY(-3px) !important;
+  background: var(--dc-primary-50) !important;
+}
+
+.shortcut-widget-box .widget-title,
+.widget.shortcut-widget-box .widget-title {
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  color: var(--dc-text) !important;
+  margin-top: 0.5rem !important;
+}
+
+.shortcut-widget-box .widget-icon,
+.widget.shortcut-widget-box .icon {
+  font-size: 2rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Specific shortcut card colors */
+.shortcut-widget-box[data-shortcut-name="Dashboard"]::before,
+.widget.shortcut-widget-box:has(.widget-title:contains("Dashboard"))::before {
+  content: "📊";
+  font-size: 2rem;
+}
+
+.shortcut-widget-box[data-shortcut-name="New Reconciliation"]::before {
+  content: "🔄";
+  font-size: 2rem;
+}
+
+.shortcut-widget-box[data-shortcut-name="Import CSV"]::before {
+  content: "📤";
+  font-size: 2rem;
+}
+
+/* Link widgets in workspace */
+.workspace-container .link-item,
+.widget.links-widget-box .link-item {
+  padding: 0.875rem 1rem !important;
+  border-radius: var(--dc-radius) !important;
+  transition: all 0.15s ease !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.workspace-container .link-item:hover,
+.widget.links-widget-box .link-item:hover {
+  background: var(--dc-primary-50) !important;
+}
+
+/* Workspace header styling */
+.workspace-container .widget-head,
+.workspace-container .section-head {
+  border-bottom: none !important;
+  padding-bottom: 0.5rem !important;
+}
+
+/* Getting Started Section */
+.dc-getting-started {
+  background: linear-gradient(135deg, var(--dc-primary-50) 0%, #fff 100%);
+  border: 1px solid var(--dc-primary-100);
+  border-radius: var(--dc-radius-lg);
   padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dc-getting-started h4 {
+  color: var(--dc-primary);
   margin-bottom: 1rem;
 }
 
-.digicomply-card .card-title {
-  font-size: 0.875rem;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+.dc-getting-started .steps {
+  display: flex;
+  gap: 1rem;
 }
 
-.digicomply-card .card-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--dc-text-dark);
+.dc-getting-started .step {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
 }
 
-/* Compliance score circle */
-.compliance-score {
-  width: 120px;
-  height: 120px;
+.dc-getting-started .step-number {
+  width: 28px;
+  height: 28px;
+  background: var(--dc-primary);
+  color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.dc-getting-started .step-content h5 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.dc-getting-started .step-content p {
+  font-size: 0.8125rem;
+  color: var(--dc-text-muted);
+  margin: 0;
+}
+
+/* ============================================
+   15. Loading & Empty States
+   ============================================ */
+.frappe-control .loading-state,
+.loading-indicator {
+  color: var(--dc-primary) !important;
+}
+
+.empty-state {
+  padding: 3rem !important;
+  text-align: center !important;
+}
+
+.empty-state .empty-state-icon {
+  font-size: 3rem !important;
+  color: var(--dc-text-light) !important;
+  margin-bottom: 1rem !important;
+}
+
+.empty-state .empty-state-title {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: var(--dc-text) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.empty-state .empty-state-description {
+  color: var(--dc-text-muted) !important;
+  font-size: 0.875rem !important;
+}
+
+/* ============================================
+   16. Scrollbars
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dc-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dc-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dc-text-light);
+}
+
+/* ============================================
+   17. Print Styles
+   ============================================ */
+@media print {
+  .navbar,
+  .page-head .page-actions,
+  .desk-sidebar {
+    display: none !important;
+  }
+
+  .layout-main-section {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* ============================================
+   18. DigiComply-Specific Components
+   ============================================ */
+
+/* Compliance Score Circle */
+.dc-score-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
   font-weight: 700;
   color: white;
   margin: 0 auto;
 }
 
-.compliance-score.high {
-  background: linear-gradient(135deg, var(--dc-success), #22c55e);
+.dc-score-circle.high {
+  background: linear-gradient(135deg, var(--dc-success) 0%, #059669 100%);
 }
 
-.compliance-score.medium {
-  background: linear-gradient(135deg, var(--dc-warning), #eab308);
+.dc-score-circle.medium {
+  background: linear-gradient(135deg, var(--dc-warning) 0%, #d97706 100%);
 }
 
-.compliance-score.low {
-  background: linear-gradient(135deg, var(--dc-accent), #f87171);
+.dc-score-circle.low {
+  background: linear-gradient(135deg, var(--dc-danger) 0%, #dc2626 100%);
+}
+
+/* Metric Cards */
+.dc-metric-card {
+  background: var(--dc-bg-card);
+  border: 1px solid var(--dc-border);
+  border-radius: var(--dc-radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.dc-metric-card .value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--dc-text);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.dc-metric-card .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--dc-text-muted);
+}
+
+.dc-metric-card.success .value { color: var(--dc-success); }
+.dc-metric-card.warning .value { color: var(--dc-warning); }
+.dc-metric-card.danger .value { color: var(--dc-danger); }
+.dc-metric-card.primary .value { color: var(--dc-primary); }
+
+/* Status Progress Bar */
+.dc-progress-bar {
+  display: flex;
+  height: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--dc-border-light);
+}
+
+.dc-progress-bar .segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  min-width: 40px;
+  transition: width 0.3s ease;
+}
+
+.dc-progress-bar .segment.green { background: var(--dc-success); }
+.dc-progress-bar .segment.yellow { background: var(--dc-warning); }
+.dc-progress-bar .segment.red { background: var(--dc-danger); }
+
+/* Action Cards */
+.dc-action-card {
+  background: var(--dc-bg-card);
+  border: 1px solid var(--dc-border);
+  border-radius: var(--dc-radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dc-action-card:hover {
+  border-color: var(--dc-primary);
+  box-shadow: var(--dc-shadow-md);
+  transform: translateY(-2px);
+}
+
+.dc-action-card .icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.dc-action-card .title {
+  font-weight: 600;
+  color: var(--dc-text);
+  margin-bottom: 0.25rem;
+}
+
+.dc-action-card .description {
+  font-size: 0.75rem;
+  color: var(--dc-text-muted);
+}
+
+/* Deadline Banner */
+.dc-deadline-banner {
+  background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%);
+  color: white;
+  border-radius: var(--dc-radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dc-deadline-banner.warning {
+  background: linear-gradient(135deg, var(--dc-warning) 0%, #d97706 100%);
+}
+
+.dc-deadline-banner.critical {
+  background: linear-gradient(135deg, var(--dc-danger) 0%, #dc2626 100%);
+}
+
+.dc-deadline-banner .days {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ============================================
+   19. Animation & Transitions
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dc-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.dc-loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ============================================
+   20. Enhanced Form Styling
+   ============================================ */
+
+/* Form page wrapper */
+.form-page {
+  padding: 0 !important;
+}
+
+.form-page > .row {
+  margin: 0 !important;
+}
+
+/* Form layout container */
+.form-layout {
+  background: var(--dc-bg-card) !important;
+  border-radius: var(--dc-radius-lg) !important;
+  border: 1px solid var(--dc-border) !important;
+  box-shadow: var(--dc-shadow-sm) !important;
+  overflow: hidden !important;
+}
+
+/* Form section styling */
+.form-section {
+  margin: 0 !important;
+  border: none !important;
+  border-bottom: 1px solid var(--dc-border-light) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: var(--dc-bg-card) !important;
+}
+
+.form-section:last-child {
+  border-bottom: none !important;
+}
+
+.form-section .section-head {
+  background: linear-gradient(to right, var(--dc-primary-50), transparent) !important;
+  padding: 12px 20px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid var(--dc-border-light) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--dc-primary) !important;
+}
+
+.form-section .section-body {
+  padding: 20px !important;
+  background: var(--dc-bg-card) !important;
+}
+
+/* Collapsible sections */
+.form-section.collapsed .section-head {
+  background: var(--dc-bg) !important;
+}
+
+.form-section .section-head .collapse-indicator {
+  color: var(--dc-primary) !important;
+}
+
+/* Form column layout */
+.form-column {
+  padding: 0 12px !important;
+}
+
+.form-column:first-child {
+  padding-left: 0 !important;
+}
+
+.form-column:last-child {
+  padding-right: 0 !important;
+}
+
+/* Field styling */
+.frappe-control {
+  margin-bottom: 16px !important;
+}
+
+.frappe-control .control-label {
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  color: var(--dc-text) !important;
+  margin-bottom: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.frappe-control .control-label .indicator {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+/* Input fields */
+.frappe-control input[type="text"],
+.frappe-control input[type="number"],
+.frappe-control input[type="email"],
+.frappe-control input[type="password"],
+.frappe-control input[type="date"],
+.frappe-control select,
+.frappe-control textarea {
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius) !important;
+  padding: 10px 14px !important;
+  font-size: 0.875rem !important;
+  transition: all 0.15s ease !important;
+  background: var(--dc-bg-card) !important;
+  color: var(--dc-text) !important;
+  width: 100% !important;
+}
+
+.frappe-control input:focus,
+.frappe-control select:focus,
+.frappe-control textarea:focus {
+  border-color: var(--dc-primary) !important;
+  box-shadow: 0 0 0 3px var(--dc-primary-100) !important;
+  outline: none !important;
+}
+
+.frappe-control input:disabled,
+.frappe-control select:disabled,
+.frappe-control textarea:disabled {
+  background: var(--dc-bg) !important;
+  color: var(--dc-text-muted) !important;
+}
+
+/* Read-only fields */
+.frappe-control.read-only .control-value {
+  background: var(--dc-bg) !important;
+  border: 1px solid var(--dc-border-light) !important;
+  border-radius: var(--dc-radius) !important;
+  padding: 10px 14px !important;
+  font-size: 0.875rem !important;
+  color: var(--dc-text) !important;
+}
+
+/* Link fields */
+.frappe-control[data-fieldtype="Link"] .link-btn {
+  border-radius: 0 var(--dc-radius) var(--dc-radius) 0 !important;
+  border-left: none !important;
+}
+
+.frappe-control[data-fieldtype="Link"] input {
+  border-radius: var(--dc-radius) 0 0 var(--dc-radius) !important;
+}
+
+/* Select fields */
+.frappe-control select {
+  appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 12px center !important;
+  padding-right: 36px !important;
+}
+
+/* Date picker */
+.frappe-control[data-fieldtype="Date"] .input-with-feedback {
+  position: relative !important;
+}
+
+/* Attach field styling */
+.frappe-control[data-fieldtype="Attach"] .attached-file {
+  background: var(--dc-bg) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius) !important;
+  padding: 12px 16px !important;
+}
+
+.frappe-control[data-fieldtype="Attach"] .attached-file .file-name {
+  font-weight: 600 !important;
+  color: var(--dc-text) !important;
+}
+
+/* Table field styling */
+.frappe-control[data-fieldtype="Table"] {
+  margin-top: 8px !important;
+}
+
+.frappe-control[data-fieldtype="Table"] .grid-heading-row {
+  background: var(--dc-bg) !important;
+  border-bottom: 2px solid var(--dc-border) !important;
+}
+
+.frappe-control[data-fieldtype="Table"] .grid-heading-row .grid-heading-label {
+  font-weight: 600 !important;
+  font-size: 0.6875rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--dc-text-muted) !important;
+}
+
+.frappe-control[data-fieldtype="Table"] .grid-row {
+  border-bottom: 1px solid var(--dc-border-light) !important;
+}
+
+.frappe-control[data-fieldtype="Table"] .grid-row:hover {
+  background: var(--dc-primary-50) !important;
+}
+
+.frappe-control[data-fieldtype="Table"] .btn-open-row {
+  background: var(--dc-primary) !important;
+  color: white !important;
+  border-radius: var(--dc-radius-sm) !important;
+}
+
+/* Button field styling */
+.frappe-control[data-fieldtype="Button"] .btn {
+  padding: 10px 20px !important;
+  font-weight: 600 !important;
+  border-radius: var(--dc-radius) !important;
+}
+
+.frappe-control[data-fieldtype="Button"] .btn-primary-dark,
+.frappe-control[data-fieldtype="Button"] .btn-primary {
+  background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%) !important;
+  border: none !important;
+  color: white !important;
+}
+
+/* HTML field styling */
+.frappe-control[data-fieldtype="HTML"] .ql-editor,
+.frappe-control[data-fieldtype="HTML"] .html-content {
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Percent field with progress bar */
+.frappe-control[data-fieldtype="Percent"] .progress {
+  height: 8px !important;
+  border-radius: 4px !important;
+  background: var(--dc-bg) !important;
+}
+
+.frappe-control[data-fieldtype="Percent"] .progress-bar {
+  background: var(--dc-primary) !important;
+  border-radius: 4px !important;
+}
+
+/* Form toolbar */
+.form-page .page-head {
+  background: var(--dc-bg-card) !important;
+  border-bottom: 1px solid var(--dc-border) !important;
+  padding: 16px 24px !important;
+  margin-bottom: 20px !important;
+  border-radius: var(--dc-radius-lg) !important;
+}
+
+/* Form dashboard (timeline, activity) */
+.form-dashboard {
+  background: var(--dc-bg-card) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius-lg) !important;
+  margin-top: 20px !important;
+  overflow: hidden !important;
+}
+
+.form-dashboard-section {
+  padding: 20px !important;
+}
+
+/* Timeline styling */
+.form-footer .timeline {
+  background: var(--dc-bg-card) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius-lg) !important;
+  padding: 20px !important;
+  margin-top: 20px !important;
+}
+
+.form-footer .timeline-item {
+  padding: 16px !important;
+  border-bottom: 1px solid var(--dc-border-light) !important;
+}
+
+.form-footer .timeline-item:last-child {
+  border-bottom: none !important;
+}
+
+/* Comment box */
+.form-footer .comment-box {
+  background: var(--dc-bg) !important;
+  border: 1px solid var(--dc-border) !important;
+  border-radius: var(--dc-radius) !important;
+  padding: 12px !important;
+}
+
+.form-footer .comment-box .ql-editor {
+  min-height: 80px !important;
+}
+
+/* Animation for status cards */
+@keyframes dc-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.dc-spin {
+  animation: dc-spin 1s linear infinite;
+}
+
+/* ============================================
+   21. Responsive Adjustments
+   ============================================ */
+@media (max-width: 768px) {
+  .navbar {
+    height: 48px !important;
+  }
+
+  .navbar-brand::after {
+    display: none;
+  }
+
+  .layout-main-section {
+    padding: 1rem !important;
+  }
+
+  .dc-metric-card {
+    padding: 1rem;
+  }
+
+  .dc-metric-card .value {
+    font-size: 1.75rem;
+  }
 }

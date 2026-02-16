@@ -235,6 +235,7 @@ class ReconciliationRun(Document):
 
         # Add mismatched items (yellow)
         for item in results["mismatched"]:
+            differences_html = self.format_differences_html(item["differences"])
             self.append("items", {
                 "invoice_no": item["invoice_no"],
                 "match_status": "Mismatched",
@@ -243,6 +244,7 @@ class ReconciliationRun(Document):
                 "customer": item["erp_data"].get("customer_name"),
                 "posting_date": item["erp_data"].get("posting_date"),
                 "differences": frappe.as_json(item["differences"]),
+                "differences_html": differences_html,
             })
 
         # Add missing in ASP (red)
@@ -264,6 +266,34 @@ class ReconciliationRun(Document):
             })
 
         self.save()
+
+    def format_differences_html(self, differences: list) -> str:
+        """Format differences as readable HTML"""
+        if not differences:
+            return ""
+
+        html_parts = ['<div style="display: flex; flex-wrap: wrap; gap: 8px;">']
+
+        for diff in differences:
+            field = diff.get("field", "Unknown")
+            erp_val = diff.get("erp_value", "-")
+            asp_val = diff.get("asp_value", "-")
+
+            # Format currency values
+            if isinstance(erp_val, (int, float)):
+                erp_val = f"{erp_val:,.2f}"
+            if isinstance(asp_val, (int, float)):
+                asp_val = f"{asp_val:,.2f}"
+
+            html_parts.append(f'''
+                <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 4px; padding: 6px 10px; font-size: 12px;">
+                    <span style="font-weight: 600; color: #92400e;">{field}:</span>
+                    <span style="color: #78350f;">ERP {erp_val} vs ASP {asp_val}</span>
+                </div>
+            ''')
+
+        html_parts.append('</div>')
+        return "".join(html_parts)
 
     def update_summary(self, results: dict):
         """Update summary counts"""
@@ -310,3 +340,8 @@ def run_reconciliation(docname):
     """API endpoint to run reconciliation"""
     doc = frappe.get_doc("Reconciliation Run", docname)
     return doc.run_reconciliation()
+
+
+def on_submit_handler(doc, method):
+    """Hook handler for on_submit event"""
+    doc.run_reconciliation()

@@ -13,6 +13,7 @@ def after_install():
     """Run after DigiComply app is installed."""
     setup_branding()
     setup_workspace_order()
+    hide_unwanted_workspaces()
     create_placeholder_logos()
     frappe.db.commit()
 
@@ -25,6 +26,7 @@ def before_uninstall():
 def after_migrate():
     """Run after bench migrate."""
     setup_branding()
+    hide_unwanted_workspaces()
     frappe.db.commit()
 
 
@@ -57,6 +59,15 @@ def setup_branding():
         ss.save(ignore_permissions=True)
     except Exception as e:
         frappe.log_error(f"Error setting system settings: {e}")
+
+
+def hide_unwanted_workspaces():
+    """Hide all workspaces except DigiComply-relevant ones."""
+    from digicomply.setup.hide_workspaces import hide_unwanted_workspaces as do_hide
+    try:
+        do_hide()
+    except Exception as e:
+        frappe.log_error(f"Error hiding workspaces: {e}")
 
 
 def setup_workspace_order():

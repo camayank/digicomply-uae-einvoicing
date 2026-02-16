@@ -39,74 +39,188 @@ class ComplianceDashboard {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        margin-bottom: 30px;
+                        margin-bottom: 24px;
                     }
                     .company-selector {
                         min-width: 250px;
                     }
+
+                    /* FTA Deadline Card */
+                    .deadline-card {
+                        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+                        color: white;
+                        border-radius: 12px;
+                        padding: 24px;
+                        margin-bottom: 24px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    .deadline-card.warning {
+                        background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+                    }
+                    .deadline-card.critical {
+                        background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+                    }
+                    .deadline-left h4 {
+                        margin: 0 0 4px 0;
+                        font-size: 14px;
+                        opacity: 0.9;
+                        font-weight: 500;
+                    }
+                    .deadline-left .period {
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin-bottom: 4px;
+                    }
+                    .deadline-left .date {
+                        font-size: 14px;
+                        opacity: 0.8;
+                    }
+                    .deadline-right {
+                        text-align: right;
+                    }
+                    .deadline-days {
+                        font-size: 48px;
+                        font-weight: 700;
+                        line-height: 1;
+                    }
+                    .deadline-label {
+                        font-size: 14px;
+                        opacity: 0.9;
+                    }
+
+                    /* Quick Actions */
+                    .quick-actions {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                        gap: 16px;
+                        margin-bottom: 24px;
+                    }
+                    .quick-action-btn {
+                        background: white;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 12px;
+                        padding: 20px 16px;
+                        text-align: center;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                    }
+                    .quick-action-btn:hover {
+                        border-color: #3b82f6;
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+                        transform: translateY(-2px);
+                    }
+                    .quick-action-icon {
+                        font-size: 28px;
+                        margin-bottom: 8px;
+                    }
+                    .quick-action-label {
+                        font-weight: 600;
+                        color: #374151;
+                        font-size: 14px;
+                    }
+                    .quick-action-desc {
+                        font-size: 11px;
+                        color: #6b7280;
+                        margin-top: 4px;
+                    }
+
+                    /* Penalty Warning */
+                    .penalty-warning {
+                        background: #fef2f2;
+                        border: 1px solid #fecaca;
+                        border-radius: 12px;
+                        padding: 16px 20px;
+                        margin-bottom: 24px;
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                    }
+                    .penalty-warning.hidden { display: none; }
+                    .penalty-warning-icon {
+                        font-size: 32px;
+                    }
+                    .penalty-warning-text {
+                        color: #991b1b;
+                        font-size: 14px;
+                    }
+                    .penalty-warning-text strong {
+                        color: #dc2626;
+                        font-size: 18px;
+                    }
+
+                    /* Metrics */
                     .metrics-row {
                         display: grid;
-                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                        gap: 20px;
-                        margin-bottom: 30px;
+                        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                        gap: 16px;
+                        margin-bottom: 24px;
                     }
                     .metric-card {
                         background: white;
                         border-radius: 12px;
-                        padding: 24px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                        padding: 20px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
                         text-align: center;
+                        border: 1px solid #f3f4f6;
                     }
                     .metric-value {
-                        font-size: 36px;
+                        font-size: 32px;
                         font-weight: 700;
-                        margin-bottom: 8px;
+                        margin-bottom: 4px;
                     }
                     .metric-label {
-                        font-size: 14px;
+                        font-size: 12px;
                         color: #6b7280;
                         text-transform: uppercase;
                         letter-spacing: 0.5px;
+                        font-weight: 500;
                     }
                     .metric-green { color: #059669; }
                     .metric-yellow { color: #d97706; }
                     .metric-red { color: #dc2626; }
                     .metric-blue { color: #2563eb; }
 
+                    /* Status Section */
                     .status-section {
                         background: white;
                         border-radius: 12px;
                         padding: 24px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                        margin-bottom: 20px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                        margin-bottom: 24px;
+                        border: 1px solid #f3f4f6;
                     }
                     .section-title {
-                        font-size: 18px;
+                        font-size: 16px;
                         font-weight: 600;
-                        margin-bottom: 20px;
+                        margin-bottom: 16px;
                         display: flex;
                         align-items: center;
-                        gap: 10px;
+                        gap: 8px;
+                        color: #374151;
                     }
                     .status-bar {
                         display: flex;
-                        height: 24px;
-                        border-radius: 12px;
+                        height: 28px;
+                        border-radius: 14px;
                         overflow: hidden;
-                        margin-bottom: 15px;
+                        margin-bottom: 12px;
+                        background: #f3f4f6;
                     }
                     .status-bar-segment {
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         font-size: 12px;
-                        font-weight: 500;
+                        font-weight: 600;
                         color: white;
-                        min-width: 40px;
+                        min-width: 50px;
                     }
                     .segment-green { background: #10b981; }
                     .segment-yellow { background: #f59e0b; }
                     .segment-red { background: #ef4444; }
+                    .segment-gray { background: #9ca3af; }
 
                     .status-legend {
                         display: flex;
@@ -117,7 +231,8 @@ class ComplianceDashboard {
                         display: flex;
                         align-items: center;
                         gap: 8px;
-                        font-size: 14px;
+                        font-size: 13px;
+                        color: #4b5563;
                     }
                     .legend-dot {
                         width: 12px;
@@ -125,11 +240,23 @@ class ComplianceDashboard {
                         border-radius: 50%;
                     }
 
+                    /* Two Column Layout */
+                    .two-column {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 24px;
+                    }
+                    @media (max-width: 900px) {
+                        .two-column { grid-template-columns: 1fr; }
+                    }
+
+                    /* Recent Section */
                     .recent-section {
                         background: white;
                         border-radius: 12px;
                         padding: 24px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                        border: 1px solid #f3f4f6;
                     }
                     .recent-list {
                         list-style: none;
@@ -159,31 +286,108 @@ class ComplianceDashboard {
                     .status-red { background: #ef4444; }
                     .status-gray { background: #9ca3af; }
 
+                    /* CSV Imports Section */
+                    .imports-section {
+                        background: white;
+                        border-radius: 12px;
+                        padding: 24px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                        border: 1px solid #f3f4f6;
+                    }
+                    .import-item {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 12px 0;
+                        border-bottom: 1px solid #f3f4f6;
+                    }
+                    .import-item:last-child { border-bottom: none; }
+                    .import-status {
+                        font-size: 12px;
+                        padding: 4px 10px;
+                        border-radius: 12px;
+                        font-weight: 500;
+                    }
+                    .import-status.completed { background: #d1fae5; color: #065f46; }
+                    .import-status.pending { background: #fef3c7; color: #92400e; }
+                    .import-status.failed { background: #fee2e2; color: #991b1b; }
+
+                    /* Empty State */
                     .empty-state {
                         text-align: center;
-                        padding: 60px 20px;
+                        padding: 40px 20px;
                         color: #6b7280;
                     }
                     .empty-state-icon {
-                        font-size: 48px;
-                        margin-bottom: 16px;
+                        font-size: 40px;
+                        margin-bottom: 12px;
                     }
                     .empty-state-title {
-                        font-size: 18px;
+                        font-size: 16px;
                         font-weight: 600;
-                        margin-bottom: 8px;
+                        margin-bottom: 4px;
                         color: #374151;
+                    }
+                    .empty-state-desc {
+                        font-size: 13px;
                     }
                 </style>
 
                 <div class="dashboard-header">
                     <div>
-                        <h3 style="margin:0;">UAE E-Invoice Compliance</h3>
-                        <p style="margin:0; color:#6b7280;">Monitor your PINT AE compliance status</p>
+                        <h3 style="margin:0; font-size: 24px; font-weight: 700; color: #111827;">UAE E-Invoice Compliance</h3>
+                        <p style="margin:4px 0 0 0; color:#6b7280; font-size: 14px;">Monitor your PINT AE compliance status</p>
                     </div>
                     <div class="company-selector"></div>
                 </div>
 
+                <!-- FTA Deadline Card -->
+                <div class="deadline-card" id="deadline-card">
+                    <div class="deadline-left">
+                        <h4>FTA Filing Deadline</h4>
+                        <div class="period" id="deadline-period">Loading...</div>
+                        <div class="date" id="deadline-date"></div>
+                    </div>
+                    <div class="deadline-right">
+                        <div class="deadline-days" id="deadline-days">-</div>
+                        <div class="deadline-label">days remaining</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="quick-action-btn" onclick="frappe.new_doc('Reconciliation Run')">
+                        <div class="quick-action-icon">🔄</div>
+                        <div class="quick-action-label">New Reconciliation</div>
+                        <div class="quick-action-desc">Match ERP vs ASP</div>
+                    </div>
+                    <div class="quick-action-btn" onclick="frappe.new_doc('CSV Import')">
+                        <div class="quick-action-icon">📤</div>
+                        <div class="quick-action-label">Upload CSV</div>
+                        <div class="quick-action-desc">Import ASP data</div>
+                    </div>
+                    <div class="quick-action-btn" onclick="frappe.set_route('List', 'Sales Invoice')">
+                        <div class="quick-action-icon">📄</div>
+                        <div class="quick-action-label">View Invoices</div>
+                        <div class="quick-action-desc">ERP Sales Invoices</div>
+                    </div>
+                    <div class="quick-action-btn" onclick="frappe.set_route('List', 'Reconciliation Run')">
+                        <div class="quick-action-icon">📊</div>
+                        <div class="quick-action-label">All Reconciliations</div>
+                        <div class="quick-action-desc">View history</div>
+                    </div>
+                </div>
+
+                <!-- Penalty Warning -->
+                <div class="penalty-warning hidden" id="penalty-warning">
+                    <div class="penalty-warning-icon">⚠️</div>
+                    <div class="penalty-warning-text">
+                        <strong id="penalty-amount">AED 0</strong> potential penalty exposure<br>
+                        <span id="penalty-desc">Based on unresolved mismatches and missing invoices</span>
+                    </div>
+                </div>
+
+                <!-- Metrics -->
                 <div class="metrics-row">
                     <div class="metric-card">
                         <div class="metric-value metric-blue" id="total-invoices">-</div>
@@ -207,12 +411,13 @@ class ComplianceDashboard {
                     </div>
                 </div>
 
+                <!-- Status Bar -->
                 <div class="status-section">
                     <div class="section-title">
                         <span>📊</span> Reconciliation Status
                     </div>
                     <div class="status-bar" id="status-bar">
-                        <div class="status-bar-segment segment-green" style="width:100%">No Data</div>
+                        <div class="status-bar-segment segment-gray" style="width:100%">No Data</div>
                     </div>
                     <div class="status-legend">
                         <div class="legend-item">
@@ -230,17 +435,33 @@ class ComplianceDashboard {
                     </div>
                 </div>
 
-                <div class="recent-section">
-                    <div class="section-title">
-                        <span>🕐</span> Recent Reconciliations
+                <!-- Two Column: Recent Runs & CSV Imports -->
+                <div class="two-column">
+                    <div class="recent-section">
+                        <div class="section-title">
+                            <span>🕐</span> Recent Reconciliations
+                        </div>
+                        <ul class="recent-list" id="recent-list">
+                            <li class="empty-state">
+                                <div class="empty-state-icon">📋</div>
+                                <div class="empty-state-title">No reconciliations yet</div>
+                                <div class="empty-state-desc">Click "New Reconciliation" to get started</div>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="recent-list" id="recent-list">
-                        <li class="empty-state">
-                            <div class="empty-state-icon">📋</div>
-                            <div class="empty-state-title">No reconciliations yet</div>
-                            <div>Click "New Reconciliation" to get started</div>
-                        </li>
-                    </ul>
+
+                    <div class="imports-section">
+                        <div class="section-title">
+                            <span>📁</span> Recent CSV Imports
+                        </div>
+                        <ul class="recent-list" id="imports-list">
+                            <li class="empty-state">
+                                <div class="empty-state-icon">📤</div>
+                                <div class="empty-state-title">No imports yet</div>
+                                <div class="empty-state-desc">Upload your ASP data CSV</div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         `);
@@ -271,9 +492,41 @@ class ComplianceDashboard {
                 }
             }
         });
+
+        // Also load recent CSV imports
+        this.load_csv_imports(company);
+    }
+
+    load_csv_imports(company) {
+        let filters = {};
+        if (company) {
+            filters.company = company;
+        }
+
+        frappe.call({
+            method: 'frappe.client.get_list',
+            args: {
+                doctype: 'CSV Import',
+                filters: filters,
+                fields: ['name', 'asp_provider', 'status', 'row_count', 'creation'],
+                order_by: 'creation desc',
+                limit_page_length: 5
+            },
+            callback: (r) => {
+                if (r.message) {
+                    this.update_imports_list(r.message);
+                }
+            }
+        });
     }
 
     update_dashboard(data) {
+        // Update FTA deadline
+        this.update_deadline(data.fta_deadline);
+
+        // Update penalty warning
+        this.update_penalty_warning(data.potential_penalty);
+
         // Update metrics
         $('#total-invoices').text(data.total_invoices || 0);
         $('#matched-count').text(data.matched_count || 0);
@@ -299,8 +552,39 @@ class ComplianceDashboard {
         this.update_recent_list(data.recent_runs || []);
     }
 
+    update_deadline(deadline) {
+        if (!deadline) return;
+
+        let card = $('#deadline-card');
+        card.removeClass('warning critical');
+        if (deadline.urgency === 'warning') {
+            card.addClass('warning');
+        } else if (deadline.urgency === 'critical') {
+            card.addClass('critical');
+        }
+
+        $('#deadline-period').text(deadline.reporting_period);
+        $('#deadline-date').text('Due: ' + deadline.deadline_date);
+        $('#deadline-days').text(deadline.days_remaining);
+    }
+
+    update_penalty_warning(penalty) {
+        let warning = $('#penalty-warning');
+        if (penalty && penalty > 0) {
+            warning.removeClass('hidden');
+            $('#penalty-amount').text('AED ' + penalty.toLocaleString());
+        } else {
+            warning.addClass('hidden');
+        }
+    }
+
     update_status_bar(data) {
-        let total = data.total_invoices || 1;
+        let total = data.total_invoices || 0;
+        if (total === 0) {
+            $('#status-bar').html('<div class="status-bar-segment segment-gray" style="width:100%">No Data</div>');
+            return;
+        }
+
         let matched = data.matched_count || 0;
         let mismatched = data.mismatched_count || 0;
         let missing = (data.missing_in_asp || 0) + (data.missing_in_erp || 0);
@@ -320,11 +604,7 @@ class ComplianceDashboard {
             html += `<div class="status-bar-segment segment-red" style="width:${missingPct}%">${missingPct}%</div>`;
         }
 
-        if (!html) {
-            html = '<div class="status-bar-segment segment-green" style="width:100%">No Data</div>';
-        }
-
-        $('#status-bar').html(html);
+        $('#status-bar').html(html || '<div class="status-bar-segment segment-gray" style="width:100%">No Data</div>');
     }
 
     update_recent_list(runs) {
@@ -347,14 +627,14 @@ class ComplianceDashboard {
                     <div class="recent-item-left">
                         <div class="status-indicator ${statusClass}"></div>
                         <div>
-                            <a href="/app/reconciliation-run/${run.name}">${run.name}</a>
+                            <a href="/app/reconciliation-run/${run.name}" style="font-weight:500; color:#2563eb;">${run.name}</a>
                             <div style="font-size:12px;color:#6b7280;">
-                                ${run.company} • ${run.posting_date}
+                                ${run.company} &bull; ${run.posting_date}
                             </div>
                         </div>
                     </div>
                     <div style="text-align:right;">
-                        <div style="font-weight:500;">${(run.match_percentage || 0).toFixed(1)}%</div>
+                        <div style="font-weight:600; font-size:16px;">${(run.match_percentage || 0).toFixed(1)}%</div>
                         <div style="font-size:12px;color:#6b7280;">${run.total_invoices || 0} invoices</div>
                     </div>
                 </li>
@@ -362,5 +642,28 @@ class ComplianceDashboard {
         }).join('');
 
         $('#recent-list').html(html);
+    }
+
+    update_imports_list(imports) {
+        if (!imports.length) {
+            return;
+        }
+
+        let html = imports.map(imp => {
+            let statusClass = imp.status.toLowerCase();
+            return `
+                <li class="import-item">
+                    <div>
+                        <a href="/app/csv-import/${imp.name}" style="font-weight:500; color:#2563eb;">${imp.name}</a>
+                        <div style="font-size:12px;color:#6b7280;">
+                            ${imp.asp_provider || 'Unknown'} &bull; ${imp.row_count || 0} rows
+                        </div>
+                    </div>
+                    <span class="import-status ${statusClass}">${imp.status}</span>
+                </li>
+            `;
+        }).join('');
+
+        $('#imports-list').html(html);
     }
 }
