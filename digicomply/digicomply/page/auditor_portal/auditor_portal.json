@@ -1,0 +1,14 @@
+{
+    "name": "auditor_portal",
+    "module": "DigiComply",
+    "doctype": "Page",
+    "page_name": "auditor_portal",
+    "title": "Auditor Portal",
+    "icon": "fa fa-shield",
+    "standard": "Yes",
+    "roles": [
+        {"role": "External Auditor"},
+        {"role": "System Manager"},
+        {"role": "DigiComply Admin"}
+    ]
+}

@@ -1,0 +1,329 @@
+{
+    "name": "Archive Storage",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 1,
+    "engine": "InnoDB",
+    "naming_rule": "Set by user",
+    "title_field": "storage_name",
+    "search_fields": "storage_name,storage_type,storage_tier",
+    "sort_field": "creation",
+    "sort_order": "ASC",
+    "description": "Configuration for archive storage locations",
+    "fields": [
+        {
+            "fieldname": "storage_section",
+            "fieldtype": "Section Break",
+            "label": "Storage Configuration",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "storage_name",
+            "fieldtype": "Data",
+            "label": "Storage Name",
+            "reqd": 1,
+            "unique": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "storage_type",
+            "fieldtype": "Select",
+            "label": "Storage Type",
+            "options": "Local\nS3 Compatible\nAzure Blob\nGoogle Cloud Storage\nSFTP",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "storage_tier",
+            "fieldtype": "Select",
+            "label": "Storage Tier",
+            "options": "Hot\nWarm\nCold\nDeep Archive",
+            "default": "Hot",
+            "in_list_view": 1,
+            "description": "Hot=Frequent access, Cold=Rare access, Deep=Almost never"
+        },
+        {
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "label": "Enabled",
+            "default": "1"
+        },
+        {
+            "fieldname": "is_default",
+            "fieldtype": "Check",
+            "label": "Is Default Storage",
+            "default": "0"
+        },
+        {
+            "fieldname": "local_section",
+            "fieldtype": "Section Break",
+            "label": "Local Storage Settings",
+            "depends_on": "eval:doc.storage_type=='Local'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "local_path",
+            "fieldtype": "Data",
+            "label": "Local Path",
+            "description": "Absolute path to storage directory"
+        },
+        {
+            "fieldname": "s3_section",
+            "fieldtype": "Section Break",
+            "label": "S3 Compatible Settings",
+            "depends_on": "eval:doc.storage_type=='S3 Compatible'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "s3_endpoint",
+            "fieldtype": "Data",
+            "label": "S3 Endpoint URL",
+            "description": "e.g., https://s3.amazonaws.com or custom endpoint"
+        },
+        {
+            "fieldname": "s3_bucket",
+            "fieldtype": "Data",
+            "label": "Bucket Name"
+        },
+        {
+            "fieldname": "s3_region",
+            "fieldtype": "Data",
+            "label": "Region",
+            "default": "us-east-1"
+        },
+        {
+            "fieldname": "column_break_s3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "s3_access_key",
+            "fieldtype": "Data",
+            "label": "Access Key ID"
+        },
+        {
+            "fieldname": "s3_secret_key",
+            "fieldtype": "Password",
+            "label": "Secret Access Key"
+        },
+        {
+            "fieldname": "s3_prefix",
+            "fieldtype": "Data",
+            "label": "Path Prefix",
+            "description": "Optional prefix for all archived files"
+        },
+        {
+            "fieldname": "azure_section",
+            "fieldtype": "Section Break",
+            "label": "Azure Blob Settings",
+            "depends_on": "eval:doc.storage_type=='Azure Blob'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "azure_connection_string",
+            "fieldtype": "Password",
+            "label": "Connection String"
+        },
+        {
+            "fieldname": "azure_container",
+            "fieldtype": "Data",
+            "label": "Container Name"
+        },
+        {
+            "fieldname": "azure_prefix",
+            "fieldtype": "Data",
+            "label": "Path Prefix"
+        },
+        {
+            "fieldname": "gcs_section",
+            "fieldtype": "Section Break",
+            "label": "Google Cloud Storage Settings",
+            "depends_on": "eval:doc.storage_type=='Google Cloud Storage'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "gcs_project",
+            "fieldtype": "Data",
+            "label": "Project ID"
+        },
+        {
+            "fieldname": "gcs_bucket",
+            "fieldtype": "Data",
+            "label": "Bucket Name"
+        },
+        {
+            "fieldname": "gcs_credentials",
+            "fieldtype": "Code",
+            "label": "Service Account JSON",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "sftp_section",
+            "fieldtype": "Section Break",
+            "label": "SFTP Settings",
+            "depends_on": "eval:doc.storage_type=='SFTP'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "sftp_host",
+            "fieldtype": "Data",
+            "label": "SFTP Host"
+        },
+        {
+            "fieldname": "sftp_port",
+            "fieldtype": "Int",
+            "label": "Port",
+            "default": "22"
+        },
+        {
+            "fieldname": "sftp_username",
+            "fieldtype": "Data",
+            "label": "Username"
+        },
+        {
+            "fieldname": "column_break_sftp",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "sftp_password",
+            "fieldtype": "Password",
+            "label": "Password"
+        },
+        {
+            "fieldname": "sftp_key",
+            "fieldtype": "Code",
+            "label": "SSH Private Key"
+        },
+        {
+            "fieldname": "sftp_path",
+            "fieldtype": "Data",
+            "label": "Remote Path"
+        },
+        {
+            "fieldname": "options_section",
+            "fieldtype": "Section Break",
+            "label": "Storage Options",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "compression_enabled",
+            "fieldtype": "Check",
+            "label": "Enable Compression",
+            "default": "1"
+        },
+        {
+            "fieldname": "compression_level",
+            "fieldtype": "Select",
+            "label": "Compression Level",
+            "options": "Fast\nBalanced\nMaximum",
+            "default": "Balanced",
+            "depends_on": "compression_enabled"
+        },
+        {
+            "fieldname": "column_break_opt",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "encryption_enabled",
+            "fieldtype": "Check",
+            "label": "Enable Encryption",
+            "default": "1"
+        },
+        {
+            "fieldname": "encryption_key",
+            "fieldtype": "Password",
+            "label": "Encryption Key",
+            "depends_on": "encryption_enabled",
+            "description": "AES-256 encryption key (will be auto-generated if empty)"
+        },
+        {
+            "fieldname": "capacity_section",
+            "fieldtype": "Section Break",
+            "label": "Capacity & Limits",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "max_size_gb",
+            "fieldtype": "Float",
+            "label": "Max Size (GB)",
+            "description": "Maximum storage size in GB (0 = unlimited)"
+        },
+        {
+            "fieldname": "current_size_gb",
+            "fieldtype": "Float",
+            "label": "Current Size (GB)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_cap",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "document_count",
+            "fieldtype": "Int",
+            "label": "Document Count",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_archive_date",
+            "fieldtype": "Datetime",
+            "label": "Last Archive Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "status_section",
+            "fieldtype": "Section Break",
+            "label": "Status",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "connection_status",
+            "fieldtype": "Select",
+            "label": "Connection Status",
+            "options": "Unknown\nConnected\nFailed\nConfiguration Error",
+            "default": "Unknown",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_connection_test",
+            "fieldtype": "Datetime",
+            "label": "Last Connection Test",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_error",
+            "fieldtype": "Small Text",
+            "label": "Last Error",
+            "read_only": 1
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        }
+    ],
+    "links": [],
+    "actions": [],
+    "default_print_format": "",
+    "show_preview_popup": 0,
+    "make_attachments_public": 0
+}

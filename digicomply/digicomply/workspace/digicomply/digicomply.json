@@ -1,6 +1,6 @@
 {
   "charts": [],
-  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Score\",\"col\":3}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bulk Import Center\",\"col\":3}},{\"id\":\"sc5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Multi-Company Reconciliation\",\"col\":3}},{\"id\":\"sc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Health Center\",\"col\":3}},{\"id\":\"sc7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Calendar\",\"col\":3}},{\"id\":\"sc8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Return\",\"col\":3}},{\"id\":\"sc9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Adjustment\",\"col\":3}},{\"id\":\"sc10\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Blacklist\",\"col\":3}},{\"id\":\"sc11\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tax Category Rule\",\"col\":3}},{\"id\":\"sc12\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Penalty Calculator\",\"col\":3}},{\"id\":\"sc13\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sync Dashboard\",\"col\":3}}]",
+  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Analytics\",\"col\":3}}]",
   "creation": "2026-02-16 00:00:00.000000",
   "docstatus": 0,
   "doctype": "Workspace",
@@ -14,7 +14,96 @@
     {
       "hidden": 0,
       "is_query_report": 0,
-      "label": "Quick Actions",
+      "label": "Compliance",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance Dashboard",
+      "link_count": 0,
+      "link_to": "compliance_dashboard",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance Analytics",
+      "link_count": 0,
+      "link_to": "compliance_analytics",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance Score Dashboard",
+      "link_count": 0,
+      "link_to": "compliance_score_dashboard",
+      "link_type": "Page",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Reconciliation Run",
+      "link_count": 0,
+      "link_to": "Reconciliation Run",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "CSV Import",
+      "link_count": 0,
+      "link_to": "CSV Import",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Mismatch Report",
+      "link_count": 0,
+      "link_to": "Mismatch Report",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance Score",
+      "link_count": 0,
+      "link_to": "Compliance Score",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Score History",
+      "link_count": 0,
+      "link_to": "Score History",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Bulk Operations",
       "link_count": 0,
       "link_type": "DocType",
       "onboard": 0,
@@ -35,7 +124,7 @@
       "is_query_report": 0,
       "label": "Multi-Company Reconciliation",
       "link_count": 0,
-      "link_to": "multi_company_reconciliation",
+      "link_to": "multi_company_recon",
       "link_type": "Page",
       "onboard": 1,
       "type": "Link"
@@ -43,7 +132,27 @@
     {
       "hidden": 0,
       "is_query_report": 0,
-      "label": "Compliance",
+      "label": "Bulk Import Log",
+      "link_count": 0,
+      "link_to": "Bulk Import Log",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Import Template",
+      "link_count": 0,
+      "link_to": "Import Template",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "TRN & Company",
       "link_count": 0,
       "link_type": "DocType",
       "onboard": 0,
@@ -52,11 +161,110 @@
     {
       "hidden": 0,
       "is_query_report": 0,
-      "label": "Compliance Score Dashboard",
+      "label": "TRN Health Center",
       "link_count": 0,
-      "link_to": "compliance-score-dashboard",
+      "link_to": "trn_health_center",
       "link_type": "Page",
       "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "TRN Registry",
+      "link_count": 0,
+      "link_to": "TRN Registry",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "TRN Validation Log",
+      "link_count": 0,
+      "link_to": "TRN Validation Log",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "TRN Blacklist",
+      "link_count": 0,
+      "link_to": "TRN Blacklist",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Company Group",
+      "link_count": 0,
+      "link_to": "Company Group",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "VAT Compliance",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance Calendar",
+      "link_count": 0,
+      "link_to": "compliance_calendar",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "VAT Return",
+      "link_count": 0,
+      "link_to": "VAT Return",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "VAT Adjustment",
+      "link_count": 0,
+      "link_to": "VAT Adjustment",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Tax Category Rule",
+      "link_count": 0,
+      "link_to": "Tax Category Rule",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Filing Status",
+      "link_count": 0,
+      "link_to": "Filing Status",
+      "link_type": "DocType",
+      "onboard": 0,
       "type": "Link"
     },
     {
@@ -64,27 +272,7 @@
       "is_query_report": 0,
       "label": "Penalty Calculator",
       "link_count": 0,
-      "link_to": "penalty-calculator",
-      "link_type": "Page",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Compliance Onboarding",
-      "link_count": 0,
-      "link_to": "compliance-onboarding",
-      "link_type": "Page",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Compliance Dashboard",
-      "link_count": 0,
-      "link_to": "compliance_dashboard",
+      "link_to": "penalty_calculator",
       "link_type": "Page",
       "onboard": 0,
       "type": "Link"
@@ -103,7 +291,7 @@
       "is_query_report": 0,
       "label": "E-Invoice",
       "link_count": 0,
-      "link_to": "E-Invoice",
+      "link_to": "E Invoice",
       "link_type": "DocType",
       "onboard": 1,
       "type": "Link"
@@ -113,9 +301,9 @@
       "is_query_report": 0,
       "label": "E-Invoice Settings",
       "link_count": 0,
-      "link_to": "E-Invoice Settings",
+      "link_to": "E Invoice Settings",
       "link_type": "DocType",
-      "onboard": 1,
+      "onboard": 0,
       "type": "Link"
     },
     {
@@ -141,125 +329,7 @@
     {
       "hidden": 0,
       "is_query_report": 0,
-      "label": "Reconciliation Run",
-      "link_count": 0,
-      "link_to": "Reconciliation Run",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "CSV Import",
-      "link_count": 0,
-      "link_to": "CSV Import",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Mismatch Report",
-      "link_count": 0,
-      "link_to": "Mismatch Report",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "VAT Compliance",
-      "link_count": 0,
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Card Break"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "VAT Return",
-      "link_count": 0,
-      "link_to": "VAT Return",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "VAT Adjustment",
-      "link_count": 0,
-      "link_to": "VAT Adjustment",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Tax Category Rule",
-      "link_count": 0,
-      "link_to": "Tax Category Rule",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Compliance Calendar",
-      "link_count": 0,
-      "link_to": "compliance_calendar",
-      "link_type": "Page",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Filing Status",
-      "link_count": 0,
-      "link_to": "Filing Status",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Reports",
-      "link_count": 0,
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Card Break"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 1,
-      "label": "TRN Health Report",
-      "link_count": 0,
-      "link_to": "TRN Health Report",
-      "link_type": "Report",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 1,
-      "label": "VAT Liability Report",
-      "link_count": 0,
-      "link_to": "VAT Liability Report",
-      "link_type": "Report",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "ASP Connections",
+      "label": "ASP Integrations",
       "link_count": 0,
       "link_type": "DocType",
       "onboard": 0,
@@ -270,7 +340,7 @@
       "is_query_report": 0,
       "label": "Sync Dashboard",
       "link_count": 0,
-      "link_to": "sync-dashboard",
+      "link_to": "sync_dashboard",
       "link_type": "Page",
       "onboard": 1,
       "type": "Link"
@@ -302,7 +372,7 @@
       "link_count": 0,
       "link_to": "Sync Schedule",
       "link_type": "DocType",
-      "onboard": 1,
+      "onboard": 0,
       "type": "Link"
     },
     {
@@ -328,9 +398,205 @@
     {
       "hidden": 0,
       "is_query_report": 0,
+      "label": "Field Mapping",
+      "link_count": 0,
+      "link_to": "Field Mapping",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
       "label": "Transform Rule",
       "link_count": 0,
       "link_to": "Transform Rule",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit & Archive",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit Log",
+      "link_count": 0,
+      "link_to": "Audit Log",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Document Snapshot",
+      "link_count": 0,
+      "link_to": "Document Snapshot",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "User Session Log",
+      "link_count": 0,
+      "link_to": "User Session Log",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Document Archive",
+      "link_count": 0,
+      "link_to": "Document Archive",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Archive Storage",
+      "link_count": 0,
+      "link_to": "Archive Storage",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Archive Retrieval Log",
+      "link_count": 0,
+      "link_to": "Archive Retrieval Log",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "FTA Reports",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "FTA Report",
+      "link_count": 0,
+      "link_to": "FTA Report",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Report Schedule",
+      "link_count": 0,
+      "link_to": "Report Schedule",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Auditor Portal",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Auditor Portal",
+      "link_count": 0,
+      "link_to": "auditor_portal",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Auditor Access",
+      "link_count": 0,
+      "link_to": "Auditor Access",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit Request",
+      "link_count": 0,
+      "link_to": "Audit Request",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit Response",
+      "link_count": 0,
+      "link_to": "Audit Response",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Data Governance",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Retention Policy",
+      "link_count": 0,
+      "link_to": "Retention Policy",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Legal Hold",
+      "link_count": 0,
+      "link_to": "Legal Hold",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Purge Log",
+      "link_count": 0,
+      "link_to": "Purge Log",
       "link_type": "DocType",
       "onboard": 0,
       "type": "Link"
@@ -357,89 +623,10 @@
     {
       "hidden": 0,
       "is_query_report": 0,
-      "label": "Compliance Score",
+      "label": "Compliance Onboarding",
       "link_count": 0,
-      "link_to": "Compliance Score",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Score History",
-      "link_count": 0,
-      "link_to": "Score History",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Calculator Submissions",
-      "link_count": 0,
-      "link_to": "Calculator Submission",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Master Data",
-      "link_count": 0,
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Card Break"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "TRN Registry",
-      "link_count": 0,
-      "link_to": "TRN Registry",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "TRN Blacklist",
-      "link_count": 0,
-      "link_to": "TRN Blacklist",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Company Groups",
-      "link_count": 0,
-      "link_to": "Company Groups",
-      "link_type": "DocType",
-      "onboard": 1,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Import Templates",
-      "link_count": 0,
-      "link_to": "Import Templates",
-      "link_type": "DocType",
-      "onboard": 0,
-      "type": "Link"
-    },
-    {
-      "hidden": 0,
-      "is_query_report": 0,
-      "label": "Bulk Import Logs",
-      "link_count": 0,
-      "link_to": "Bulk Import Logs",
-      "link_type": "DocType",
+      "link_to": "compliance_onboarding",
+      "link_type": "Page",
       "onboard": 0,
       "type": "Link"
     }
@@ -456,21 +643,21 @@
   "sequence_id": 1,
   "shortcuts": [
     {
-      "color": "Purple",
+      "color": "Blue",
       "doc_view": "List",
       "label": "New Reconciliation",
       "link_to": "Reconciliation Run",
       "type": "DocType"
     },
     {
-      "color": "Purple",
+      "color": "Green",
       "doc_view": "List",
       "label": "Import CSV",
       "link_to": "CSV Import",
       "type": "DocType"
     },
     {
-      "color": "Purple",
+      "color": "Orange",
       "doc_view": "",
       "label": "Dashboard",
       "link_to": "compliance_dashboard",
@@ -479,85 +666,15 @@
     {
       "color": "Purple",
       "doc_view": "",
-      "label": "Bulk Import Center",
-      "link_to": "bulk_import_center",
+      "label": "Analytics",
+      "link_to": "compliance_analytics",
       "type": "Page"
     },
     {
-      "color": "Purple",
-      "doc_view": "",
-      "label": "Multi-Company Reconciliation",
-      "link_to": "multi_company_reconciliation",
-      "type": "Page"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "",
-      "label": "TRN Health Center",
-      "link_to": "trn_health_center",
-      "type": "Page"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "",
-      "label": "Compliance Calendar",
-      "link_to": "compliance_calendar",
-      "type": "Page"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "List",
-      "label": "VAT Return",
-      "link_to": "VAT Return",
-      "type": "DocType"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "List",
-      "label": "VAT Adjustment",
-      "link_to": "VAT Adjustment",
-      "type": "DocType"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "List",
-      "label": "TRN Blacklist",
-      "link_to": "TRN Blacklist",
-      "type": "DocType"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "List",
-      "label": "Tax Category Rule",
-      "link_to": "Tax Category Rule",
-      "type": "DocType"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "",
-      "label": "Compliance Score",
-      "link_to": "compliance-score-dashboard",
-      "type": "Page"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "",
-      "label": "Penalty Calculator",
-      "link_to": "penalty-calculator",
-      "type": "Page"
-    },
-    {
-      "color": "Purple",
-      "doc_view": "",
-      "label": "Get Started",
-      "link_to": "compliance-onboarding",
-      "type": "Page"
-    },
-    {
-      "color": "Purple",
+      "color": "Yellow",
       "doc_view": "",
       "label": "Sync Dashboard",
-      "link_to": "sync-dashboard",
+      "link_to": "sync_dashboard",
       "type": "Page"
     }
   ],

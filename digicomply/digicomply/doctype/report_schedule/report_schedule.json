@@ -1,0 +1,276 @@
+{
+    "name": "Report Schedule",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 1,
+    "engine": "InnoDB",
+    "naming_rule": "Expression",
+    "autoname": "SCHED-.report_type.-.#####",
+    "title_field": "schedule_name",
+    "search_fields": "schedule_name,report_type,company",
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "description": "Automated report generation schedules",
+    "fields": [
+        {
+            "fieldname": "schedule_section",
+            "fieldtype": "Section Break",
+            "label": "Schedule Details",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "schedule_name",
+            "fieldtype": "Data",
+            "label": "Schedule Name",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "label": "Enabled",
+            "default": "1",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "report_type",
+            "fieldtype": "Select",
+            "label": "Report Type",
+            "options": "VAT 201\nVAT 301\nVAT Audit File (FAF)\nTransaction Listing\nExempt Supply Report\nReconciliation Summary\nTRN Health Report\nCompliance Score Report",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "frequency_section",
+            "fieldtype": "Section Break",
+            "label": "Frequency",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "frequency",
+            "fieldtype": "Select",
+            "label": "Frequency",
+            "options": "Daily\nWeekly\nMonthly\nQuarterly\nAnnually",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "day_of_week",
+            "fieldtype": "Select",
+            "label": "Day of Week",
+            "options": "\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+            "depends_on": "eval:doc.frequency=='Weekly'"
+        },
+        {
+            "fieldname": "day_of_month",
+            "fieldtype": "Int",
+            "label": "Day of Month",
+            "description": "1-28 (use 28 for end of month)",
+            "depends_on": "eval:['Monthly', 'Quarterly', 'Annually'].includes(doc.frequency)"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "time_of_day",
+            "fieldtype": "Time",
+            "label": "Time of Day",
+            "default": "06:00:00",
+            "description": "Time to generate report (server timezone)"
+        },
+        {
+            "fieldname": "quarter_months",
+            "fieldtype": "Select",
+            "label": "Quarter Months",
+            "options": "\nJan, Apr, Jul, Oct\nFeb, May, Aug, Nov\nMar, Jun, Sep, Dec",
+            "depends_on": "eval:doc.frequency=='Quarterly'"
+        },
+        {
+            "fieldname": "period_section",
+            "fieldtype": "Section Break",
+            "label": "Report Period",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "period_type",
+            "fieldtype": "Select",
+            "label": "Period Type",
+            "options": "Previous Day\nPrevious Week\nPrevious Month\nPrevious Quarter\nPrevious Year\nMonth to Date\nQuarter to Date\nYear to Date",
+            "default": "Previous Month"
+        },
+        {
+            "fieldname": "custom_days_back",
+            "fieldtype": "Int",
+            "label": "Days Back",
+            "description": "Custom number of days to include",
+            "depends_on": "eval:doc.period_type=='Custom'"
+        },
+        {
+            "fieldname": "delivery_section",
+            "fieldtype": "Section Break",
+            "label": "Delivery Options",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "auto_email",
+            "fieldtype": "Check",
+            "label": "Auto Email Report",
+            "default": "1"
+        },
+        {
+            "fieldname": "email_recipients",
+            "fieldtype": "Small Text",
+            "label": "Email Recipients",
+            "description": "Comma-separated email addresses",
+            "depends_on": "auto_email"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "email_subject",
+            "fieldtype": "Data",
+            "label": "Email Subject",
+            "depends_on": "auto_email",
+            "description": "Use {report_type}, {company}, {period} as placeholders"
+        },
+        {
+            "fieldname": "attach_pdf",
+            "fieldtype": "Check",
+            "label": "Attach PDF",
+            "default": "1",
+            "depends_on": "auto_email"
+        },
+        {
+            "fieldname": "attach_excel",
+            "fieldtype": "Check",
+            "label": "Attach Excel",
+            "default": "0",
+            "depends_on": "auto_email"
+        },
+        {
+            "fieldname": "storage_section",
+            "fieldtype": "Section Break",
+            "label": "Storage Options",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "auto_archive",
+            "fieldtype": "Check",
+            "label": "Auto Archive",
+            "default": "1"
+        },
+        {
+            "fieldname": "retention_days",
+            "fieldtype": "Int",
+            "label": "Retention Days",
+            "default": "365",
+            "description": "Days to keep generated reports (0 = forever)"
+        },
+        {
+            "fieldname": "execution_section",
+            "fieldtype": "Section Break",
+            "label": "Execution Status",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "last_run",
+            "fieldtype": "Datetime",
+            "label": "Last Run",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_run_status",
+            "fieldtype": "Select",
+            "label": "Last Run Status",
+            "options": "\nSuccess\nFailed\nPartial",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_report",
+            "fieldtype": "Link",
+            "label": "Last Report Generated",
+            "options": "FTA Report",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "next_run",
+            "fieldtype": "Datetime",
+            "label": "Next Run",
+            "read_only": 1
+        },
+        {
+            "fieldname": "run_count",
+            "fieldtype": "Int",
+            "label": "Total Runs",
+            "default": "0",
+            "read_only": 1
+        },
+        {
+            "fieldname": "error_count",
+            "fieldtype": "Int",
+            "label": "Error Count",
+            "default": "0",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_error",
+            "fieldtype": "Small Text",
+            "label": "Last Error",
+            "read_only": 1
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        },
+        {
+            "role": "Compliance Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        }
+    ],
+    "links": [],
+    "actions": [],
+    "default_print_format": "",
+    "show_preview_popup": 0,
+    "make_attachments_public": 0
+}
