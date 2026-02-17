@@ -1,0 +1,237 @@
+{
+    "name": "Archive Retrieval Log",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 0,
+    "engine": "InnoDB",
+    "naming_rule": "Expression",
+    "autoname": "RETR-.YYYY.-.######",
+    "title_field": "document_name",
+    "search_fields": "document_type,document_name,retrieved_by",
+    "sort_field": "retrieval_time",
+    "sort_order": "DESC",
+    "description": "Track all archive retrieval requests for audit compliance",
+    "fields": [
+        {
+            "fieldname": "retrieval_section",
+            "fieldtype": "Section Break",
+            "label": "Retrieval Details",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "document_archive",
+            "fieldtype": "Link",
+            "label": "Document Archive",
+            "options": "Document Archive",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "document_type",
+            "fieldtype": "Link",
+            "label": "Document Type",
+            "options": "DocType",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "document_name",
+            "fieldtype": "Dynamic Link",
+            "label": "Document Name",
+            "options": "document_type",
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "retrieval_time",
+            "fieldtype": "Datetime",
+            "label": "Retrieval Time",
+            "reqd": 1,
+            "in_list_view": 1,
+            "default": "Now"
+        },
+        {
+            "fieldname": "retrieved_by",
+            "fieldtype": "Link",
+            "label": "Retrieved By",
+            "options": "User",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "reason_section",
+            "fieldtype": "Section Break",
+            "label": "Reason & Purpose",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "retrieval_reason",
+            "fieldtype": "Select",
+            "label": "Retrieval Reason",
+            "options": "\nAudit Request\nInternal Review\nCustomer Request\nLegal Requirement\nData Verification\nReport Generation\nOther",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "retrieval_purpose",
+            "fieldtype": "Small Text",
+            "label": "Detailed Purpose",
+            "description": "Detailed explanation for retrieval"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "reference_number",
+            "fieldtype": "Data",
+            "label": "Reference Number",
+            "description": "Audit case number, ticket number, etc."
+        },
+        {
+            "fieldname": "authorized_by",
+            "fieldtype": "Link",
+            "label": "Authorized By",
+            "options": "User",
+            "description": "Manager/supervisor who authorized retrieval"
+        },
+        {
+            "fieldname": "context_section",
+            "fieldtype": "Section Break",
+            "label": "Context",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "label": "Company",
+            "options": "Company",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "fiscal_year",
+            "fieldtype": "Data",
+            "label": "Fiscal Year"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "ip_address",
+            "fieldtype": "Data",
+            "label": "IP Address"
+        },
+        {
+            "fieldname": "session_id",
+            "fieldtype": "Data",
+            "label": "Session ID"
+        },
+        {
+            "fieldname": "result_section",
+            "fieldtype": "Section Break",
+            "label": "Retrieval Result",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "retrieval_status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Success\nFailed\nPartial",
+            "default": "Success"
+        },
+        {
+            "fieldname": "retrieval_duration_ms",
+            "fieldtype": "Int",
+            "label": "Duration (ms)"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "data_size_bytes",
+            "fieldtype": "Int",
+            "label": "Data Size (bytes)"
+        },
+        {
+            "fieldname": "error_message",
+            "fieldtype": "Small Text",
+            "label": "Error Message",
+            "depends_on": "eval:doc.retrieval_status=='Failed'"
+        },
+        {
+            "fieldname": "actions_section",
+            "fieldtype": "Section Break",
+            "label": "Actions Taken",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "data_exported",
+            "fieldtype": "Check",
+            "label": "Data Exported",
+            "default": "0"
+        },
+        {
+            "fieldname": "data_printed",
+            "fieldtype": "Check",
+            "label": "Data Printed",
+            "default": "0"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "data_shared",
+            "fieldtype": "Check",
+            "label": "Data Shared",
+            "default": "0"
+        },
+        {
+            "fieldname": "shared_with",
+            "fieldtype": "Small Text",
+            "label": "Shared With",
+            "depends_on": "data_shared"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 0,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 0,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "External Auditor",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "export": 1
+        }
+    ],
+    "links": [],
+    "actions": [],
+    "default_print_format": "",
+    "show_preview_popup": 0,
+    "make_attachments_public": 0
+}

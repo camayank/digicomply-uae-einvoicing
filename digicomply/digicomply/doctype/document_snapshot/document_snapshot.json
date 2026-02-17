@@ -1,0 +1,226 @@
+{
+    "name": "Document Snapshot",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 0,
+    "engine": "InnoDB",
+    "naming_rule": "Expression",
+    "autoname": "SNAP-.YYYY.-.######",
+    "title_field": "document_name",
+    "search_fields": "document_type,document_name,snapshot_type",
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "description": "Point-in-time document state snapshots for audit compliance",
+    "fields": [
+        {
+            "fieldname": "document_section",
+            "fieldtype": "Section Break",
+            "label": "Document Reference",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "document_type",
+            "fieldtype": "Link",
+            "label": "Document Type",
+            "options": "DocType",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "document_name",
+            "fieldtype": "Dynamic Link",
+            "label": "Document Name",
+            "options": "document_type",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "snapshot_type",
+            "fieldtype": "Select",
+            "label": "Snapshot Type",
+            "options": "Before Change\nAfter Change\nSubmission\nCancellation\nAmendment\nManual\nArchival",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "snapshot_timestamp",
+            "fieldtype": "Datetime",
+            "label": "Snapshot Timestamp",
+            "reqd": 1,
+            "in_list_view": 1,
+            "default": "Now"
+        },
+        {
+            "fieldname": "context_section",
+            "fieldtype": "Section Break",
+            "label": "Context",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "triggered_by",
+            "fieldtype": "Link",
+            "label": "Triggered By User",
+            "options": "User"
+        },
+        {
+            "fieldname": "trigger_event",
+            "fieldtype": "Data",
+            "label": "Trigger Event",
+            "description": "Event that triggered this snapshot"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "label": "Company",
+            "options": "Company",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "related_audit_log",
+            "fieldtype": "Link",
+            "label": "Related Audit Log",
+            "options": "Audit Log"
+        },
+        {
+            "fieldname": "document_data_section",
+            "fieldtype": "Section Break",
+            "label": "Document Data",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "document_data",
+            "fieldtype": "Code",
+            "label": "Document Data (JSON)",
+            "options": "JSON",
+            "reqd": 1,
+            "description": "Complete document state in JSON format"
+        },
+        {
+            "fieldname": "child_tables_data",
+            "fieldtype": "Code",
+            "label": "Child Tables Data (JSON)",
+            "options": "JSON",
+            "description": "Child table data in JSON format"
+        },
+        {
+            "fieldname": "attachments_section",
+            "fieldtype": "Section Break",
+            "label": "Attachments",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "attachments_list",
+            "fieldtype": "Code",
+            "label": "Attachments List (JSON)",
+            "options": "JSON",
+            "description": "List of attached files at snapshot time"
+        },
+        {
+            "fieldname": "signed_document",
+            "fieldtype": "Attach",
+            "label": "Signed Document",
+            "description": "Signed PDF if available"
+        },
+        {
+            "fieldname": "integrity_section",
+            "fieldtype": "Section Break",
+            "label": "Integrity",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "content_hash",
+            "fieldtype": "Data",
+            "label": "Content Hash",
+            "read_only": 1,
+            "description": "SHA-256 hash of document data for integrity"
+        },
+        {
+            "fieldname": "document_version",
+            "fieldtype": "Int",
+            "label": "Document Version",
+            "description": "Version number at snapshot time"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "is_archived",
+            "fieldtype": "Check",
+            "label": "Archived",
+            "default": "0"
+        },
+        {
+            "fieldname": "archive_reference",
+            "fieldtype": "Link",
+            "label": "Archive Reference",
+            "options": "Document Archive",
+            "depends_on": "is_archived"
+        },
+        {
+            "fieldname": "comparison_section",
+            "fieldtype": "Section Break",
+            "label": "Comparison",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "previous_snapshot",
+            "fieldtype": "Link",
+            "label": "Previous Snapshot",
+            "options": "Document Snapshot"
+        },
+        {
+            "fieldname": "changes_from_previous",
+            "fieldtype": "Code",
+            "label": "Changes from Previous",
+            "options": "JSON",
+            "description": "Diff showing changes from previous snapshot"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 0,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 0,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "External Auditor",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "export": 1
+        }
+    ],
+    "links": [],
+    "actions": [],
+    "default_print_format": "",
+    "show_preview_popup": 0,
+    "make_attachments_public": 0
+}

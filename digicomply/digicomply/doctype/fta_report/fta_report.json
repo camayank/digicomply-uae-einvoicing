@@ -1,0 +1,436 @@
+{
+    "name": "FTA Report",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 1,
+    "engine": "InnoDB",
+    "naming_rule": "Expression",
+    "autoname": "FTA-.report_type.-.YYYY.-.#####",
+    "title_field": "report_title",
+    "search_fields": "report_type,company,tax_period",
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "description": "UAE FTA compliant reports (VAT 201, VAT 301, FAF)",
+    "fields": [
+        {
+            "fieldname": "report_section",
+            "fieldtype": "Section Break",
+            "label": "Report Details",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "report_type",
+            "fieldtype": "Select",
+            "label": "Report Type",
+            "options": "VAT 201\nVAT 301\nVAT Audit File (FAF)\nTransaction Listing\nExempt Supply Report\nImport Export Report\nRelated Party Report\nTRN Health Report\nReconciliation Summary",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "report_title",
+            "fieldtype": "Data",
+            "label": "Report Title",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Draft\nGenerated\nReviewed\nSubmitted\nArchived",
+            "default": "Draft",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "generation_date",
+            "fieldtype": "Datetime",
+            "label": "Generation Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "period_section",
+            "fieldtype": "Section Break",
+            "label": "Reporting Period",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "trn",
+            "fieldtype": "Data",
+            "label": "TRN",
+            "description": "Tax Registration Number"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "tax_period",
+            "fieldtype": "Select",
+            "label": "Tax Period",
+            "options": "Monthly\nQuarterly\nAnnual\nCustom",
+            "default": "Monthly",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "from_date",
+            "fieldtype": "Date",
+            "label": "From Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "to_date",
+            "fieldtype": "Date",
+            "label": "To Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "vat_201_section",
+            "fieldtype": "Section Break",
+            "label": "VAT 201 Return Data",
+            "depends_on": "eval:doc.report_type=='VAT 201'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "box1a_standard_rated",
+            "fieldtype": "Currency",
+            "label": "Box 1a: Standard Rated Supplies (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box1a_vat",
+            "fieldtype": "Currency",
+            "label": "Box 1a: VAT on Standard Rated",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box1b_tax_refund_supplies",
+            "fieldtype": "Currency",
+            "label": "Box 1b: Tax Refund Supplies (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box1b_vat",
+            "fieldtype": "Currency",
+            "label": "Box 1b: VAT on Tax Refund",
+            "precision": "2"
+        },
+        {
+            "fieldname": "column_break_vat1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "box2_zero_rated",
+            "fieldtype": "Currency",
+            "label": "Box 2: Zero Rated Supplies (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box3_exempt_supplies",
+            "fieldtype": "Currency",
+            "label": "Box 3: Exempt Supplies (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box4_reverse_charge_supplies",
+            "fieldtype": "Currency",
+            "label": "Box 4: Reverse Charge Supplies (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "vat_201_inputs_section",
+            "fieldtype": "Section Break",
+            "label": "VAT 201 - Input VAT",
+            "depends_on": "eval:doc.report_type=='VAT 201'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "box6_standard_rated_expenses",
+            "fieldtype": "Currency",
+            "label": "Box 6: Standard Rated Expenses (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box6_recoverable_vat",
+            "fieldtype": "Currency",
+            "label": "Box 6: Recoverable VAT",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box7_imports",
+            "fieldtype": "Currency",
+            "label": "Box 7: Imports (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "box7_vat",
+            "fieldtype": "Currency",
+            "label": "Box 7: VAT on Imports",
+            "precision": "2"
+        },
+        {
+            "fieldname": "column_break_vat2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "box8_adjustments",
+            "fieldtype": "Currency",
+            "label": "Box 8: Adjustments (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "total_output_vat",
+            "fieldtype": "Currency",
+            "label": "Total Output VAT",
+            "precision": "2",
+            "read_only": 1
+        },
+        {
+            "fieldname": "total_input_vat",
+            "fieldtype": "Currency",
+            "label": "Total Input VAT",
+            "precision": "2",
+            "read_only": 1
+        },
+        {
+            "fieldname": "net_vat_payable",
+            "fieldtype": "Currency",
+            "label": "Net VAT Payable/(Refundable)",
+            "precision": "2",
+            "read_only": 1
+        },
+        {
+            "fieldname": "summary_section",
+            "fieldtype": "Section Break",
+            "label": "Summary Statistics",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "total_transactions",
+            "fieldtype": "Int",
+            "label": "Total Transactions"
+        },
+        {
+            "fieldname": "total_amount",
+            "fieldtype": "Currency",
+            "label": "Total Amount (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "total_vat",
+            "fieldtype": "Currency",
+            "label": "Total VAT (AED)",
+            "precision": "2"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "exceptions_count",
+            "fieldtype": "Int",
+            "label": "Exceptions/Errors",
+            "description": "Number of flagged items"
+        },
+        {
+            "fieldname": "data_quality_score",
+            "fieldtype": "Percent",
+            "label": "Data Quality Score"
+        },
+        {
+            "fieldname": "files_section",
+            "fieldtype": "Section Break",
+            "label": "Generated Files",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "report_pdf",
+            "fieldtype": "Attach",
+            "label": "Report PDF"
+        },
+        {
+            "fieldname": "report_excel",
+            "fieldtype": "Attach",
+            "label": "Report Excel"
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "faf_xml",
+            "fieldtype": "Attach",
+            "label": "FAF XML File",
+            "depends_on": "eval:doc.report_type=='VAT Audit File (FAF)'"
+        },
+        {
+            "fieldname": "report_json",
+            "fieldtype": "Attach",
+            "label": "Report Data (JSON)"
+        },
+        {
+            "fieldname": "review_section",
+            "fieldtype": "Section Break",
+            "label": "Review & Approval",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "generated_by",
+            "fieldtype": "Link",
+            "label": "Generated By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "reviewed_by",
+            "fieldtype": "Link",
+            "label": "Reviewed By",
+            "options": "User"
+        },
+        {
+            "fieldname": "review_date",
+            "fieldtype": "Datetime",
+            "label": "Review Date"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "approved_by",
+            "fieldtype": "Link",
+            "label": "Approved By",
+            "options": "User"
+        },
+        {
+            "fieldname": "approval_date",
+            "fieldtype": "Datetime",
+            "label": "Approval Date"
+        },
+        {
+            "fieldname": "review_comments",
+            "fieldtype": "Small Text",
+            "label": "Review Comments"
+        },
+        {
+            "fieldname": "submission_section",
+            "fieldtype": "Section Break",
+            "label": "FTA Submission",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "submitted_to_fta",
+            "fieldtype": "Check",
+            "label": "Submitted to FTA",
+            "default": "0"
+        },
+        {
+            "fieldname": "fta_submission_date",
+            "fieldtype": "Datetime",
+            "label": "FTA Submission Date",
+            "depends_on": "submitted_to_fta"
+        },
+        {
+            "fieldname": "fta_reference_number",
+            "fieldtype": "Data",
+            "label": "FTA Reference Number",
+            "depends_on": "submitted_to_fta"
+        },
+        {
+            "fieldname": "column_break_6",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "fta_acknowledgement",
+            "fieldtype": "Attach",
+            "label": "FTA Acknowledgement",
+            "depends_on": "submitted_to_fta"
+        },
+        {
+            "fieldname": "fta_submission_status",
+            "fieldtype": "Select",
+            "label": "FTA Status",
+            "options": "\nPending\nAccepted\nRejected\nRequires Clarification",
+            "depends_on": "submitted_to_fta"
+        },
+        {
+            "fieldname": "archive_section",
+            "fieldtype": "Section Break",
+            "label": "Archival",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "is_archived",
+            "fieldtype": "Check",
+            "label": "Archived",
+            "default": "0"
+        },
+        {
+            "fieldname": "archive_reference",
+            "fieldtype": "Link",
+            "label": "Archive Reference",
+            "options": "Document Archive",
+            "depends_on": "is_archived"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "submit": 0,
+            "cancel": 0,
+            "export": 1
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "Compliance Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "External Auditor",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "export": 1
+        }
+    ],
+    "links": [],
+    "actions": [],
+    "default_print_format": "",
+    "show_preview_popup": 0,
+    "make_attachments_public": 0
+}

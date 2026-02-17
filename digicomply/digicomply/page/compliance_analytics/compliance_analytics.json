@@ -1,0 +1,14 @@
+{
+    "name": "compliance_analytics",
+    "module": "DigiComply",
+    "doctype": "Page",
+    "page_name": "compliance_analytics",
+    "title": "Compliance Analytics",
+    "icon": "fa fa-line-chart",
+    "standard": "Yes",
+    "roles": [
+        {"role": "System Manager"},
+        {"role": "DigiComply Admin"},
+        {"role": "Compliance Manager"}
+    ]
+}

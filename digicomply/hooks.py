@@ -52,6 +52,8 @@ doc_events = {
 scheduler_events = {
     "daily": [
         "digicomply.reconciliation.tasks.check_pending_reconciliations",
+        "digicomply.digicomply.doctype.auditor_access.auditor_access.check_expired_access",
+        "digicomply.digicomply.doctype.report_schedule.report_schedule.run_scheduled_reports",
     ],
     "weekly": [
         "digicomply.reconciliation.tasks.generate_weekly_summary",
@@ -67,6 +69,14 @@ fixtures = [
     {
         "dt": "Property Setter",
         "filters": [["module", "=", "DigiComply"]],
+    },
+    {
+        "dt": "Role",
+        "filters": [["is_custom", "=", 1], ["role_name", "like", "%DigiComply%"]],
+    },
+    {
+        "dt": "Role",
+        "filters": [["role_name", "in", ["Compliance Manager", "Company Accountant", "Company Reviewer", "External Auditor", "API User"]]],
     },
 ]
 

@@ -1,0 +1,332 @@
+{
+    "name": "Document Archive",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 1,
+    "engine": "InnoDB",
+    "naming_rule": "Expression",
+    "autoname": "ARCH-.YYYY.-.######",
+    "title_field": "document_name",
+    "search_fields": "document_type,document_name,archive_status",
+    "sort_field": "archive_date",
+    "sort_order": "DESC",
+    "description": "Document archival for UAE FTA 5-year retention compliance",
+    "fields": [
+        {
+            "fieldname": "document_section",
+            "fieldtype": "Section Break",
+            "label": "Document Reference",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "document_type",
+            "fieldtype": "Link",
+            "label": "Document Type",
+            "options": "DocType",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "document_name",
+            "fieldtype": "Dynamic Link",
+            "label": "Document Name",
+            "options": "document_type",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "archive_status",
+            "fieldtype": "Select",
+            "label": "Archive Status",
+            "options": "Pending\nArchived\nRetrieved\nExpired\nLegal Hold",
+            "default": "Pending",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "storage_tier",
+            "fieldtype": "Select",
+            "label": "Storage Tier",
+            "options": "Hot\nWarm\nCold\nDeep Archive",
+            "default": "Hot",
+            "description": "Storage tier based on access frequency"
+        },
+        {
+            "fieldname": "archive_details_section",
+            "fieldtype": "Section Break",
+            "label": "Archive Details",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "archive_date",
+            "fieldtype": "Datetime",
+            "label": "Archive Date",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "archived_by",
+            "fieldtype": "Link",
+            "label": "Archived By",
+            "options": "User"
+        },
+        {
+            "fieldname": "archive_reason",
+            "fieldtype": "Select",
+            "label": "Archive Reason",
+            "options": "\nRegular Archival\nCompliance Requirement\nManual Archive\nAuto-Archive (Age Based)\nAuto-Archive (Policy Based)"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "retention_until",
+            "fieldtype": "Date",
+            "label": "Retain Until",
+            "description": "Document must be kept until this date (5 years per FTA)"
+        },
+        {
+            "fieldname": "retention_policy",
+            "fieldtype": "Link",
+            "label": "Retention Policy",
+            "options": "Retention Policy"
+        },
+        {
+            "fieldname": "auto_delete_after",
+            "fieldtype": "Date",
+            "label": "Auto Delete After",
+            "description": "Can be deleted after this date (if no legal hold)"
+        },
+        {
+            "fieldname": "company_section",
+            "fieldtype": "Section Break",
+            "label": "Company Context",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "label": "Company",
+            "options": "Company",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "trn",
+            "fieldtype": "Data",
+            "label": "TRN"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "fiscal_year",
+            "fieldtype": "Data",
+            "label": "Fiscal Year",
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "tax_period",
+            "fieldtype": "Data",
+            "label": "Tax Period"
+        },
+        {
+            "fieldname": "storage_section",
+            "fieldtype": "Section Break",
+            "label": "Storage Information",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "storage_location",
+            "fieldtype": "Link",
+            "label": "Storage Location",
+            "options": "Archive Storage"
+        },
+        {
+            "fieldname": "storage_path",
+            "fieldtype": "Data",
+            "label": "Storage Path",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "file_size_bytes",
+            "fieldtype": "Int",
+            "label": "File Size (bytes)"
+        },
+        {
+            "fieldname": "compressed",
+            "fieldtype": "Check",
+            "label": "Compressed",
+            "default": "1"
+        },
+        {
+            "fieldname": "encrypted",
+            "fieldtype": "Check",
+            "label": "Encrypted",
+            "default": "1"
+        },
+        {
+            "fieldname": "content_section",
+            "fieldtype": "Section Break",
+            "label": "Archived Content",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "snapshot_reference",
+            "fieldtype": "Link",
+            "label": "Document Snapshot",
+            "options": "Document Snapshot"
+        },
+        {
+            "fieldname": "archived_json",
+            "fieldtype": "Attach",
+            "label": "Archived JSON",
+            "description": "Complete document data in JSON format"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "signed_document",
+            "fieldtype": "Attach",
+            "label": "Signed Document",
+            "description": "Digitally signed PDF (if applicable)"
+        },
+        {
+            "fieldname": "original_attachments",
+            "fieldtype": "Code",
+            "label": "Original Attachments (JSON)",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "integrity_section",
+            "fieldtype": "Section Break",
+            "label": "Integrity & Verification",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "content_hash",
+            "fieldtype": "Data",
+            "label": "Content Hash (SHA-256)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "hash_verified",
+            "fieldtype": "Check",
+            "label": "Hash Verified",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_verification",
+            "fieldtype": "Datetime",
+            "label": "Last Verification",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_6",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "retrieval_count",
+            "fieldtype": "Int",
+            "label": "Retrieval Count",
+            "default": "0",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_retrieved",
+            "fieldtype": "Datetime",
+            "label": "Last Retrieved",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_retrieved_by",
+            "fieldtype": "Link",
+            "label": "Last Retrieved By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "legal_hold_section",
+            "fieldtype": "Section Break",
+            "label": "Legal Hold",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "under_legal_hold",
+            "fieldtype": "Check",
+            "label": "Under Legal Hold",
+            "default": "0"
+        },
+        {
+            "fieldname": "legal_hold_reference",
+            "fieldtype": "Link",
+            "label": "Legal Hold Reference",
+            "options": "Legal Hold",
+            "depends_on": "under_legal_hold"
+        },
+        {
+            "fieldname": "column_break_7",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "legal_hold_start",
+            "fieldtype": "Datetime",
+            "label": "Legal Hold Start",
+            "depends_on": "under_legal_hold"
+        },
+        {
+            "fieldname": "legal_hold_reason",
+            "fieldtype": "Small Text",
+            "label": "Legal Hold Reason",
+            "depends_on": "under_legal_hold"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0,
+            "export": 1
+        },
+        {
+            "role": "External Auditor",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0,
+            "export": 1
+        }
+    ],
+    "links": [],
+    "actions": [],
+    "default_print_format": "",
+    "show_preview_popup": 0,
+    "make_attachments_public": 0
+}

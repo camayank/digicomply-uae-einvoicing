@@ -1,6 +1,6 @@
 {
   "charts": [],
-  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}}]",
+  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Analytics\",\"col\":3}}]",
   "creation": "2026-02-16 00:00:00.000000",
   "docstatus": 0,
   "doctype": "Workspace",
@@ -33,6 +33,16 @@
     {
       "hidden": 0,
       "is_query_report": 0,
+      "label": "Compliance Analytics",
+      "link_count": 0,
+      "link_to": "compliance_analytics",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
       "label": "Reconciliation Run",
       "link_count": 0,
       "link_to": "Reconciliation Run",
@@ -47,7 +57,7 @@
       "link_count": 0,
       "link_to": "CSV Import",
       "link_type": "DocType",
-      "onboard": 1,
+      "onboard": 0,
       "type": "Link"
     },
     {
@@ -56,6 +66,202 @@
       "label": "Mismatch Report",
       "link_count": 0,
       "link_to": "Mismatch Report",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Score History",
+      "link_count": 0,
+      "link_to": "Score History",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit & Archive",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit Log",
+      "link_count": 0,
+      "link_to": "Audit Log",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Document Snapshot",
+      "link_count": 0,
+      "link_to": "Document Snapshot",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "User Session Log",
+      "link_count": 0,
+      "link_to": "User Session Log",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Document Archive",
+      "link_count": 0,
+      "link_to": "Document Archive",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Archive Storage",
+      "link_count": 0,
+      "link_to": "Archive Storage",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Archive Retrieval Log",
+      "link_count": 0,
+      "link_to": "Archive Retrieval Log",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "FTA Reports",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "FTA Report",
+      "link_count": 0,
+      "link_to": "FTA Report",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Report Schedule",
+      "link_count": 0,
+      "link_to": "Report Schedule",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Auditor Portal",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Auditor Portal",
+      "link_count": 0,
+      "link_to": "auditor_portal",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Auditor Access",
+      "link_count": 0,
+      "link_to": "Auditor Access",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit Request",
+      "link_count": 0,
+      "link_to": "Audit Request",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Audit Response",
+      "link_count": 0,
+      "link_to": "Audit Response",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Data Governance",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Retention Policy",
+      "link_count": 0,
+      "link_to": "Retention Policy",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Legal Hold",
+      "link_count": 0,
+      "link_to": "Legal Hold",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Purge Log",
+      "link_count": 0,
+      "link_to": "Purge Log",
       "link_type": "DocType",
       "onboard": 0,
       "type": "Link"
@@ -80,7 +286,7 @@
       "type": "Link"
     }
   ],
-  "modified": "2026-02-16 00:00:00.000000",
+  "modified": "2026-02-17 00:00:00.000000",
   "modified_by": "Administrator",
   "module": "DigiComply",
   "name": "DigiComply",
@@ -110,6 +316,13 @@
       "doc_view": "",
       "label": "Dashboard",
       "link_to": "compliance_dashboard",
+      "type": "Page"
+    },
+    {
+      "color": "Purple",
+      "doc_view": "",
+      "label": "Analytics",
+      "link_to": "compliance_analytics",
       "type": "Page"
     }
   ],
