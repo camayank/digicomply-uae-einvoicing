@@ -20,6 +20,10 @@ from frappe import _
 from frappe.utils import now_datetime, cint
 import json
 import re
+import time
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 
 def get_fta_settings():
@@ -36,16 +40,15 @@ def get_fta_settings():
     try:
         settings = frappe.get_single("DigiComply Settings")
 
-        # Check if FTA fields exist in settings (they may be added in future)
-        # For now, use defaults or check for fields dynamically
-        fta_enabled = getattr(settings, "fta_api_enabled", False) or False
-        fta_api_url = getattr(settings, "fta_api_url", "") or "https://api.tax.gov.ae/v1/trn/validate"
-        fta_api_key = getattr(settings, "fta_api_key", "") or ""
+        # Get FTA API configuration from settings
+        fta_enabled = getattr(settings, "enable_fta_validation", False) or False
+        fta_api_url = getattr(settings, "fta_api_url", "") or "https://tax.gov.ae/api/v1"
+        fta_api_key = settings.get_password("fta_api_key") if hasattr(settings, "get_password") else ""
         fta_timeout = cint(getattr(settings, "fta_api_timeout", 30)) or 30
 
         return {
             "api_url": fta_api_url,
-            "api_key": fta_api_key,
+            "api_key": fta_api_key or "",
             "enabled": fta_enabled,
             "timeout": fta_timeout
         }
@@ -323,41 +326,270 @@ def _validate_luhn(number):
 
 def call_fta_api(trn, settings):
     """
-    Make actual FTA API call
+    Make actual FTA API call with retry logic and fault tolerance
 
-    Note: This is currently mocked since the real FTA API is not available.
-    When the FTA API becomes available, this function should be updated
-    to make actual HTTP requests.
+    Real FTA TRN validation API call with:
+    - Exponential backoff retry logic (3 retries, 1s/2s/4s delays)
+    - SSL certificate verification
+    - Request/response logging for audit trail
+    - Timeout handling (30s connect, 60s read)
 
     Args:
         trn: The cleaned TRN to validate
-        settings: FTA API settings dict
+        settings: FTA API settings dict with api_url, api_key, timeout
 
     Returns:
         dict: API response with validation result
     """
-    # Mock implementation for now
-    # In production, this would make an actual HTTP request to FTA API
-    # Note: Format validation is performed by caller (validate_trn_with_fta)
-    # before this function is called, so we don't re-validate here
+    # Create session with retry strategy
+    session = requests.Session()
 
-    # Mock successful response
-    # In real implementation, this would parse the actual FTA API response
-    mock_response = {
-        "valid": True,
-        "status": "Valid",
-        "message": _("TRN is valid and registered with FTA"),
-        "data": {
-            "fta_validated": True,
-            "response_code": "SUCCESS",
-            "entity_name": _("Verified Entity"),  # Would come from FTA
-            "registration_date": "2020-01-01",  # Would come from FTA
-            "expiry_date": None,  # Would come from FTA
-            "fta_status": "Active"
-        }
+    # Retry strategy with exponential backoff
+    retry_strategy = Retry(
+        total=3,
+        backoff_factor=1,  # 1s, 2s, 4s delays
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["HEAD", "GET", "POST", "OPTIONS"]
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+
+    # Get endpoint from settings or use production default
+    base_url = settings.get("api_url") or "https://tax.gov.ae/api/v1"
+    # Ensure base_url doesn't have trailing slash
+    base_url = base_url.rstrip("/")
+    endpoint = f"{base_url}/trn/validate"
+
+    # Get timeout from settings (default: 30s connect, 60s read)
+    timeout_seconds = cint(settings.get("timeout")) or 30
+    timeout = (timeout_seconds, timeout_seconds * 2)  # (connect, read)
+
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "User-Agent": "DigiComply/1.0"
     }
 
-    return mock_response
+    # Add authorization if API key is provided
+    api_key = settings.get("api_key")
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+
+    request_payload = {"trn": trn}
+
+    # Log the API request for audit trail
+    _log_api_request(trn, endpoint, request_payload)
+
+    try:
+        response = session.post(
+            endpoint,
+            json=request_payload,
+            headers=headers,
+            timeout=timeout,
+            verify=True  # SSL verification enabled
+        )
+
+        # Log raw response
+        _log_api_response(trn, response.status_code, response.text)
+
+        # Handle HTTP errors
+        response.raise_for_status()
+
+        # Parse response
+        response_data = response.json()
+
+        # Map FTA response to our standard format
+        return _parse_fta_response(trn, response_data)
+
+    except requests.exceptions.Timeout as e:
+        frappe.log_error(
+            title="FTA API Timeout",
+            message=f"Timeout calling FTA API for TRN {trn}: {str(e)}"
+        )
+        return {
+            "valid": False,
+            "status": "API Error",
+            "message": _("FTA API request timed out. Please try again."),
+            "data": {
+                "error_type": "timeout",
+                "error": str(e)
+            }
+        }
+
+    except requests.exceptions.ConnectionError as e:
+        frappe.log_error(
+            title="FTA API Connection Error",
+            message=f"Connection error calling FTA API for TRN {trn}: {str(e)}"
+        )
+        return {
+            "valid": False,
+            "status": "API Error",
+            "message": _("Unable to connect to FTA API. Please check your network connection."),
+            "data": {
+                "error_type": "connection",
+                "error": str(e)
+            }
+        }
+
+    except requests.exceptions.HTTPError as e:
+        status_code = e.response.status_code if e.response else None
+        frappe.log_error(
+            title="FTA API HTTP Error",
+            message=f"HTTP error {status_code} calling FTA API for TRN {trn}: {str(e)}"
+        )
+
+        # Handle specific HTTP error codes
+        if status_code == 401:
+            return {
+                "valid": False,
+                "status": "API Error",
+                "message": _("FTA API authentication failed. Please check API credentials."),
+                "data": {"error_type": "authentication", "status_code": status_code}
+            }
+        elif status_code == 403:
+            return {
+                "valid": False,
+                "status": "API Error",
+                "message": _("Access denied to FTA API. Please verify permissions."),
+                "data": {"error_type": "authorization", "status_code": status_code}
+            }
+        elif status_code == 404:
+            # TRN not found in FTA database
+            return {
+                "valid": False,
+                "status": "Not Found",
+                "message": _("TRN not found in FTA database."),
+                "data": {"error_type": "not_found", "status_code": status_code}
+            }
+        elif status_code == 429:
+            return {
+                "valid": False,
+                "status": "API Error",
+                "message": _("FTA API rate limit exceeded. Please try again later."),
+                "data": {"error_type": "rate_limit", "status_code": status_code}
+            }
+        else:
+            return {
+                "valid": False,
+                "status": "API Error",
+                "message": _("FTA API returned error: {0}").format(status_code),
+                "data": {"error_type": "http_error", "status_code": status_code}
+            }
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="FTA API Request Error",
+            message=f"Request error calling FTA API for TRN {trn}: {str(e)}"
+        )
+        return {
+            "valid": False,
+            "status": "API Error",
+            "message": _("FTA API request failed: {0}").format(str(e)),
+            "data": {
+                "error_type": "request_error",
+                "error": str(e)
+            }
+        }
+
+    except json.JSONDecodeError as e:
+        frappe.log_error(
+            title="FTA API Response Parse Error",
+            message=f"Failed to parse FTA API response for TRN {trn}: {str(e)}"
+        )
+        return {
+            "valid": False,
+            "status": "API Error",
+            "message": _("Invalid response from FTA API."),
+            "data": {
+                "error_type": "parse_error",
+                "error": str(e)
+            }
+        }
+
+    finally:
+        session.close()
+
+
+def _log_api_request(trn, endpoint, payload):
+    """Log API request for audit trail"""
+    try:
+        frappe.logger().info(
+            f"FTA API Request - TRN: {trn}, Endpoint: {endpoint}"
+        )
+    except Exception:
+        pass  # Don't fail on logging errors
+
+
+def _log_api_response(trn, status_code, response_text):
+    """Log API response for audit trail"""
+    try:
+        # Truncate response if too long
+        response_preview = response_text[:500] if len(response_text) > 500 else response_text
+        frappe.logger().info(
+            f"FTA API Response - TRN: {trn}, Status: {status_code}, Response: {response_preview}"
+        )
+    except Exception:
+        pass  # Don't fail on logging errors
+
+
+def _parse_fta_response(trn, response_data):
+    """
+    Parse FTA API response into standard format
+
+    Args:
+        trn: The TRN that was validated
+        response_data: Raw response dict from FTA API
+
+    Returns:
+        dict: Standardized validation result
+    """
+    # FTA API response format (expected):
+    # {
+    #     "success": true,
+    #     "trn": "100000000000003",
+    #     "status": "active",
+    #     "entityName": "Company Name",
+    #     "registrationDate": "2020-01-01",
+    #     "expiryDate": null
+    # }
+
+    is_valid = response_data.get("success", False) or response_data.get("valid", False)
+    fta_status = response_data.get("status", "").lower()
+
+    # Map FTA status to our status
+    if is_valid and fta_status in ["active", "valid"]:
+        status = "Valid"
+        message = _("TRN is valid and registered with FTA")
+    elif fta_status == "expired":
+        status = "Expired"
+        message = _("TRN registration has expired")
+        is_valid = False
+    elif fta_status == "suspended":
+        status = "Invalid"
+        message = _("TRN registration is suspended")
+        is_valid = False
+    elif fta_status == "deregistered":
+        status = "Invalid"
+        message = _("TRN has been deregistered")
+        is_valid = False
+    else:
+        status = "Invalid" if not is_valid else "Valid"
+        message = response_data.get("message", _("TRN validation completed"))
+
+    return {
+        "valid": is_valid,
+        "status": status,
+        "message": message,
+        "data": {
+            "fta_validated": True,
+            "response_code": "SUCCESS" if is_valid else "FAILED",
+            "entity_name": response_data.get("entityName") or response_data.get("entity_name"),
+            "registration_date": response_data.get("registrationDate") or response_data.get("registration_date"),
+            "expiry_date": response_data.get("expiryDate") or response_data.get("expiry_date"),
+            "fta_status": response_data.get("status", "").title()
+        }
+    }
 
 
 def check_blacklist(trn):
