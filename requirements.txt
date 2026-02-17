@@ -1,3 +1,5 @@
 # DigiComply UAE E-Invoicing Dependencies
 frappe
 lxml>=4.9.0
+cryptography>=41.0.0
+qrcode[pil]>=7.4.2
