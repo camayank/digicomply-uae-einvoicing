@@ -33,6 +33,9 @@
         "column_break_input",
         "input_vat_recoverable",
         "input_vat_non_recoverable",
+        "section_reverse_charge",
+        "reverse_charge_amount",
+        "reverse_charge_vat",
         "section_adjustments",
         "adjustments",
         "total_adjustments",
@@ -209,6 +212,28 @@
             "fieldname": "input_vat_non_recoverable",
             "fieldtype": "Currency",
             "label": "Input VAT Non-Recoverable"
+        },
+        {
+            "fieldname": "section_reverse_charge",
+            "fieldtype": "Section Break",
+            "label": "Reverse Charge (Article 37)",
+            "description": "VAT on imports of services from outside UAE"
+        },
+        {
+            "default": "0",
+            "fieldname": "reverse_charge_amount",
+            "fieldtype": "Currency",
+            "label": "Reverse Charge Purchases",
+            "description": "Total value of imports subject to reverse charge",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "reverse_charge_vat",
+            "fieldtype": "Currency",
+            "label": "Reverse Charge VAT",
+            "description": "VAT self-assessed on reverse charge purchases (appears in both output and input VAT)",
+            "read_only": 1
         },
         {
             "fieldname": "section_adjustments",

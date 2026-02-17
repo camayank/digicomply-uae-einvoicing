@@ -38,22 +38,102 @@ class VATReturn(Document):
                       "Please update the company record before creating a VAT Return.").format(self.company)
                 )
 
+    def get_vat_rate(self):
+        """
+        Get VAT rate from DigiComply Settings instead of hardcoded value.
+
+        Returns:
+            float: VAT rate as decimal (e.g., 0.05 for 5%)
+        """
+        try:
+            settings = frappe.get_single("DigiComply Settings")
+            rate_percent = flt(getattr(settings, "default_vat_rate", 5) or 5)
+            return rate_percent / 100
+        except Exception:
+            # Fallback to UAE standard rate if settings not available
+            return 0.05
+
+    def calculate_reverse_charge(self):
+        """
+        Calculate reverse charge VAT per Article 37 UAE VAT Law.
+
+        Applies to:
+        - Imports of services from outside UAE
+        - Purchases from non-registered suppliers exceeding threshold
+
+        Reverse charge VAT:
+        - Added to Output VAT (Box 3 - VAT due)
+        - Added to Input VAT Recoverable (Box 9 - if fully recoverable)
+        - Net effect is zero for fully taxable businesses
+
+        Returns:
+            float: Reverse charge VAT amount
+        """
+        vat_rate = self.get_vat_rate()
+
+        # Get reverse charge purchases
+        # Check if Purchase Invoice has is_reverse_charge field
+        try:
+            reverse_charge_purchases = frappe.get_all(
+                "Purchase Invoice",
+                filters={
+                    "company": self.company,
+                    "posting_date": ["between", [self.from_date, self.to_date]],
+                    "docstatus": 1,
+                    "is_reverse_charge": 1
+                },
+                fields=["net_total"]
+            )
+        except Exception:
+            # is_reverse_charge field may not exist, try alternative approach
+            # Look for invoices from suppliers without UAE TRN
+            reverse_charge_purchases = frappe.db.sql("""
+                SELECT pi.net_total
+                FROM `tabPurchase Invoice` pi
+                LEFT JOIN `tabSupplier` s ON s.name = pi.supplier
+                WHERE pi.company = %(company)s
+                AND pi.posting_date BETWEEN %(from_date)s AND %(to_date)s
+                AND pi.docstatus = 1
+                AND (s.tax_id IS NULL OR s.tax_id = '')
+                AND s.country != 'United Arab Emirates'
+            """, {
+                "company": self.company,
+                "from_date": self.from_date,
+                "to_date": self.to_date
+            }, as_dict=True)
+
+        reverse_charge_total = sum(flt(p.get("net_total", 0)) for p in reverse_charge_purchases)
+        reverse_charge_vat = flt(reverse_charge_total * vat_rate, 2)
+
+        # Store reverse charge amounts
+        self.reverse_charge_amount = flt(reverse_charge_total, 2)
+        self.reverse_charge_vat = reverse_charge_vat
+
+        return reverse_charge_vat
+
     def calculate_totals(self):
         """
         Calculate VAT totals:
-        - Output VAT = 5% of standard rated sales
-        - Input VAT Recoverable = 5% of standard rated purchases
+        - Output VAT = VAT rate % of standard rated sales + reverse charge VAT
+        - Input VAT Recoverable = VAT rate % of standard rated purchases + reverse charge VAT
         - Total Adjustments = Sum of adjustment VAT amounts
         - Net VAT Due = Output VAT - Input VAT Recoverable + Adjustments
         """
-        # UAE standard VAT rate
-        vat_rate = 0.05
+        # Get VAT rate from settings
+        vat_rate = self.get_vat_rate()
 
-        # Calculate Output VAT (5% of standard rated sales)
-        self.output_vat_amount = flt(flt(self.total_sales_standard) * vat_rate, 2)
+        # Calculate reverse charge first
+        reverse_charge_vat = self.calculate_reverse_charge()
 
-        # Calculate Input VAT Recoverable (5% of standard rated purchases)
-        self.input_vat_recoverable = flt(flt(self.total_purchases_standard) * vat_rate, 2)
+        # Calculate Output VAT (VAT rate % of standard rated sales)
+        base_output_vat = flt(flt(self.total_sales_standard) * vat_rate, 2)
+        # Add reverse charge VAT to output (Box 3 - VAT due on reverse charge)
+        self.output_vat_amount = flt(base_output_vat + reverse_charge_vat, 2)
+
+        # Calculate Input VAT Recoverable (VAT rate % of standard rated purchases)
+        base_input_vat = flt(flt(self.total_purchases_standard) * vat_rate, 2)
+        # Add reverse charge VAT to input (Box 9 - recoverable reverse charge VAT)
+        self.input_vat_recoverable = flt(base_input_vat + reverse_charge_vat, 2)
 
         # Calculate total adjustments from child table
         total_adj = 0
@@ -63,6 +143,7 @@ class VATReturn(Document):
 
         # Calculate Net VAT Due
         # Positive = Payable to FTA, Negative = Refundable
+        # Note: Reverse charge has net zero effect as it's in both output and input
         self.net_vat_due = flt(
             self.output_vat_amount - self.input_vat_recoverable + self.total_adjustments,
             2
