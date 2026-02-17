@@ -29,6 +29,7 @@
         "qr_code_data",
         "column_break_qr",
         "qr_code_text",
+        "qr_code_generated_locally",
         "supplier_section",
         "supplier_name",
         "supplier_trn",
@@ -236,6 +237,14 @@
             "label": "QR Code Text Content",
             "read_only": 1,
             "description": "Decoded QR code content for verification"
+        },
+        {
+            "default": "0",
+            "fieldname": "qr_code_generated_locally",
+            "fieldtype": "Check",
+            "label": "QR Generated Locally",
+            "read_only": 1,
+            "description": "Indicates QR code was generated locally per UAE TLV specification"
         },
         {
             "fieldname": "supplier_section",

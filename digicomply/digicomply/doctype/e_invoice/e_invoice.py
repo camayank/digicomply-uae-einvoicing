@@ -7,6 +7,14 @@ from frappe.utils import now_datetime, getdate, flt
 import json
 import hashlib
 import base64
+from io import BytesIO
+
+# QR code generation import
+try:
+    import qrcode
+    HAS_QRCODE = True
+except ImportError:
+    HAS_QRCODE = False
 
 
 class EInvoice(Document):
@@ -438,6 +446,102 @@ class EInvoice(Document):
         data_string = json.dumps(data, sort_keys=True)
         self.document_hash = hashlib.sha256(data_string.encode()).hexdigest()
         return self.document_hash
+
+    @frappe.whitelist()
+    def generate_qr_code(self):
+        """
+        Generate QR code per UAE e-invoicing specification
+        Uses TLV (Tag-Length-Value) encoding as required by FTA
+
+        TLV Tags:
+        - Tag 1: Seller Name
+        - Tag 2: VAT Registration Number (TRN)
+        - Tag 3: Invoice Date/Time (ISO 8601)
+        - Tag 4: Invoice Total (with VAT)
+        - Tag 5: VAT Amount
+        - Tag 6: Document Hash (SHA-256)
+
+        Returns:
+            str: Base64 encoded QR code data URL
+        """
+        if not HAS_QRCODE:
+            frappe.throw("qrcode library is required for QR code generation. Please install it using: pip install qrcode[pil]")
+
+        def tlv_encode(tag, value):
+            """Encode a single TLV field per UAE specification"""
+            value_str = str(value) if value else ''
+            value_bytes = value_str.encode('utf-8')
+            return bytes([tag, len(value_bytes)]) + value_bytes
+
+        # Generate document hash if not already present
+        if not self.document_hash:
+            self.generate_document_hash()
+
+        # Get invoice date/time in ISO 8601 format
+        invoice_datetime = self.sales_invoice_date
+        if invoice_datetime:
+            if hasattr(invoice_datetime, 'isoformat'):
+                invoice_datetime_str = invoice_datetime.isoformat()
+            else:
+                invoice_datetime_str = str(invoice_datetime)
+        else:
+            invoice_datetime_str = str(now_datetime())
+
+        # Build TLV data per UAE specification
+        tlv_data = b''
+        tlv_data += tlv_encode(1, self.supplier_name or '')
+        tlv_data += tlv_encode(2, self.supplier_trn or '')
+        tlv_data += tlv_encode(3, invoice_datetime_str)
+        tlv_data += tlv_encode(4, f"{flt(self.gross_amount, 2):.2f}")
+        tlv_data += tlv_encode(5, f"{flt(self.tax_amount, 2):.2f}")
+
+        # Add document hash (Tag 6) if available
+        if self.document_hash:
+            tlv_data += tlv_encode(6, self.document_hash)
+
+        # Base64 encode the TLV data
+        qr_content = base64.b64encode(tlv_data).decode('ascii')
+
+        # Store the decoded content for verification
+        self.qr_code_text = qr_content
+
+        # Generate QR code image
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(qr_content)
+        qr.make(fit=True)
+
+        # Convert to PNG image
+        img = qr.make_image(fill_color="black", back_color="white")
+        buffer = BytesIO()
+        img.save(buffer, format='PNG')
+        buffer.seek(0)
+
+        # Store as base64 data URL
+        img_base64 = base64.b64encode(buffer.read()).decode()
+        self.qr_code_data = f"data:image/png;base64,{img_base64}"
+        self.qr_code_generated_locally = 1
+
+        return self.qr_code_data
+
+    def before_submit(self):
+        """Generate document hash and QR code before submission"""
+        # Generate document hash
+        self.generate_document_hash()
+
+        # Generate QR code if not already present from ASP
+        if not self.qr_code_data:
+            try:
+                self.generate_qr_code()
+            except Exception as e:
+                frappe.log_error(
+                    f"Failed to generate QR code for {self.name}: {str(e)}",
+                    "E-Invoice QR Generation Error"
+                )
 
 
 @frappe.whitelist()
