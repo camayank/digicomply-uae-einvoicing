@@ -235,7 +235,10 @@ def add_to_blacklist(trn, reason, entity_name=None, notes=None):
         "is_active": 1,
         "verified": 0
     })
-    doc.insert()
+    try:
+        doc.insert()
+    except frappe.DuplicateEntryError:
+        frappe.throw(_("TRN {0} is already in the blacklist").format(clean_trn))
 
     return {
         "success": True,

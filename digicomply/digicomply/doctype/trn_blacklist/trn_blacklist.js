@@ -29,6 +29,13 @@ frappe.ui.form.on('TRN Blacklist', {
                                     trn: frm.doc.trn
                                 },
                                 callback: function(r) {
+                                    if (r.exc) {
+                                        frappe.show_alert({
+                                            message: __('Error occurred while verifying entry'),
+                                            indicator: 'red'
+                                        }, 5);
+                                        return;
+                                    }
                                     if (r.message && r.message.success) {
                                         frappe.show_alert({
                                             message: __('Blacklist entry verified'),
@@ -55,6 +62,13 @@ frappe.ui.form.on('TRN Blacklist', {
                                     trn: frm.doc.trn
                                 },
                                 callback: function(r) {
+                                    if (r.exc) {
+                                        frappe.show_alert({
+                                            message: __('Error occurred while deactivating entry'),
+                                            indicator: 'red'
+                                        }, 5);
+                                        return;
+                                    }
                                     if (r.message && r.message.success) {
                                         frappe.show_alert({
                                             message: __('Blacklist entry deactivated'),
