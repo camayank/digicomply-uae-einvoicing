@@ -6,6 +6,13 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime, getdate, flt
 import json
 
+# XML generation import
+try:
+    from lxml import etree
+    HAS_LXML = True
+except ImportError:
+    HAS_LXML = False
+
 
 class FTAReport(Document):
     """
@@ -206,59 +213,53 @@ class FTAReport(Document):
 
     def _generate_faf(self):
         """Generate FTA Audit File (FAF) in XML format"""
+        if not HAS_LXML:
+            frappe.throw("lxml library is required for FAF XML generation. Please install it using: pip install lxml")
+
+        # Get company name
+        company_name = frappe.db.get_value("Company", self.company, "company_name") or self.company
+
+        # Get Sales data
+        sales = self._get_faf_sales_data()
+
+        # Get Purchase data
+        purchases = self._get_faf_purchase_data()
+
+        # Get General Ledger entries
+        gl_entries = self._get_gl_entries()
+
+        self.total_transactions = len(sales) + len(purchases)
+
+        # Generate XML
+        xml_content = self._generate_faf_xml(company_name, sales, purchases, gl_entries)
+
+        # Save XML file
+        file_doc = frappe.get_doc({
+            "doctype": "File",
+            "file_name": f"FAF_{self.company}_{self.from_date}_{self.to_date}.xml",
+            "attached_to_doctype": "FTA Report",
+            "attached_to_name": self.name,
+            "content": xml_content,
+            "is_private": 1
+        })
+        file_doc.save(ignore_permissions=True)
+        self.report_file = file_doc.file_url
+
+        # Also generate JSON for backward compatibility
         faf_data = {
             "header": {
                 "trn": self.trn,
-                "company_name": self.company,
+                "company_name": company_name,
                 "from_date": str(self.from_date),
                 "to_date": str(self.to_date),
                 "generation_date": str(now_datetime())
             },
-            "sales": [],
-            "purchases": [],
-            "general_ledger": []
+            "sales": sales,
+            "purchases": purchases,
+            "general_ledger": gl_entries
         }
-
-        # Get Sales data
-        sales = frappe.db.sql("""
-            SELECT
-                si.name, si.posting_date, si.customer, si.customer_name,
-                si.grand_total, si.net_total, si.total_taxes_and_charges
-            FROM `tabSales Invoice` si
-            WHERE si.company = %(company)s
-            AND si.posting_date BETWEEN %(from_date)s AND %(to_date)s
-            AND si.docstatus = 1
-        """, {
-            "company": self.company,
-            "from_date": self.from_date,
-            "to_date": self.to_date
-        }, as_dict=True)
-
-        faf_data["sales"] = sales
-
-        # Get Purchase data
-        purchases = frappe.db.sql("""
-            SELECT
-                pi.name, pi.posting_date, pi.supplier, pi.supplier_name,
-                pi.grand_total, pi.net_total, pi.total_taxes_and_charges
-            FROM `tabPurchase Invoice` pi
-            WHERE pi.company = %(company)s
-            AND pi.posting_date BETWEEN %(from_date)s AND %(to_date)s
-            AND pi.docstatus = 1
-        """, {
-            "company": self.company,
-            "from_date": self.from_date,
-            "to_date": self.to_date
-        }, as_dict=True)
-
-        faf_data["purchases"] = purchases
-
-        # Save as JSON (XML generation would require a template)
-        self.total_transactions = len(sales) + len(purchases)
-
-        # Store the JSON data
         json_content = json.dumps(faf_data, indent=2, default=str)
-        file_doc = frappe.get_doc({
+        json_file_doc = frappe.get_doc({
             "doctype": "File",
             "file_name": f"FAF_{self.company}_{self.from_date}_{self.to_date}.json",
             "attached_to_doctype": "FTA Report",
@@ -266,8 +267,162 @@ class FTAReport(Document):
             "content": json_content,
             "is_private": 1
         })
-        file_doc.save(ignore_permissions=True)
-        self.report_json = file_doc.file_url
+        json_file_doc.save(ignore_permissions=True)
+        self.report_json = json_file_doc.file_url
+
+    def _get_faf_sales_data(self):
+        """Get sales invoice data for FAF"""
+        return frappe.db.sql("""
+            SELECT
+                si.name as invoice_no,
+                si.posting_date,
+                c.tax_id as customer_trn,
+                si.customer_name,
+                si.net_total,
+                si.total_taxes_and_charges as vat_amount,
+                si.grand_total
+            FROM `tabSales Invoice` si
+            LEFT JOIN `tabCustomer` c ON c.name = si.customer
+            WHERE si.company = %(company)s
+            AND si.posting_date BETWEEN %(from_date)s AND %(to_date)s
+            AND si.docstatus = 1
+            ORDER BY si.posting_date
+        """, {
+            "company": self.company,
+            "from_date": self.from_date,
+            "to_date": self.to_date
+        }, as_dict=True)
+
+    def _get_faf_purchase_data(self):
+        """Get purchase invoice data for FAF"""
+        return frappe.db.sql("""
+            SELECT
+                COALESCE(pi.bill_no, pi.name) as invoice_no,
+                pi.posting_date,
+                s.tax_id as supplier_trn,
+                pi.supplier_name,
+                pi.net_total,
+                pi.total_taxes_and_charges as vat_amount,
+                pi.grand_total
+            FROM `tabPurchase Invoice` pi
+            LEFT JOIN `tabSupplier` s ON s.name = pi.supplier
+            WHERE pi.company = %(company)s
+            AND pi.posting_date BETWEEN %(from_date)s AND %(to_date)s
+            AND pi.docstatus = 1
+            ORDER BY pi.posting_date
+        """, {
+            "company": self.company,
+            "from_date": self.from_date,
+            "to_date": self.to_date
+        }, as_dict=True)
+
+    def _get_gl_entries(self):
+        """Get General Ledger entries for the period"""
+        return frappe.db.sql("""
+            SELECT
+                account,
+                posting_date,
+                debit,
+                credit,
+                voucher_no,
+                voucher_type
+            FROM `tabGL Entry`
+            WHERE company = %(company)s
+            AND posting_date BETWEEN %(from_date)s AND %(to_date)s
+            AND is_cancelled = 0
+            ORDER BY posting_date, account
+        """, {
+            "company": self.company,
+            "from_date": self.from_date,
+            "to_date": self.to_date
+        }, as_dict=True)
+
+    def _generate_faf_xml(self, company_name, sales, purchases, gl_entries):
+        """
+        Generate FTA Audit File in required XML format
+
+        Args:
+            company_name: Company legal name
+            sales: List of sales invoice data
+            purchases: List of purchase invoice data
+            gl_entries: List of general ledger entries
+
+        Returns:
+            str: XML content as string
+        """
+        # Create root element with namespace
+        nsmap = {
+            None: "urn:tax.gov.ae:faf:1.0",
+            "xsi": "http://www.w3.org/2001/XMLSchema-instance"
+        }
+        root = etree.Element("FAF", nsmap=nsmap)
+        root.set("{http://www.w3.org/2001/XMLSchema-instance}schemaLocation",
+                 "urn:tax.gov.ae:faf:1.0 FAF.xsd")
+
+        # Header section
+        header = etree.SubElement(root, "Header")
+        etree.SubElement(header, "TRN").text = self.trn or ""
+        etree.SubElement(header, "CompanyName").text = company_name
+        etree.SubElement(header, "PeriodStart").text = str(self.from_date)
+        etree.SubElement(header, "PeriodEnd").text = str(self.to_date)
+        etree.SubElement(header, "GeneratedDate").text = str(now_datetime())
+        etree.SubElement(header, "Currency").text = "AED"
+
+        # Sales section
+        sales_elem = etree.SubElement(root, "Sales")
+        etree.SubElement(sales_elem, "TotalCount").text = str(len(sales))
+        etree.SubElement(sales_elem, "TotalAmount").text = f"{sum(flt(s.get('grand_total', 0)) for s in sales):.2f}"
+        etree.SubElement(sales_elem, "TotalVAT").text = f"{sum(flt(s.get('vat_amount', 0)) for s in sales):.2f}"
+
+        for sale in sales:
+            inv_elem = etree.SubElement(sales_elem, "Invoice")
+            etree.SubElement(inv_elem, "InvoiceNo").text = str(sale.get("invoice_no") or "")
+            etree.SubElement(inv_elem, "InvoiceDate").text = str(sale.get("posting_date") or "")
+            etree.SubElement(inv_elem, "CustomerTRN").text = str(sale.get("customer_trn") or "")
+            etree.SubElement(inv_elem, "CustomerName").text = str(sale.get("customer_name") or "")
+            etree.SubElement(inv_elem, "Amount").text = f"{flt(sale.get('net_total', 0)):.2f}"
+            etree.SubElement(inv_elem, "VATAmount").text = f"{flt(sale.get('vat_amount', 0)):.2f}"
+            etree.SubElement(inv_elem, "GrandTotal").text = f"{flt(sale.get('grand_total', 0)):.2f}"
+
+        # Purchases section
+        purchases_elem = etree.SubElement(root, "Purchases")
+        etree.SubElement(purchases_elem, "TotalCount").text = str(len(purchases))
+        etree.SubElement(purchases_elem, "TotalAmount").text = f"{sum(flt(p.get('grand_total', 0)) for p in purchases):.2f}"
+        etree.SubElement(purchases_elem, "TotalVAT").text = f"{sum(flt(p.get('vat_amount', 0)) for p in purchases):.2f}"
+
+        for purchase in purchases:
+            inv_elem = etree.SubElement(purchases_elem, "Invoice")
+            etree.SubElement(inv_elem, "InvoiceNo").text = str(purchase.get("invoice_no") or "")
+            etree.SubElement(inv_elem, "InvoiceDate").text = str(purchase.get("posting_date") or "")
+            etree.SubElement(inv_elem, "SupplierTRN").text = str(purchase.get("supplier_trn") or "")
+            etree.SubElement(inv_elem, "SupplierName").text = str(purchase.get("supplier_name") or "")
+            etree.SubElement(inv_elem, "Amount").text = f"{flt(purchase.get('net_total', 0)):.2f}"
+            etree.SubElement(inv_elem, "VATAmount").text = f"{flt(purchase.get('vat_amount', 0)):.2f}"
+            etree.SubElement(inv_elem, "GrandTotal").text = f"{flt(purchase.get('grand_total', 0)):.2f}"
+
+        # General Ledger section
+        gl_elem = etree.SubElement(root, "GeneralLedger")
+        etree.SubElement(gl_elem, "TotalEntries").text = str(len(gl_entries))
+        etree.SubElement(gl_elem, "TotalDebit").text = f"{sum(flt(e.get('debit', 0)) for e in gl_entries):.2f}"
+        etree.SubElement(gl_elem, "TotalCredit").text = f"{sum(flt(e.get('credit', 0)) for e in gl_entries):.2f}"
+
+        for entry in gl_entries:
+            entry_elem = etree.SubElement(gl_elem, "Entry")
+            etree.SubElement(entry_elem, "Account").text = str(entry.get("account") or "")
+            etree.SubElement(entry_elem, "PostingDate").text = str(entry.get("posting_date") or "")
+            etree.SubElement(entry_elem, "Debit").text = f"{flt(entry.get('debit', 0)):.2f}"
+            etree.SubElement(entry_elem, "Credit").text = f"{flt(entry.get('credit', 0)):.2f}"
+            etree.SubElement(entry_elem, "Voucher").text = str(entry.get("voucher_no") or "")
+            etree.SubElement(entry_elem, "VoucherType").text = str(entry.get("voucher_type") or "")
+
+        # Generate XML string with declaration and pretty printing
+        xml_string = etree.tostring(
+            root,
+            pretty_print=True,
+            xml_declaration=True,
+            encoding='UTF-8'
+        )
+        return xml_string.decode('utf-8')
 
     def _generate_transaction_listing(self):
         """Generate transaction listing report"""
