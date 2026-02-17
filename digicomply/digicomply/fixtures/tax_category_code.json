@@ -1,0 +1,79 @@
+[
+    {
+        "doctype": "Tax Category Code",
+        "code": "S",
+        "name_en": "Standard Rate",
+        "name_ar": "المعدل القياسي",
+        "description": "Standard VAT rate of 5% applies",
+        "tax_type": "VAT",
+        "default_rate": 5,
+        "requires_exemption_reason": 0,
+        "enabled": 1
+    },
+    {
+        "doctype": "Tax Category Code",
+        "code": "Z",
+        "name_en": "Zero Rated",
+        "name_ar": "معفى بنسبة صفر",
+        "description": "Zero-rated supplies (exports, international transport, etc.)",
+        "tax_type": "Zero Rated",
+        "default_rate": 0,
+        "requires_exemption_reason": 1,
+        "enabled": 1
+    },
+    {
+        "doctype": "Tax Category Code",
+        "code": "E",
+        "name_en": "Exempt",
+        "name_ar": "معفى",
+        "description": "VAT exempt supplies (financial services, bare land, etc.)",
+        "tax_type": "Exempt",
+        "default_rate": 0,
+        "requires_exemption_reason": 1,
+        "enabled": 1
+    },
+    {
+        "doctype": "Tax Category Code",
+        "code": "O",
+        "name_en": "Out of Scope",
+        "name_ar": "خارج النطاق",
+        "description": "Outside the scope of UAE VAT",
+        "tax_type": "Out of Scope",
+        "default_rate": 0,
+        "requires_exemption_reason": 0,
+        "enabled": 1
+    },
+    {
+        "doctype": "Tax Category Code",
+        "code": "AE",
+        "name_en": "Reverse Charge",
+        "name_ar": "الاحتساب العكسي",
+        "description": "Reverse charge mechanism applies",
+        "tax_type": "VAT",
+        "default_rate": 5,
+        "requires_exemption_reason": 0,
+        "enabled": 1
+    },
+    {
+        "doctype": "Tax Category Code",
+        "code": "K",
+        "name_en": "Intra-GCC",
+        "name_ar": "داخل دول المجلس",
+        "description": "Intra-GCC supplies",
+        "tax_type": "VAT",
+        "default_rate": 0,
+        "requires_exemption_reason": 0,
+        "enabled": 1
+    },
+    {
+        "doctype": "Tax Category Code",
+        "code": "G",
+        "name_en": "Export",
+        "name_ar": "تصدير",
+        "description": "Export of goods outside GCC",
+        "tax_type": "Zero Rated",
+        "default_rate": 0,
+        "requires_exemption_reason": 1,
+        "enabled": 1
+    }
+]

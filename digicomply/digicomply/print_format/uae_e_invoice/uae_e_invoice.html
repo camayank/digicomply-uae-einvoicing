@@ -1,0 +1,194 @@
+{% set doc = doc %}
+
+<div class="einv-container">
+    <!-- Header with QR Code -->
+    <div class="einv-header">
+        <div>
+            <div class="einv-title">TAX INVOICE / فاتورة ضريبية</div>
+            <div style="margin-top: 10px;">
+                <span class="einv-label">Invoice No:</span>
+                <span class="einv-value">{{ doc.sales_invoice }}</span>
+            </div>
+            <div>
+                <span class="einv-label">Date:</span>
+                <span class="einv-value">{{ frappe.format_date(doc.sales_invoice_date) }}</span>
+            </div>
+            <div>
+                <span class="einv-label">Invoice Type:</span>
+                <span class="einv-value">{{ doc.invoice_type_code }}</span>
+            </div>
+        </div>
+        <div style="text-align: right;">
+            {% if doc.qr_code_image %}
+            <img src="{{ doc.qr_code_image }}" class="einv-qr" alt="QR Code">
+            {% elif doc.qr_code_data %}
+            <img src="data:image/png;base64,{{ doc.qr_code_data }}" class="einv-qr" alt="QR Code">
+            {% else %}
+            <div class="einv-qr" style="border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10px;">QR Code</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- IRN Section -->
+    {% if doc.irn %}
+    <div class="einv-irn-box">
+        <div class="einv-irn-label">Invoice Reference Number (IRN) / رقم مرجع الفاتورة</div>
+        <div class="einv-irn-value">{{ doc.irn }}</div>
+        {% if doc.ack_number %}
+        <div style="margin-top: 8px;">
+            <span class="einv-label">Acknowledgement No:</span>
+            <span class="einv-value">{{ doc.ack_number }}</span>
+            {% if doc.ack_date %}
+            <span style="margin-left: 20px;">
+                <span class="einv-label">Date:</span>
+                <span class="einv-value">{{ frappe.format_datetime(doc.ack_date) }}</span>
+            </span>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Supplier & Buyer Details -->
+    <div class="einv-grid einv-section">
+        <div>
+            <div class="einv-section-title">Supplier Details / تفاصيل المورد</div>
+            <div class="einv-field">
+                <div class="einv-label">Legal Name / الاسم القانوني</div>
+                <div class="einv-value">{{ doc.supplier_name or '' }}</div>
+            </div>
+            <div class="einv-field">
+                <div class="einv-label">TRN / رقم التسجيل الضريبي</div>
+                <div class="einv-value" style="font-weight: 700;">{{ doc.supplier_trn or '' }}</div>
+            </div>
+            <div class="einv-field">
+                <div class="einv-label">Address / العنوان</div>
+                <div class="einv-value">
+                    {{ doc.supplier_address or '' }}<br>
+                    {{ doc.supplier_city or '' }}{% if doc.supplier_state %}, {{ doc.supplier_state }}{% endif %}<br>
+                    {{ doc.supplier_country or 'United Arab Emirates' }} {{ doc.supplier_postal_code or '' }}
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="einv-section-title">Buyer Details / تفاصيل المشتري</div>
+            <div class="einv-field">
+                <div class="einv-label">Legal Name / الاسم القانوني</div>
+                <div class="einv-value">{{ doc.buyer_name or '' }}</div>
+            </div>
+            <div class="einv-field">
+                <div class="einv-label">TRN / رقم التسجيل الضريبي</div>
+                <div class="einv-value" style="font-weight: 700;">{{ doc.buyer_trn or 'N/A' }}</div>
+            </div>
+            <div class="einv-field">
+                <div class="einv-label">Address / العنوان</div>
+                <div class="einv-value">
+                    {{ doc.buyer_address or '' }}<br>
+                    {{ doc.buyer_city or '' }}{% if doc.buyer_state %}, {{ doc.buyer_state }}{% endif %}<br>
+                    {{ doc.buyer_country or 'United Arab Emirates' }} {{ doc.buyer_postal_code or '' }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Line Items -->
+    <div class="einv-section">
+        <div class="einv-section-title">Line Items / البنود</div>
+        <table class="einv-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 35%;">Description / الوصف</th>
+                    <th style="width: 10%; text-align: right;">Qty / الكمية</th>
+                    <th style="width: 10%;">UOM</th>
+                    <th style="width: 12%; text-align: right;">Unit Price / السعر</th>
+                    <th style="width: 8%; text-align: right;">VAT %</th>
+                    <th style="width: 10%; text-align: right;">VAT / الضريبة</th>
+                    <th style="width: 10%; text-align: right;">Total / المجموع</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in doc.items %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <strong>{{ item.item_name }}</strong>
+                        {% if item.description and item.description != item.item_name %}
+                        <br><small style="color: #666;">{{ item.description }}</small>
+                        {% endif %}
+                    </td>
+                    <td style="text-align: right;">{{ frappe.format_value(item.quantity, {'fieldtype': 'Float', 'precision': 3}) }}</td>
+                    <td>{{ item.uom or 'Nos' }}</td>
+                    <td style="text-align: right;">{{ frappe.format_value(item.unit_price, {'fieldtype': 'Currency'}) }}</td>
+                    <td style="text-align: right;">{{ item.tax_rate or 5 }}%</td>
+                    <td style="text-align: right;">{{ frappe.format_value(item.tax_amount, {'fieldtype': 'Currency'}) }}</td>
+                    <td style="text-align: right;">{{ frappe.format_value(item.gross_amount, {'fieldtype': 'Currency'}) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Totals -->
+    <div class="einv-totals">
+        <div class="einv-total-row">
+            <span class="einv-total-label">Subtotal (Excl. VAT) / المجموع الفرعي</span>
+            <span class="einv-total-value">{{ doc.currency }} {{ frappe.format_value(doc.net_amount, {'fieldtype': 'Currency'}) }}</span>
+        </div>
+        {% if doc.total_discount %}
+        <div class="einv-total-row">
+            <span class="einv-total-label">Discount / الخصم</span>
+            <span class="einv-total-value">{{ doc.currency }} ({{ frappe.format_value(doc.total_discount, {'fieldtype': 'Currency'}) }})</span>
+        </div>
+        {% endif %}
+        <div class="einv-total-row">
+            <span class="einv-total-label">VAT ({{ doc.tax_rate or 5 }}%) / ضريبة القيمة المضافة</span>
+            <span class="einv-total-value">{{ doc.currency }} {{ frappe.format_value(doc.tax_amount, {'fieldtype': 'Currency'}) }}</span>
+        </div>
+        <div class="einv-total-row einv-grand-total">
+            <span class="einv-total-label">Grand Total / الإجمالي</span>
+            <span class="einv-total-value">{{ doc.currency }} {{ frappe.format_value(doc.gross_amount, {'fieldtype': 'Currency'}) }}</span>
+        </div>
+    </div>
+
+    <!-- Tax Details -->
+    {% if doc.tax_category_code or doc.reverse_charge %}
+    <div class="einv-section" style="margin-top: 20px;">
+        <div class="einv-section-title">Tax Information / معلومات الضريبة</div>
+        <div class="einv-grid">
+            {% if doc.tax_category_code %}
+            <div class="einv-field">
+                <div class="einv-label">Tax Category / فئة الضريبة</div>
+                <div class="einv-value">{{ doc.tax_category_code }}</div>
+            </div>
+            {% endif %}
+            {% if doc.reverse_charge %}
+            <div class="einv-field">
+                <div class="einv-label">Reverse Charge / الاحتساب العكسي</div>
+                <div class="einv-value">Yes / نعم</div>
+            </div>
+            {% endif %}
+            {% if doc.tax_exemption_reason %}
+            <div class="einv-field" style="grid-column: 1 / -1;">
+                <div class="einv-label">Exemption Reason / سبب الإعفاء</div>
+                <div class="einv-value">{{ doc.tax_exemption_reason }}</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Footer -->
+    <div class="einv-footer">
+        <div>This is a computer-generated e-invoice and is valid without signature.</div>
+        <div>هذه فاتورة إلكترونية صادرة عن الحاسوب وصالحة بدون توقيع</div>
+        {% if doc.document_hash %}
+        <div style="margin-top: 10px; font-family: monospace; font-size: 8px;">
+            Document Hash: {{ doc.document_hash[:32] }}...
+        </div>
+        {% endif %}
+        <div style="margin-top: 10px;">
+            Generated via DigiComply E-Invoicing System | ASP: {{ doc.asp_provider or 'N/A' }}
+        </div>
+    </div>
+</div>

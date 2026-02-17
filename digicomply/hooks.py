@@ -45,6 +45,9 @@ doc_events = {
     "Reconciliation Run": {
         "on_submit": "digicomply.digicomply.doctype.reconciliation_run.reconciliation_run.on_submit_handler",
     },
+    "Sales Invoice": {
+        "on_submit": "digicomply.digicomply.doctype.e_invoice.e_invoice.auto_create_e_invoice",
+    },
     # CSV Import processes automatically in validate()
 }
 
@@ -67,6 +70,12 @@ fixtures = [
     {
         "dt": "Property Setter",
         "filters": [["module", "=", "DigiComply"]],
+    },
+    {
+        "dt": "Invoice Type Code",
+    },
+    {
+        "dt": "Tax Category Code",
     },
 ]
 

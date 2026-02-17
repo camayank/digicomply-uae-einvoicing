@@ -1,0 +1,670 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "naming_series:",
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "naming_series",
+        "reference_section",
+        "sales_invoice",
+        "sales_invoice_date",
+        "company",
+        "column_break_ref",
+        "customer",
+        "customer_trn",
+        "invoice_type_code",
+        "irn_section",
+        "irn",
+        "irn_generation_date",
+        "irn_status",
+        "column_break_irn",
+        "ack_number",
+        "ack_date",
+        "irn_cancel_date",
+        "qr_code_section",
+        "qr_code_image",
+        "qr_code_data",
+        "column_break_qr",
+        "qr_code_text",
+        "supplier_section",
+        "supplier_name",
+        "supplier_trn",
+        "supplier_address",
+        "column_break_supplier",
+        "supplier_city",
+        "supplier_state",
+        "supplier_country",
+        "supplier_postal_code",
+        "buyer_section",
+        "buyer_name",
+        "buyer_trn",
+        "buyer_address",
+        "column_break_buyer",
+        "buyer_city",
+        "buyer_state",
+        "buyer_country",
+        "buyer_postal_code",
+        "amounts_section",
+        "currency",
+        "exchange_rate",
+        "net_amount",
+        "column_break_amounts",
+        "tax_amount",
+        "gross_amount",
+        "total_discount",
+        "tax_details_section",
+        "tax_category_code",
+        "tax_rate",
+        "tax_exemption_reason",
+        "column_break_tax",
+        "reverse_charge",
+        "tax_inclusive",
+        "items_section",
+        "items",
+        "signed_document_section",
+        "signed_invoice_xml",
+        "signed_invoice_json",
+        "column_break_signed",
+        "document_hash",
+        "signature_value",
+        "certificate_info",
+        "asp_section",
+        "asp_connection",
+        "asp_provider",
+        "asp_reference_id",
+        "column_break_asp",
+        "submission_date",
+        "response_date",
+        "asp_response",
+        "status_section",
+        "e_invoice_status",
+        "validation_status",
+        "submission_attempts",
+        "column_break_status",
+        "last_error",
+        "error_code",
+        "retry_after",
+        "history_section",
+        "submission_history",
+        "peppol_section",
+        "peppol_message_id",
+        "peppol_sender_id",
+        "peppol_receiver_id",
+        "column_break_peppol",
+        "peppol_document_type",
+        "peppol_process_id",
+        "peppol_transmission_date"
+    ],
+    "fields": [
+        {
+            "fieldname": "naming_series",
+            "fieldtype": "Select",
+            "label": "Series",
+            "options": "EINV-.YYYY.-",
+            "reqd": 1
+        },
+        {
+            "fieldname": "reference_section",
+            "fieldtype": "Section Break",
+            "label": "Invoice Reference"
+        },
+        {
+            "fieldname": "sales_invoice",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Sales Invoice",
+            "options": "Sales Invoice",
+            "reqd": 1
+        },
+        {
+            "fieldname": "sales_invoice_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Invoice Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_ref",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "customer",
+            "fieldtype": "Link",
+            "label": "Customer",
+            "options": "Customer",
+            "read_only": 1
+        },
+        {
+            "fieldname": "customer_trn",
+            "fieldtype": "Data",
+            "label": "Customer TRN",
+            "read_only": 1
+        },
+        {
+            "fieldname": "invoice_type_code",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Invoice Type Code",
+            "options": "Invoice Type Code",
+            "reqd": 1
+        },
+        {
+            "fieldname": "irn_section",
+            "fieldtype": "Section Break",
+            "label": "Invoice Reference Number (IRN)"
+        },
+        {
+            "fieldname": "irn",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "IRN",
+            "read_only": 1,
+            "description": "Unique Invoice Reference Number from ASP/FTA"
+        },
+        {
+            "fieldname": "irn_generation_date",
+            "fieldtype": "Datetime",
+            "label": "IRN Generation Date",
+            "read_only": 1
+        },
+        {
+            "default": "Pending",
+            "fieldname": "irn_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "IRN Status",
+            "options": "Pending\nGenerated\nCancelled\nExpired",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_irn",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "ack_number",
+            "fieldtype": "Data",
+            "label": "Acknowledgement Number",
+            "read_only": 1
+        },
+        {
+            "fieldname": "ack_date",
+            "fieldtype": "Datetime",
+            "label": "Acknowledgement Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "irn_cancel_date",
+            "fieldtype": "Datetime",
+            "label": "IRN Cancel Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "qr_code_section",
+            "fieldtype": "Section Break",
+            "label": "QR Code"
+        },
+        {
+            "fieldname": "qr_code_image",
+            "fieldtype": "Attach Image",
+            "label": "QR Code Image"
+        },
+        {
+            "fieldname": "qr_code_data",
+            "fieldtype": "Code",
+            "label": "QR Code Data (Base64)",
+            "options": "Text"
+        },
+        {
+            "fieldname": "column_break_qr",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "qr_code_text",
+            "fieldtype": "Small Text",
+            "label": "QR Code Text Content",
+            "read_only": 1,
+            "description": "Decoded QR code content for verification"
+        },
+        {
+            "fieldname": "supplier_section",
+            "fieldtype": "Section Break",
+            "label": "Supplier Details"
+        },
+        {
+            "fieldname": "supplier_name",
+            "fieldtype": "Data",
+            "label": "Supplier Legal Name"
+        },
+        {
+            "fieldname": "supplier_trn",
+            "fieldtype": "Data",
+            "label": "Supplier TRN",
+            "reqd": 1
+        },
+        {
+            "fieldname": "supplier_address",
+            "fieldtype": "Small Text",
+            "label": "Supplier Address"
+        },
+        {
+            "fieldname": "column_break_supplier",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "supplier_city",
+            "fieldtype": "Data",
+            "label": "City"
+        },
+        {
+            "fieldname": "supplier_state",
+            "fieldtype": "Data",
+            "label": "State/Emirate"
+        },
+        {
+            "default": "AE",
+            "fieldname": "supplier_country",
+            "fieldtype": "Link",
+            "label": "Country",
+            "options": "Country"
+        },
+        {
+            "fieldname": "supplier_postal_code",
+            "fieldtype": "Data",
+            "label": "Postal Code"
+        },
+        {
+            "fieldname": "buyer_section",
+            "fieldtype": "Section Break",
+            "label": "Buyer Details"
+        },
+        {
+            "fieldname": "buyer_name",
+            "fieldtype": "Data",
+            "label": "Buyer Legal Name"
+        },
+        {
+            "fieldname": "buyer_trn",
+            "fieldtype": "Data",
+            "label": "Buyer TRN"
+        },
+        {
+            "fieldname": "buyer_address",
+            "fieldtype": "Small Text",
+            "label": "Buyer Address"
+        },
+        {
+            "fieldname": "column_break_buyer",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "buyer_city",
+            "fieldtype": "Data",
+            "label": "City"
+        },
+        {
+            "fieldname": "buyer_state",
+            "fieldtype": "Data",
+            "label": "State/Emirate"
+        },
+        {
+            "default": "AE",
+            "fieldname": "buyer_country",
+            "fieldtype": "Link",
+            "label": "Country",
+            "options": "Country"
+        },
+        {
+            "fieldname": "buyer_postal_code",
+            "fieldtype": "Data",
+            "label": "Postal Code"
+        },
+        {
+            "fieldname": "amounts_section",
+            "fieldtype": "Section Break",
+            "label": "Amount Details"
+        },
+        {
+            "default": "AED",
+            "fieldname": "currency",
+            "fieldtype": "Link",
+            "label": "Currency",
+            "options": "Currency"
+        },
+        {
+            "default": "1",
+            "fieldname": "exchange_rate",
+            "fieldtype": "Float",
+            "label": "Exchange Rate",
+            "precision": "6"
+        },
+        {
+            "fieldname": "net_amount",
+            "fieldtype": "Currency",
+            "label": "Net Amount (Excl. VAT)",
+            "options": "currency"
+        },
+        {
+            "fieldname": "column_break_amounts",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "tax_amount",
+            "fieldtype": "Currency",
+            "label": "VAT Amount",
+            "options": "currency"
+        },
+        {
+            "fieldname": "gross_amount",
+            "fieldtype": "Currency",
+            "label": "Gross Amount (Incl. VAT)",
+            "options": "currency"
+        },
+        {
+            "fieldname": "total_discount",
+            "fieldtype": "Currency",
+            "label": "Total Discount",
+            "options": "currency"
+        },
+        {
+            "fieldname": "tax_details_section",
+            "fieldtype": "Section Break",
+            "label": "Tax Details"
+        },
+        {
+            "fieldname": "tax_category_code",
+            "fieldtype": "Link",
+            "label": "Tax Category Code",
+            "options": "Tax Category Code"
+        },
+        {
+            "default": "5",
+            "fieldname": "tax_rate",
+            "fieldtype": "Percent",
+            "label": "VAT Rate (%)"
+        },
+        {
+            "fieldname": "tax_exemption_reason",
+            "fieldtype": "Small Text",
+            "label": "Tax Exemption Reason",
+            "depends_on": "eval:doc.tax_rate==0"
+        },
+        {
+            "fieldname": "column_break_tax",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "reverse_charge",
+            "fieldtype": "Check",
+            "label": "Reverse Charge"
+        },
+        {
+            "default": "0",
+            "fieldname": "tax_inclusive",
+            "fieldtype": "Check",
+            "label": "Tax Inclusive Pricing"
+        },
+        {
+            "fieldname": "items_section",
+            "fieldtype": "Section Break",
+            "label": "Line Items"
+        },
+        {
+            "fieldname": "items",
+            "fieldtype": "Table",
+            "label": "Items",
+            "options": "E-Invoice Item"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "signed_document_section",
+            "fieldtype": "Section Break",
+            "label": "Signed Document"
+        },
+        {
+            "fieldname": "signed_invoice_xml",
+            "fieldtype": "Code",
+            "label": "Signed Invoice (UBL XML)",
+            "options": "XML"
+        },
+        {
+            "fieldname": "signed_invoice_json",
+            "fieldtype": "Code",
+            "label": "Signed Invoice (JSON)",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "column_break_signed",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "document_hash",
+            "fieldtype": "Data",
+            "label": "Document Hash (SHA256)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "signature_value",
+            "fieldtype": "Code",
+            "label": "Digital Signature",
+            "options": "Text"
+        },
+        {
+            "fieldname": "certificate_info",
+            "fieldtype": "Small Text",
+            "label": "Certificate Information",
+            "read_only": 1
+        },
+        {
+            "fieldname": "asp_section",
+            "fieldtype": "Section Break",
+            "label": "ASP Details"
+        },
+        {
+            "fieldname": "asp_connection",
+            "fieldtype": "Link",
+            "label": "ASP Connection",
+            "options": "ASP Connection"
+        },
+        {
+            "fieldname": "asp_provider",
+            "fieldtype": "Data",
+            "label": "ASP Provider",
+            "read_only": 1
+        },
+        {
+            "fieldname": "asp_reference_id",
+            "fieldtype": "Data",
+            "label": "ASP Reference ID",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_asp",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "submission_date",
+            "fieldtype": "Datetime",
+            "label": "Submission Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "response_date",
+            "fieldtype": "Datetime",
+            "label": "Response Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "asp_response",
+            "fieldtype": "Code",
+            "label": "ASP Response",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "status_section",
+            "fieldtype": "Section Break",
+            "label": "Status"
+        },
+        {
+            "default": "Draft",
+            "fieldname": "e_invoice_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "E-Invoice Status",
+            "options": "Draft\nPending Validation\nValidated\nPending Submission\nSubmitted\nAccepted\nRejected\nCancelled\nError"
+        },
+        {
+            "default": "Not Validated",
+            "fieldname": "validation_status",
+            "fieldtype": "Select",
+            "label": "Validation Status",
+            "options": "Not Validated\nValid\nInvalid\nWarnings"
+        },
+        {
+            "default": "0",
+            "fieldname": "submission_attempts",
+            "fieldtype": "Int",
+            "label": "Submission Attempts",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_status",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "last_error",
+            "fieldtype": "Small Text",
+            "label": "Last Error",
+            "read_only": 1
+        },
+        {
+            "fieldname": "error_code",
+            "fieldtype": "Data",
+            "label": "Error Code",
+            "read_only": 1
+        },
+        {
+            "fieldname": "retry_after",
+            "fieldtype": "Datetime",
+            "label": "Retry After",
+            "read_only": 1
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "history_section",
+            "fieldtype": "Section Break",
+            "label": "Submission History"
+        },
+        {
+            "fieldname": "submission_history",
+            "fieldtype": "Code",
+            "label": "History",
+            "options": "JSON"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "peppol_section",
+            "fieldtype": "Section Break",
+            "label": "Peppol Details"
+        },
+        {
+            "fieldname": "peppol_message_id",
+            "fieldtype": "Data",
+            "label": "Peppol Message ID"
+        },
+        {
+            "fieldname": "peppol_sender_id",
+            "fieldtype": "Data",
+            "label": "Sender Participant ID"
+        },
+        {
+            "fieldname": "peppol_receiver_id",
+            "fieldtype": "Data",
+            "label": "Receiver Participant ID"
+        },
+        {
+            "fieldname": "column_break_peppol",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "peppol_document_type",
+            "fieldtype": "Data",
+            "label": "Document Type ID"
+        },
+        {
+            "fieldname": "peppol_process_id",
+            "fieldtype": "Data",
+            "label": "Process ID"
+        },
+        {
+            "fieldname": "peppol_transmission_date",
+            "fieldtype": "Datetime",
+            "label": "Transmission Date"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [
+        {
+            "link_doctype": "API Log",
+            "link_fieldname": "sync_run"
+        }
+    ],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "E-Invoice",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User",
+            "share": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1,
+    "title_field": "sales_invoice"
+}

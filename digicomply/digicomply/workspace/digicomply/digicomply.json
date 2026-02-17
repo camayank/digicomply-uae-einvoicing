@@ -92,6 +92,55 @@
     {
       "hidden": 0,
       "is_query_report": 0,
+      "label": "E-Invoicing",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "E-Invoice",
+      "link_count": 0,
+      "link_to": "E-Invoice",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "E-Invoice Settings",
+      "link_count": 0,
+      "link_to": "E-Invoice Settings",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Invoice Type Code",
+      "link_count": 0,
+      "link_to": "Invoice Type Code",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Tax Category Code",
+      "link_count": 0,
+      "link_to": "Tax Category Code",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
       "label": "Reconciliation Run",
       "link_count": 0,
       "link_to": "Reconciliation Run",
