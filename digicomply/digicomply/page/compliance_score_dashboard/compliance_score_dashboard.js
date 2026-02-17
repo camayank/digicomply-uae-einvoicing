@@ -428,25 +428,25 @@ function renderDashboard($content, scoreData, penaltyData, company) {
     var scoreColor = getScoreColor(score);
 
     var breakdownHtml = buildBreakdownHtml(scoreData);
-    var penaltyHtml = buildPenaltyHtml(penaltyData);
 
+    // Build the dashboard structure
     $content.html(`
         <div class="dc-dashboard-grid">
             <!-- Main Score Card -->
             <div class="dc-dashboard-card dc-main-score-card">
                 <div class="dc-main-score-gauge">
-                    <div class="dc-main-score-circle" style="--score: ${score};">
+                    <div class="dc-main-score-circle" style="--score: ` + parseInt(score) + `;">
                         <div class="dc-main-score-inner">
-                            <div class="dc-main-score-number">${score}</div>
+                            <div class="dc-main-score-number">` + parseInt(score) + `</div>
                             <div class="dc-main-score-max">/ 100</div>
                         </div>
                     </div>
                 </div>
                 <div class="dc-main-score-info">
                     <div class="dc-main-score-title">DigiComply Score</div>
-                    <div class="dc-main-score-risk">${scoreData.risk_level}</div>
+                    <div class="dc-main-score-risk" id="score-risk-level"></div>
                     <div class="dc-main-score-penalty">
-                        Penalty Exposure: <strong>AED ${formatNumber(scoreData.penalty_exposure || 0)}</strong>
+                        Penalty Exposure: <strong>AED ` + formatNumber(scoreData.penalty_exposure || 0) + `</strong>
                     </div>
                 </div>
             </div>
@@ -460,7 +460,7 @@ function renderDashboard($content, scoreData, penaltyData, company) {
             <!-- Penalty Breakdown -->
             <div class="dc-dashboard-card">
                 <div class="dc-dashboard-card-title">Penalty Exposure</div>
-                ${penaltyHtml}
+                <div id="penalty-breakdown-container"></div>
             </div>
 
             <!-- Quick Actions -->
@@ -495,6 +495,12 @@ function renderDashboard($content, scoreData, penaltyData, company) {
             </div>
         </div>
     `);
+
+    // Set risk level safely using .text() to prevent XSS
+    $content.find('#score-risk-level').text(scoreData.risk_level || 'Unknown');
+
+    // Build penalty breakdown using DOM construction
+    buildPenaltyDOM($content.find('#penalty-breakdown-container'), penaltyData);
 }
 
 function buildBreakdownHtml(scoreData) {
@@ -525,38 +531,43 @@ function buildBreakdownHtml(scoreData) {
     return html;
 }
 
-function buildPenaltyHtml(penaltyData) {
+function buildPenaltyDOM($container, penaltyData) {
+    $container.empty();
+
     if (!penaltyData || !penaltyData.breakdown || penaltyData.breakdown.length === 0) {
-        return `
-            <div style="text-align: center; padding: 24px; color: #10b981;">
-                <div style="font-size: 2rem; margin-bottom: 8px;">✓</div>
-                <div style="font-weight: 600;">No Penalty Exposure</div>
-                <div style="font-size: 0.875rem; color: #64748b;">You're fully compliant!</div>
-            </div>
-        `;
+        var $empty = $('<div></div>').css({
+            'text-align': 'center',
+            'padding': '24px',
+            'color': '#10b981'
+        });
+        $('<div></div>').css({ 'font-size': '2rem', 'margin-bottom': '8px' }).text('✓').appendTo($empty);
+        $('<div></div>').css({ 'font-weight': '600' }).text('No Penalty Exposure').appendTo($empty);
+        $('<div></div>').css({ 'font-size': '0.875rem', 'color': '#64748b' }).text("You're fully compliant!").appendTo($empty);
+        $container.append($empty);
+        return;
     }
 
-    var html = '<div class="dc-penalty-breakdown">';
+    var $breakdown = $('<div class="dc-penalty-breakdown"></div>');
+
     penaltyData.breakdown.forEach(function(item) {
-        html += `
-            <div class="dc-penalty-item">
-                <div>
-                    <div class="dc-penalty-category">${item.category}</div>
-                    <div class="dc-penalty-desc">${item.description}</div>
-                </div>
-                <div class="dc-penalty-amount">AED ${formatNumber(item.amount)}</div>
-            </div>
-        `;
+        var $item = $('<div class="dc-penalty-item"></div>');
+
+        var $left = $('<div></div>');
+        $('<div class="dc-penalty-category"></div>').text(item.category).appendTo($left);
+        $('<div class="dc-penalty-desc"></div>').text(item.description).appendTo($left);
+        $item.append($left);
+
+        $('<div class="dc-penalty-amount"></div>').text('AED ' + formatNumber(item.amount)).appendTo($item);
+
+        $breakdown.append($item);
     });
 
-    html += `
-        <div class="dc-penalty-total">
-            <div class="dc-penalty-total-label">Total Exposure</div>
-            <div class="dc-penalty-total-amount">AED ${formatNumber(penaltyData.total)}</div>
-        </div>
-    </div>`;
+    var $total = $('<div class="dc-penalty-total"></div>');
+    $('<div class="dc-penalty-total-label"></div>').text('Total Exposure').appendTo($total);
+    $('<div class="dc-penalty-total-amount"></div>').text('AED ' + formatNumber(penaltyData.total)).appendTo($total);
+    $breakdown.append($total);
 
-    return html;
+    $container.append($breakdown);
 }
 
 function getScoreColor(score) {

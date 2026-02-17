@@ -520,7 +520,9 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
             if (r.message) {
                 var $select = $(wrapper).find('#ob-company');
                 r.message.forEach(function(c) {
-                    $select.append('<option value="' + c.name + '">' + c.name + '</option>');
+                    // Use jQuery to safely escape company name
+                    var $option = $('<option></option>').val(c.name).text(c.name);
+                    $select.append($option);
                 });
             }
         }
@@ -631,17 +633,15 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
         var $amount = $(wrapper).find('#ob-penalty-amount');
         animateValue($amount, 0, data.total, 1500);
 
-        // Build breakdown
-        var html = '';
+        // Build breakdown (using jQuery for XSS safety)
+        var $breakdown = $(wrapper).find('#ob-penalty-breakdown');
+        $breakdown.empty();
         data.breakdown.forEach(function(item) {
-            html += `
-                <div class="dc-shock-item">
-                    <span>${item.category}</span>
-                    <span>AED ${formatNumber(item.amount)}</span>
-                </div>
-            `;
+            var $item = $('<div class="dc-shock-item"></div>');
+            $('<span></span>').text(item.category).appendTo($item);
+            $('<span></span>').text('AED ' + formatNumber(item.amount)).appendTo($item);
+            $breakdown.append($item);
         });
-        $(wrapper).find('#ob-penalty-breakdown').html(html);
     }
 
     function showScoreScreen(wrapper, data) {

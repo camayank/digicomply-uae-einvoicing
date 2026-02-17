@@ -520,23 +520,23 @@ frappe.pages['penalty-calculator'].on_page_load = function(wrapper) {
         $card.removeClass('risk-low risk-medium risk-high risk-critical');
         $card.addClass('risk-' + data.risk_level.toLowerCase());
 
-        // Build breakdown
-        var breakdownHtml = '';
+        // Build breakdown (using text() for XSS protection)
+        var $breakdown = $(wrapper).find('#penalty-breakdown');
+        $breakdown.empty();
         data.breakdown.forEach(function(item) {
-            breakdownHtml += `
-                <div class="dc-breakdown-item">
-                    <div>
-                        <div class="dc-breakdown-category">${item.category}</div>
-                        <div class="dc-breakdown-desc">${item.description}</div>
-                    </div>
-                    <div>
-                        <span class="dc-breakdown-amount">AED ${formatNumber(item.amount)}</span>
-                        <span class="dc-breakdown-pct">(${item.percentage}%)</span>
-                    </div>
-                </div>
-            `;
+            var $item = $('<div class="dc-breakdown-item"></div>');
+            var $left = $('<div></div>');
+            $('<div class="dc-breakdown-category"></div>').text(item.category).appendTo($left);
+            $('<div class="dc-breakdown-desc"></div>').text(item.description).appendTo($left);
+            $item.append($left);
+
+            var $right = $('<div></div>');
+            $('<span class="dc-breakdown-amount"></span>').text('AED ' + formatNumber(item.amount)).appendTo($right);
+            $('<span class="dc-breakdown-pct"></span>').text('(' + item.percentage + '%)').appendTo($right);
+            $item.append($right);
+
+            $breakdown.append($item);
         });
-        $(wrapper).find('#penalty-breakdown').html(breakdownHtml);
 
         // Show results
         $results.addClass('show');
