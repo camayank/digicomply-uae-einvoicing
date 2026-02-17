@@ -15,11 +15,64 @@ frappe.ui.form.on('TRN Registry', {
         // Add Validate with FTA button
         if (!frm.is_new()) {
             frm.add_custom_button(__('Validate with FTA'), function() {
-                frappe.msgprint({
-                    title: __('FTA Validation'),
-                    indicator: 'blue',
-                    message: __('FTA API integration will be available in Phase 2. ' +
-                               'Currently, TRN format validation is performed automatically on save.')
+                frappe.call({
+                    method: 'digicomply.digicomply.api.fta_api.validate_trn_with_fta',
+                    args: {
+                        trn: frm.doc.trn,
+                        company: frm.doc.company,
+                        trn_registry: frm.doc.name
+                    },
+                    freeze: true,
+                    freeze_message: __('Validating with FTA...'),
+                    callback: function(r) {
+                        if (r.message) {
+                            let result = r.message;
+                            let indicator = result.valid ? 'green' : 'red';
+                            let title = result.valid ? __('TRN Valid') : __('TRN Invalid');
+
+                            // Build detailed message
+                            let message_parts = [result.message];
+
+                            // Add data details if available
+                            if (result.data) {
+                                if (result.data.blacklisted) {
+                                    message_parts.push('<br><br><strong>' + __('Blacklist Details:') + '</strong>');
+                                    if (result.data.reason) {
+                                        message_parts.push('<br>' + __('Reason:') + ' ' + frappe.utils.escape_html(result.data.reason));
+                                    }
+                                    if (result.data.entity_name) {
+                                        message_parts.push('<br>' + __('Entity:') + ' ' + frappe.utils.escape_html(result.data.entity_name));
+                                    }
+                                }
+                                if (result.data.errors && result.data.errors.length > 0) {
+                                    message_parts.push('<br><br><strong>' + __('Validation Errors:') + '</strong>');
+                                    result.data.errors.forEach(function(err) {
+                                        message_parts.push('<br>- ' + frappe.utils.escape_html(err));
+                                    });
+                                }
+                                if (result.data.fta_validated) {
+                                    message_parts.push('<br><br><strong>' + __('FTA Validation:') + '</strong> ' + __('Verified'));
+                                }
+                            }
+
+                            // Show result dialog
+                            frappe.msgprint({
+                                title: title,
+                                indicator: indicator,
+                                message: message_parts.join('')
+                            });
+
+                            // Reload document to show updated status
+                            frm.reload_doc();
+                        }
+                    },
+                    error: function(r) {
+                        frappe.msgprint({
+                            title: __('Validation Error'),
+                            indicator: 'red',
+                            message: __('An error occurred while validating the TRN. Please try again.')
+                        });
+                    }
                 });
             }, __('Actions'));
 
