@@ -8,9 +8,29 @@ frappe.pages['penalty-calculator'].on_page_load = function(wrapper) {
         single_column: true
     });
 
-    // Add styles
+    // Add Google Fonts
+    if (!$('#dc-google-fonts').length) {
+        $('head').append('<link id="dc-google-fonts" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">');
+    }
+
+    // Add styles with CSS variables for design system
     $('head').append(`
         <style id="penalty-calculator-styles">
+            :root {
+                --dc-primary: #a404e4;
+                --dc-primary-dark: #8501b9;
+                --dc-text-dark: #1e293b;
+                --dc-text-muted: #64748b;
+                --dc-border: #e2e8f0;
+                --dc-success: #10b981;
+                --dc-warning: #f59e0b;
+                --dc-danger: #ef4444;
+                --dc-danger-dark: #dc2626;
+                --dc-radius: 12px;
+                --dc-radius-lg: 16px;
+                --dc-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+
             .dc-calc-wrapper {
                 font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
                 max-width: 800px;
@@ -98,9 +118,40 @@ frappe.pages['penalty-calculator'].on_page_load = function(wrapper) {
                 -webkit-appearance: none;
                 width: 24px;
                 height: 24px;
-                background: #a404e4;
+                background: var(--dc-primary);
                 border-radius: 50%;
                 cursor: pointer;
+                box-shadow: 0 2px 8px rgba(164, 4, 228, 0.3);
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+
+            .dc-calc-slider::-webkit-slider-thumb:hover {
+                transform: scale(1.1);
+                box-shadow: 0 4px 12px rgba(164, 4, 228, 0.4);
+            }
+
+            .dc-calc-slider::-moz-range-thumb {
+                width: 24px;
+                height: 24px;
+                background: var(--dc-primary);
+                border-radius: 50%;
+                cursor: pointer;
+                border: none;
+                box-shadow: 0 2px 8px rgba(164, 4, 228, 0.3);
+            }
+
+            .dc-calc-slider::-moz-range-track {
+                height: 8px;
+                background: var(--dc-border);
+                border-radius: 4px;
+            }
+
+            .dc-calc-slider:focus {
+                outline: none;
+            }
+
+            .dc-calc-slider:focus::-webkit-slider-thumb {
+                box-shadow: 0 0 0 4px rgba(164, 4, 228, 0.2);
             }
 
             .dc-calc-slider-value {
@@ -324,9 +375,79 @@ frappe.pages['penalty-calculator'].on_page_load = function(wrapper) {
 
             .dc-trust-badges {
                 text-align: center;
-                margin-top: 32px;
-                color: #64748b;
+                margin-top: 40px;
+                padding: 24px;
+                background: #f8fafc;
+                border-radius: var(--dc-radius-lg);
+            }
+
+            .dc-trust-badges p {
+                color: var(--dc-text-muted);
                 font-size: 0.875rem;
+                margin: 0;
+            }
+
+            .dc-trust-icons {
+                display: flex;
+                justify-content: center;
+                gap: 32px;
+                margin-top: 16px;
+            }
+
+            .dc-trust-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--dc-text-dark);
+                font-size: 0.875rem;
+                font-weight: 500;
+            }
+
+            .dc-trust-icon {
+                width: 20px;
+                height: 20px;
+                color: var(--dc-success);
+            }
+
+            /* Input validation states */
+            .dc-calc-input.error,
+            .dc-calc-select.error {
+                border-color: var(--dc-danger);
+                background: #fef2f2;
+            }
+
+            .dc-calc-input.error:focus,
+            .dc-calc-select.error:focus {
+                border-color: var(--dc-danger);
+                box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            }
+
+            .dc-calc-error-msg {
+                color: var(--dc-danger);
+                font-size: 0.75rem;
+                margin-top: 4px;
+                display: none;
+            }
+
+            .dc-calc-error-msg.show {
+                display: block;
+            }
+
+            /* Loading spinner */
+            .dc-loading-spinner {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: white;
+                animation: spin 0.8s linear infinite;
+                margin-right: 8px;
+                vertical-align: middle;
+            }
+
+            @keyframes spin {
+                to { transform: rotate(360deg); }
             }
 
             @keyframes fadeIn {
@@ -439,7 +560,27 @@ frappe.pages['penalty-calculator'].on_page_load = function(wrapper) {
             </div>
 
             <div class="dc-trust-badges">
-                <p>Used by 2,400+ UAE finance teams</p>
+                <p>Trusted by UAE finance teams</p>
+                <div class="dc-trust-icons">
+                    <div class="dc-trust-item">
+                        <svg class="dc-trust-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        FTA Compliant
+                    </div>
+                    <div class="dc-trust-item">
+                        <svg class="dc-trust-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Secure
+                    </div>
+                    <div class="dc-trust-item">
+                        <svg class="dc-trust-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                        </svg>
+                        2,400+ Users
+                    </div>
+                </div>
             </div>
         </div>
     `);
@@ -485,13 +626,13 @@ frappe.pages['penalty-calculator'].on_page_load = function(wrapper) {
             reconciled_pct: $(wrapper).find('#calc-recon-pct').val()
         };
 
-        $btn.prop('disabled', true).text('Calculating...');
+        $btn.prop('disabled', true).html('<span class="dc-loading-spinner"></span>Calculating...');
 
         frappe.call({
             method: 'digicomply.digicomply.api.compliance_score.submit_calculator',
             args: data,
             callback: function(r) {
-                $btn.prop('disabled', false).text('Calculate My Risk');
+                $btn.prop('disabled', false).html('Calculate My Risk');
 
                 if (r.message) {
                     showResults(wrapper, r.message);

@@ -16,9 +16,28 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
         scoreData: null
     };
 
-    // Add styles
+    // Add Google Fonts
+    if (!$('#dc-google-fonts').length) {
+        $('head').append('<link id="dc-google-fonts" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">');
+    }
+
+    // Add styles with CSS variables
     $('head').append(`
         <style id="onboarding-styles">
+            :root {
+                --dc-primary: #a404e4;
+                --dc-primary-dark: #8501b9;
+                --dc-text-dark: #1e293b;
+                --dc-text-muted: #64748b;
+                --dc-border: #e2e8f0;
+                --dc-success: #10b981;
+                --dc-warning: #f59e0b;
+                --dc-danger: #ef4444;
+                --dc-radius: 12px;
+                --dc-radius-lg: 20px;
+                --dc-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            }
+
             .dc-onboard-wrapper {
                 font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
                 max-width: 700px;
@@ -373,6 +392,57 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
                 color: white;
             }
 
+            .dc-trial-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .dc-trial-btn.secondary:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            /* Back button */
+            .dc-back-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: transparent;
+                border: none;
+                color: var(--dc-text-muted);
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+                padding: 8px 0;
+                margin-bottom: 16px;
+                transition: color 0.2s;
+            }
+
+            .dc-back-btn:hover {
+                color: var(--dc-primary);
+            }
+
+            .dc-back-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            /* Loading spinner */
+            .dc-loading-spinner {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: white;
+                animation: spin 0.8s linear infinite;
+                margin-right: 8px;
+                vertical-align: middle;
+            }
+
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
@@ -416,6 +486,10 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
 
             <!-- Step 2: Shock (Penalty Exposure) -->
             <div class="dc-onboard-step" data-step="2">
+                <button class="dc-back-btn" id="ob-back-step2">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    Back
+                </button>
                 <div class="dc-shock-card">
                     <div class="dc-shock-icon">⚠️</div>
                     <div class="dc-shock-label">Your Penalty Exposure</div>
@@ -429,6 +503,10 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
 
             <!-- Step 3: Relief (Score) -->
             <div class="dc-onboard-step" data-step="3">
+                <button class="dc-back-btn" id="ob-back-step3">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    Back
+                </button>
                 <div class="dc-onboard-card dc-score-card">
                     <h1 class="dc-onboard-title">Your DigiComply Score</h1>
 
@@ -453,6 +531,10 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
 
             <!-- Step 4: Action Plan (Paywall) -->
             <div class="dc-onboard-step" data-step="4">
+                <button class="dc-back-btn" id="ob-back-step4">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    Back
+                </button>
                 <div class="dc-onboard-card dc-action-card">
                     <h1 class="dc-onboard-title">Your 30-Day Compliance Roadmap</h1>
                     <p class="dc-onboard-subtitle" id="ob-action-subtitle">4 actions to reach 100% compliance</p>
@@ -542,7 +624,7 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
 
         state.company = company;
         var $btn = $(this);
-        $btn.prop('disabled', true).text('Scanning...');
+        $btn.prop('disabled', true).html('<span class="dc-loading-spinner"></span>Scanning...');
 
         // Get penalty exposure
         frappe.call({
@@ -554,10 +636,10 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
                     showPenaltyScreen(wrapper, r.message);
                     goToStep(wrapper, state, 2);
                 }
-                $btn.prop('disabled', false).text('Run Free Compliance Scan');
+                $btn.prop('disabled', false).html('Run Free Compliance Scan');
             },
             error: function() {
-                $btn.prop('disabled', false).text('Run Free Compliance Scan');
+                $btn.prop('disabled', false).html('Run Free Compliance Scan');
             }
         });
     });
@@ -565,7 +647,7 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
     // Step 2: See score
     $(wrapper).find('#ob-step2-next').on('click', function() {
         var $btn = $(this);
-        $btn.prop('disabled', true).text('Calculating Score...');
+        $btn.prop('disabled', true).html('<span class="dc-loading-spinner"></span>Calculating Score...');
 
         frappe.call({
             method: 'digicomply.digicomply.api.compliance_score.calculate_compliance_score',
@@ -576,10 +658,10 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
                     showScoreScreen(wrapper, r.message);
                     goToStep(wrapper, state, 3);
                 }
-                $btn.prop('disabled', false).text('See Your Compliance Score');
+                $btn.prop('disabled', false).html('See Your Compliance Score');
             },
             error: function() {
-                $btn.prop('disabled', false).text('See Your Compliance Score');
+                $btn.prop('disabled', false).html('See Your Compliance Score');
             }
         });
     });
@@ -607,6 +689,19 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
             indicator: 'blue',
             message: __('Our team will reach out to you shortly. Email: sales@digicomply.ae')
         });
+    });
+
+    // Back button handlers
+    $(wrapper).find('#ob-back-step2').on('click', function() {
+        goToStep(wrapper, state, 1);
+    });
+
+    $(wrapper).find('#ob-back-step3').on('click', function() {
+        goToStep(wrapper, state, 2);
+    });
+
+    $(wrapper).find('#ob-back-step4').on('click', function() {
+        goToStep(wrapper, state, 3);
     });
 
     function goToStep(wrapper, state, step) {
@@ -673,9 +768,10 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
             }
         });
 
-        // Build breakdown bars
+        // Build breakdown bars using safe DOM construction
         var breakdown = data.breakdown;
-        var html = '';
+        var $breakdownContainer = $(wrapper).find('#ob-score-breakdown');
+        $breakdownContainer.empty();
 
         var categories = [
             { key: 'trn_health', label: 'TRN Health', max: 30 },
@@ -685,20 +781,20 @@ frappe.pages['compliance-onboarding'].on_page_load = function(wrapper) {
         ];
 
         categories.forEach(function(cat) {
-            var catData = breakdown[cat.key];
+            var catData = breakdown[cat.key] || { score: 0 };
             var pct = (catData.score / cat.max) * 100;
-            html += `
-                <div class="dc-score-row">
-                    <div class="dc-score-row-label">${cat.label}</div>
-                    <div class="dc-score-row-bar">
-                        <div class="dc-score-row-fill" style="width: ${pct}%"></div>
-                    </div>
-                    <div class="dc-score-row-value">${catData.score}/${cat.max}</div>
-                </div>
-            `;
-        });
 
-        $(wrapper).find('#ob-score-breakdown').html(html);
+            var $row = $('<div class="dc-score-row"></div>');
+            $('<div class="dc-score-row-label"></div>').text(cat.label).appendTo($row);
+
+            var $barContainer = $('<div class="dc-score-row-bar"></div>');
+            $('<div class="dc-score-row-fill"></div>').css('width', pct + '%').appendTo($barContainer);
+            $row.append($barContainer);
+
+            $('<div class="dc-score-row-value"></div>').text(catData.score + '/' + cat.max).appendTo($row);
+
+            $breakdownContainer.append($row);
+        });
     }
 
     function animateValue($el, start, end, duration) {

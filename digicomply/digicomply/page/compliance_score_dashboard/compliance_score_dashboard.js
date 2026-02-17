@@ -45,9 +45,28 @@ frappe.pages['compliance-score-dashboard'].on_page_load = function(wrapper) {
         });
     });
 
-    // Add styles
+    // Add Google Fonts
+    if (!$('#dc-google-fonts').length) {
+        $('head').append('<link id="dc-google-fonts" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">');
+    }
+
+    // Add styles with CSS variables
     $('head').append(`
         <style id="score-dashboard-styles">
+            :root {
+                --dc-primary: #a404e4;
+                --dc-primary-dark: #8501b9;
+                --dc-text-dark: #1e293b;
+                --dc-text-muted: #64748b;
+                --dc-border: #e2e8f0;
+                --dc-success: #10b981;
+                --dc-warning: #f59e0b;
+                --dc-danger: #ef4444;
+                --dc-radius: 12px;
+                --dc-radius-lg: 16px;
+                --dc-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            }
+
             .dc-dashboard-wrapper {
                 font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
                 padding: 24px;
@@ -354,6 +373,78 @@ frappe.pages['compliance-score-dashboard'].on_page_load = function(wrapper) {
                 border-radius: 10px;
                 font-weight: 600;
                 text-decoration: none;
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+
+            .dc-empty-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(164, 4, 228, 0.3);
+                color: white;
+            }
+
+            /* Quick Actions mobile fix */
+            @media (max-width: 1024px) {
+                .dc-dashboard-card[style*="grid-column: span 2"] {
+                    grid-column: span 1 !important;
+                }
+            }
+
+            /* Loading spinner */
+            .dc-loading-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 60px 24px;
+                gap: 16px;
+            }
+
+            .dc-loading-spinner {
+                width: 40px;
+                height: 40px;
+                border: 3px solid var(--dc-border);
+                border-radius: 50%;
+                border-top-color: var(--dc-primary);
+                animation: spin 0.8s linear infinite;
+            }
+
+            .dc-loading-text {
+                color: var(--dc-text-muted);
+                font-size: 0.875rem;
+            }
+
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+
+            /* Score animation */
+            .dc-main-score-number {
+                animation: countIn 0.5s ease-out;
+            }
+
+            @keyframes countIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            /* Card hover effects */
+            .dc-dashboard-card {
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+
+            .dc-dashboard-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .dc-main-score-card:hover {
+                transform: none;
             }
         </style>
     `);
@@ -382,7 +473,12 @@ function loadDashboard(wrapper, company) {
     if (!company) return;
 
     var $content = $(wrapper).find('.dc-dashboard-wrapper');
-    $content.html('<div style="text-align: center; padding: 60px;"><div class="loading-indicator"></div></div>');
+    $content.html(`
+        <div class="dc-loading-container">
+            <div class="dc-loading-spinner"></div>
+            <div class="dc-loading-text">Loading compliance data...</div>
+        </div>
+    `);
 
     // Fetch data
     Promise.all([
