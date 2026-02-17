@@ -1,6 +1,6 @@
 {
   "charts": [],
-  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bulk Import Center\",\"col\":3}},{\"id\":\"sc5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Multi-Company Reconciliation\",\"col\":3}},{\"id\":\"sc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Health Center\",\"col\":3}},{\"id\":\"sc7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Calendar\",\"col\":3}},{\"id\":\"sc8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Return\",\"col\":3}},{\"id\":\"sc9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Adjustment\",\"col\":3}},{\"id\":\"sc10\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Blacklist\",\"col\":3}},{\"id\":\"sc11\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tax Category Rule\",\"col\":3}}]",
+  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Score\",\"col\":3}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bulk Import Center\",\"col\":3}},{\"id\":\"sc5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Multi-Company Reconciliation\",\"col\":3}},{\"id\":\"sc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Health Center\",\"col\":3}},{\"id\":\"sc7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Calendar\",\"col\":3}},{\"id\":\"sc8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Return\",\"col\":3}},{\"id\":\"sc9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Adjustment\",\"col\":3}},{\"id\":\"sc10\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Blacklist\",\"col\":3}},{\"id\":\"sc11\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tax Category Rule\",\"col\":3}},{\"id\":\"sc12\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Penalty Calculator\",\"col\":3}}]",
   "creation": "2026-02-16 00:00:00.000000",
   "docstatus": 0,
   "doctype": "Workspace",
@@ -52,11 +52,41 @@
     {
       "hidden": 0,
       "is_query_report": 0,
+      "label": "Compliance Score Dashboard",
+      "link_count": 0,
+      "link_to": "compliance-score-dashboard",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Penalty Calculator",
+      "link_count": 0,
+      "link_to": "penalty-calculator",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance Onboarding",
+      "link_count": 0,
+      "link_to": "compliance-onboarding",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
       "label": "Compliance Dashboard",
       "link_count": 0,
       "link_to": "compliance_dashboard",
       "link_type": "Page",
-      "onboard": 1,
+      "onboard": 0,
       "type": "Link"
     },
     {
@@ -192,6 +222,36 @@
       "label": "DigiComply Settings",
       "link_count": 0,
       "link_to": "DigiComply Settings",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Compliance Score",
+      "link_count": 0,
+      "link_to": "Compliance Score",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Score History",
+      "link_count": 0,
+      "link_to": "Score History",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Calculator Submissions",
+      "link_count": 0,
+      "link_to": "Calculator Submission",
       "link_type": "DocType",
       "onboard": 0,
       "type": "Link"
@@ -343,6 +403,27 @@
       "label": "Tax Category Rule",
       "link_to": "Tax Category Rule",
       "type": "DocType"
+    },
+    {
+      "color": "Purple",
+      "doc_view": "",
+      "label": "Compliance Score",
+      "link_to": "compliance-score-dashboard",
+      "type": "Page"
+    },
+    {
+      "color": "Purple",
+      "doc_view": "",
+      "label": "Penalty Calculator",
+      "link_to": "penalty-calculator",
+      "type": "Page"
+    },
+    {
+      "color": "Purple",
+      "doc_view": "",
+      "label": "Get Started",
+      "link_to": "compliance-onboarding",
+      "type": "Page"
     }
   ],
   "title": "DigiComply"
