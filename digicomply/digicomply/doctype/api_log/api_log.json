@@ -1,0 +1,209 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "format:API-{YYYY}{MM}{DD}-{####}",
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "request_section",
+        "asp_connection",
+        "endpoint",
+        "method",
+        "column_break_1",
+        "request_timestamp",
+        "request_id",
+        "sync_run",
+        "request_data_section",
+        "request_headers",
+        "request_body",
+        "response_section",
+        "status_code",
+        "response_status",
+        "column_break_2",
+        "response_timestamp",
+        "response_time_ms",
+        "response_data_section",
+        "response_headers",
+        "response_body",
+        "error_section",
+        "error_type",
+        "error_message",
+        "stack_trace"
+    ],
+    "fields": [
+        {
+            "fieldname": "request_section",
+            "fieldtype": "Section Break",
+            "label": "Request Details"
+        },
+        {
+            "fieldname": "asp_connection",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "ASP Connection",
+            "options": "ASP Connection"
+        },
+        {
+            "fieldname": "endpoint",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Endpoint"
+        },
+        {
+            "fieldname": "method",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Method",
+            "options": "GET\nPOST\nPUT\nPATCH\nDELETE"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "request_timestamp",
+            "fieldtype": "Datetime",
+            "in_list_view": 1,
+            "label": "Request Time"
+        },
+        {
+            "fieldname": "request_id",
+            "fieldtype": "Data",
+            "label": "Request ID",
+            "description": "Unique identifier for tracking"
+        },
+        {
+            "fieldname": "sync_run",
+            "fieldtype": "Link",
+            "label": "Sync Run",
+            "options": "Sync Run"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "request_data_section",
+            "fieldtype": "Section Break",
+            "label": "Request Data"
+        },
+        {
+            "fieldname": "request_headers",
+            "fieldtype": "Code",
+            "label": "Request Headers",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "request_body",
+            "fieldtype": "Code",
+            "label": "Request Body",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "response_section",
+            "fieldtype": "Section Break",
+            "label": "Response Details"
+        },
+        {
+            "fieldname": "status_code",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Status Code"
+        },
+        {
+            "fieldname": "response_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Response Status",
+            "options": "Success\nError\nTimeout\nRate Limited"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "response_timestamp",
+            "fieldtype": "Datetime",
+            "label": "Response Time"
+        },
+        {
+            "fieldname": "response_time_ms",
+            "fieldtype": "Int",
+            "label": "Response Time (ms)"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "response_data_section",
+            "fieldtype": "Section Break",
+            "label": "Response Data"
+        },
+        {
+            "fieldname": "response_headers",
+            "fieldtype": "Code",
+            "label": "Response Headers",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "response_body",
+            "fieldtype": "Code",
+            "label": "Response Body",
+            "options": "JSON"
+        },
+        {
+            "collapsible": 1,
+            "depends_on": "eval:doc.response_status=='Error' || doc.response_status=='Timeout'",
+            "fieldname": "error_section",
+            "fieldtype": "Section Break",
+            "label": "Error Details"
+        },
+        {
+            "fieldname": "error_type",
+            "fieldtype": "Data",
+            "label": "Error Type"
+        },
+        {
+            "fieldname": "error_message",
+            "fieldtype": "Small Text",
+            "label": "Error Message"
+        },
+        {
+            "fieldname": "stack_trace",
+            "fieldtype": "Code",
+            "label": "Stack Trace",
+            "options": "Text"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "API Log",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1
+        }
+    ],
+    "sort_field": "request_timestamp",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 0
+}

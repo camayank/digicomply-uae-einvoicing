@@ -1,0 +1,269 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "format:SYNC-SCH-{####}",
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "schedule_section",
+        "schedule_name",
+        "asp_connection",
+        "connector",
+        "column_break_1",
+        "enabled",
+        "priority",
+        "timing_section",
+        "frequency",
+        "interval_minutes",
+        "cron_expression",
+        "column_break_2",
+        "start_time",
+        "end_time",
+        "days_of_week",
+        "scope_section",
+        "sync_direction",
+        "entity_types",
+        "column_break_3",
+        "date_range_type",
+        "lookback_days",
+        "status_section",
+        "schedule_status",
+        "last_run_at",
+        "next_run_at",
+        "column_break_4",
+        "total_runs",
+        "successful_runs",
+        "failed_runs",
+        "last_error"
+    ],
+    "fields": [
+        {
+            "fieldname": "schedule_section",
+            "fieldtype": "Section Break",
+            "label": "Schedule Details"
+        },
+        {
+            "fieldname": "schedule_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Schedule Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "asp_connection",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "ASP Connection",
+            "options": "ASP Connection",
+            "reqd": 1
+        },
+        {
+            "fieldname": "connector",
+            "fieldtype": "Link",
+            "label": "Connector",
+            "options": "ASP Connector"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Enabled"
+        },
+        {
+            "default": "Medium",
+            "fieldname": "priority",
+            "fieldtype": "Select",
+            "label": "Priority",
+            "options": "Low\nMedium\nHigh\nCritical"
+        },
+        {
+            "fieldname": "timing_section",
+            "fieldtype": "Section Break",
+            "label": "Timing"
+        },
+        {
+            "default": "Interval",
+            "fieldname": "frequency",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Frequency",
+            "options": "Interval\nHourly\nDaily\nWeekly\nMonthly\nCron",
+            "reqd": 1
+        },
+        {
+            "default": "60",
+            "depends_on": "eval:doc.frequency=='Interval'",
+            "fieldname": "interval_minutes",
+            "fieldtype": "Int",
+            "label": "Interval (minutes)"
+        },
+        {
+            "depends_on": "eval:doc.frequency=='Cron'",
+            "description": "e.g., 0 */2 * * * (every 2 hours)",
+            "fieldname": "cron_expression",
+            "fieldtype": "Data",
+            "label": "Cron Expression"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "depends_on": "eval:['Daily','Weekly'].includes(doc.frequency)",
+            "fieldname": "start_time",
+            "fieldtype": "Time",
+            "label": "Start Time"
+        },
+        {
+            "depends_on": "eval:['Daily','Weekly'].includes(doc.frequency)",
+            "fieldname": "end_time",
+            "fieldtype": "Time",
+            "label": "End Time"
+        },
+        {
+            "depends_on": "eval:doc.frequency=='Weekly'",
+            "fieldname": "days_of_week",
+            "fieldtype": "Select",
+            "label": "Days of Week",
+            "options": "Weekdays\nWeekends\nAll Days\nCustom"
+        },
+        {
+            "fieldname": "scope_section",
+            "fieldtype": "Section Break",
+            "label": "Sync Scope"
+        },
+        {
+            "default": "Pull",
+            "fieldname": "sync_direction",
+            "fieldtype": "Select",
+            "label": "Sync Direction",
+            "options": "Pull\nPush\nBidirectional"
+        },
+        {
+            "fieldname": "entity_types",
+            "fieldtype": "MultiSelectPills",
+            "label": "Entity Types",
+            "options": "Invoice\nCustomer\nProduct\nPayment"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "Incremental",
+            "fieldname": "date_range_type",
+            "fieldtype": "Select",
+            "label": "Date Range Type",
+            "options": "Incremental\nFixed Lookback\nFull Sync"
+        },
+        {
+            "default": "7",
+            "depends_on": "eval:doc.date_range_type=='Fixed Lookback'",
+            "fieldname": "lookback_days",
+            "fieldtype": "Int",
+            "label": "Lookback Days"
+        },
+        {
+            "fieldname": "status_section",
+            "fieldtype": "Section Break",
+            "label": "Status"
+        },
+        {
+            "default": "Idle",
+            "fieldname": "schedule_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Status",
+            "options": "Idle\nRunning\nPaused\nError",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_run_at",
+            "fieldtype": "Datetime",
+            "label": "Last Run At",
+            "read_only": 1
+        },
+        {
+            "fieldname": "next_run_at",
+            "fieldtype": "Datetime",
+            "label": "Next Run At",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_4",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_runs",
+            "fieldtype": "Int",
+            "label": "Total Runs",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "successful_runs",
+            "fieldtype": "Int",
+            "label": "Successful Runs",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "failed_runs",
+            "fieldtype": "Int",
+            "label": "Failed Runs",
+            "read_only": 1
+        },
+        {
+            "fieldname": "last_error",
+            "fieldtype": "Small Text",
+            "label": "Last Error",
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Sync Schedule",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

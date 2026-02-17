@@ -1,6 +1,6 @@
 {
   "charts": [],
-  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Score\",\"col\":3}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bulk Import Center\",\"col\":3}},{\"id\":\"sc5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Multi-Company Reconciliation\",\"col\":3}},{\"id\":\"sc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Health Center\",\"col\":3}},{\"id\":\"sc7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Calendar\",\"col\":3}},{\"id\":\"sc8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Return\",\"col\":3}},{\"id\":\"sc9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Adjustment\",\"col\":3}},{\"id\":\"sc10\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Blacklist\",\"col\":3}},{\"id\":\"sc11\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tax Category Rule\",\"col\":3}},{\"id\":\"sc12\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Penalty Calculator\",\"col\":3}}]",
+  "content": "[{\"id\":\"header1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>DigiComply</b></span>\",\"col\":12}},{\"id\":\"para1\",\"type\":\"paragraph\",\"data\":{\"text\":\"UAE E-Invoicing Compliance & Reconciliation Platform\",\"col\":12}},{\"id\":\"spacer1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"header2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h6\\\">Quick Actions</span>\",\"col\":12}},{\"id\":\"sc0\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Score\",\"col\":3}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reconciliation\",\"col\":3}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Import CSV\",\"col\":3}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Bulk Import Center\",\"col\":3}},{\"id\":\"sc5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Multi-Company Reconciliation\",\"col\":3}},{\"id\":\"sc6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Health Center\",\"col\":3}},{\"id\":\"sc7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Compliance Calendar\",\"col\":3}},{\"id\":\"sc8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Return\",\"col\":3}},{\"id\":\"sc9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT Adjustment\",\"col\":3}},{\"id\":\"sc10\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"TRN Blacklist\",\"col\":3}},{\"id\":\"sc11\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tax Category Rule\",\"col\":3}},{\"id\":\"sc12\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Penalty Calculator\",\"col\":3}},{\"id\":\"sc13\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sync Dashboard\",\"col\":3}}]",
   "creation": "2026-02-16 00:00:00.000000",
   "docstatus": 0,
   "doctype": "Workspace",
@@ -205,6 +205,85 @@
       "link_to": "VAT Liability Report",
       "link_type": "Report",
       "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "ASP Connections",
+      "link_count": 0,
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Card Break"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Sync Dashboard",
+      "link_count": 0,
+      "link_to": "sync-dashboard",
+      "link_type": "Page",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "ASP Connection",
+      "link_count": 0,
+      "link_to": "ASP Connection",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "ASP Connector",
+      "link_count": 0,
+      "link_to": "ASP Connector",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Sync Schedule",
+      "link_count": 0,
+      "link_to": "Sync Schedule",
+      "link_type": "DocType",
+      "onboard": 1,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Sync Run",
+      "link_count": 0,
+      "link_to": "Sync Run",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "API Log",
+      "link_count": 0,
+      "link_to": "API Log",
+      "link_type": "DocType",
+      "onboard": 0,
+      "type": "Link"
+    },
+    {
+      "hidden": 0,
+      "is_query_report": 0,
+      "label": "Transform Rule",
+      "link_count": 0,
+      "link_to": "Transform Rule",
+      "link_type": "DocType",
+      "onboard": 0,
       "type": "Link"
     },
     {
@@ -423,6 +502,13 @@
       "doc_view": "",
       "label": "Get Started",
       "link_to": "compliance-onboarding",
+      "type": "Page"
+    },
+    {
+      "color": "Purple",
+      "doc_view": "",
+      "label": "Sync Dashboard",
+      "link_to": "sync-dashboard",
       "type": "Page"
     }
   ],
