@@ -1,0 +1,227 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "field:company",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_details",
+        "company",
+        "filing_type",
+        "column_break_details",
+        "tax_period_start",
+        "tax_period_end",
+        "due_date",
+        "section_status",
+        "status",
+        "filing_status",
+        "column_break_status",
+        "vat_return",
+        "section_reminders",
+        "reminder_14_days",
+        "reminder_7_days",
+        "column_break_reminders",
+        "reminder_3_days",
+        "reminder_1_day",
+        "section_penalty",
+        "penalty_amount",
+        "section_notes",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_details",
+            "fieldtype": "Section Break",
+            "label": "Filing Details"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "default": "VAT Return Quarterly",
+            "fieldname": "filing_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Filing Type",
+            "options": "VAT Return Monthly\nVAT Return Quarterly",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_details",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "tax_period_start",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Tax Period Start",
+            "reqd": 1
+        },
+        {
+            "fieldname": "tax_period_end",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Tax Period End",
+            "reqd": 1
+        },
+        {
+            "description": "Filing deadline - 28th of the month following the tax period end",
+            "fieldname": "due_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Due Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "section_status",
+            "fieldtype": "Section Break",
+            "label": "Status"
+        },
+        {
+            "default": "Upcoming",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Upcoming\nDue Soon\nOverdue\nFiled\nAcknowledged"
+        },
+        {
+            "description": "Current filing status record",
+            "fieldname": "filing_status",
+            "fieldtype": "Link",
+            "label": "Filing Status",
+            "options": "Filing Status"
+        },
+        {
+            "fieldname": "column_break_status",
+            "fieldtype": "Column Break"
+        },
+        {
+            "description": "Linked VAT Return document",
+            "fieldname": "vat_return",
+            "fieldtype": "Link",
+            "label": "VAT Return",
+            "options": "VAT Return"
+        },
+        {
+            "fieldname": "section_reminders",
+            "fieldtype": "Section Break",
+            "label": "Reminder Status"
+        },
+        {
+            "default": "0",
+            "fieldname": "reminder_14_days",
+            "fieldtype": "Check",
+            "label": "14 Days Reminder Sent"
+        },
+        {
+            "default": "0",
+            "fieldname": "reminder_7_days",
+            "fieldtype": "Check",
+            "label": "7 Days Reminder Sent"
+        },
+        {
+            "fieldname": "column_break_reminders",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "reminder_3_days",
+            "fieldtype": "Check",
+            "label": "3 Days Reminder Sent"
+        },
+        {
+            "default": "0",
+            "fieldname": "reminder_1_day",
+            "fieldtype": "Check",
+            "label": "1 Day Reminder Sent"
+        },
+        {
+            "fieldname": "section_penalty",
+            "fieldtype": "Section Break",
+            "label": "Penalties"
+        },
+        {
+            "default": "0",
+            "description": "Late filing penalty: AED 1,000 initial + AED 1,000/month (max AED 20,000)",
+            "fieldname": "penalty_amount",
+            "fieldtype": "Currency",
+            "label": "Penalty Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [
+        {
+            "link_doctype": "Filing Status",
+            "link_fieldname": "compliance_calendar"
+        },
+        {
+            "link_doctype": "VAT Return",
+            "link_fieldname": "name"
+        }
+    ],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Compliance Calendar",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User"
+        }
+    ],
+    "sort_field": "due_date",
+    "sort_order": "ASC",
+    "states": [],
+    "title_field": "company",
+    "track_changes": 1
+}
