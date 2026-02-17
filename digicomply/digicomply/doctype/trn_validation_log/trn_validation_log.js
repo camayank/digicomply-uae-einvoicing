@@ -48,10 +48,10 @@ frappe.ui.form.on('TRN Validation Log', {
             return `
                 <tr>
                     <td>${frappe.datetime.str_to_user(log.validation_date)}</td>
-                    <td><span class="indicator-pill ${status_color}">${log.validation_status || '-'}</span></td>
-                    <td>${log.validation_type || '-'}</td>
-                    <td>${log.validation_source || '-'}</td>
-                    <td>${log.response_message || '-'}</td>
+                    <td><span class="indicator-pill ${status_color}">${frappe.utils.escape_html(log.validation_status || '-')}</span></td>
+                    <td>${frappe.utils.escape_html(log.validation_type || '-')}</td>
+                    <td>${frappe.utils.escape_html(log.validation_source || '-')}</td>
+                    <td>${frappe.utils.escape_html(log.response_message || '-')}</td>
                 </tr>
             `;
         }).join('');
@@ -387,7 +387,7 @@ frappe.ui.form.on('TRN Validation Log', {
             response_message_html = `
                 <div class="dc-response-message">
                     <div class="dc-response-message-label">Response Message</div>
-                    ${frm.doc.response_message}
+                    ${frappe.utils.escape_html(frm.doc.response_message || '')}
                 </div>
             `;
         }
@@ -398,21 +398,21 @@ frappe.ui.form.on('TRN Validation Log', {
                 <div class="dc-validation-header">
                     <div class="dc-validation-icon">${status_icon}</div>
                     <div class="dc-validation-info">
-                        <div class="dc-validation-trn">${formatted_trn}</div>
+                        <div class="dc-validation-trn">${frappe.utils.escape_html(formatted_trn)}</div>
                         <div class="dc-validation-subtitle">
-                            ${frm.doc.fta_entity_name || (frm.doc.trn_registry ? 'Linked to Registry' : 'Standalone Validation')}
+                            ${frappe.utils.escape_html(frm.doc.fta_entity_name || (frm.doc.trn_registry ? 'Linked to Registry' : 'Standalone Validation'))}
                         </div>
                     </div>
-                    <div class="dc-validation-status-badge">${frm.doc.validation_status || 'Unknown'}</div>
+                    <div class="dc-validation-status-badge">${frappe.utils.escape_html(frm.doc.validation_status || 'Unknown')}</div>
                 </div>
                 <div class="dc-validation-details">
                     <div class="dc-validation-detail-item">
                         <div class="dc-validation-detail-label">Validation Type</div>
-                        <div class="dc-validation-detail-value">${frm.doc.validation_type || '-'}</div>
+                        <div class="dc-validation-detail-value">${frappe.utils.escape_html(frm.doc.validation_type || '-')}</div>
                     </div>
                     <div class="dc-validation-detail-item">
                         <div class="dc-validation-detail-label">Source</div>
-                        <div class="dc-validation-detail-value">${frm.doc.validation_source || '-'}</div>
+                        <div class="dc-validation-detail-value">${frappe.utils.escape_html(frm.doc.validation_source || '-')}</div>
                     </div>
                     <div class="dc-validation-detail-item">
                         <div class="dc-validation-detail-label">Validation Date</div>
@@ -421,7 +421,7 @@ frappe.ui.form.on('TRN Validation Log', {
                     ${frm.doc.response_code ? `
                     <div class="dc-validation-detail-item">
                         <div class="dc-validation-detail-label">Response Code</div>
-                        <div class="dc-validation-detail-value">${frm.doc.response_code}</div>
+                        <div class="dc-validation-detail-value">${frappe.utils.escape_html(frm.doc.response_code)}</div>
                     </div>
                     ` : ''}
                     ${frm.doc.fta_registration_date ? `

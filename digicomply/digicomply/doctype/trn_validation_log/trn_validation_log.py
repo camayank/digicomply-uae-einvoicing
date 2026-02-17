@@ -40,30 +40,30 @@ class TRNValidationLog(Document):
             return
 
         try:
-            trn_doc = frappe.get_doc("TRN Registry", self.trn_registry)
+            new_status = self.validation_status
 
-            # Map validation log status to TRN Registry status
-            status_map = {
-                "Valid": "Valid",
-                "Invalid": "Invalid",
-                "Expired": "Expired"
+            # Check if status actually changed
+            current_status = frappe.db.get_value("TRN Registry", self.trn_registry, "validation_status")
+            if current_status == new_status:
+                return
+
+            # Build update dict
+            update_values = {
+                "validation_status": new_status,
+                "last_validated": self.validation_date,
             }
 
-            new_status = status_map.get(self.validation_status)
-            if new_status and trn_doc.validation_status != new_status:
-                trn_doc.validation_status = new_status
-                trn_doc.last_validated = self.validation_date
+            # Update FTA fields if available
+            if self.fta_registration_date:
+                update_values["fta_registration_date"] = self.fta_registration_date
+            if self.fta_expiry_date:
+                update_values["fta_expiry_date"] = self.fta_expiry_date
 
-                # Update FTA fields if available
-                if self.fta_registration_date:
-                    trn_doc.fta_registration_date = self.fta_registration_date
-                if self.fta_expiry_date:
-                    trn_doc.fta_expiry_date = self.fta_expiry_date
-
-                trn_doc.flags.ignore_permissions = True
-                trn_doc.save()
-
-                frappe.db.commit()
+            frappe.db.set_value(
+                "TRN Registry",
+                self.trn_registry,
+                update_values
+            )
 
         except frappe.DoesNotExistError:
             frappe.log_error(
@@ -84,13 +84,18 @@ def get_validation_history(trn, limit=20):
 
     Args:
         trn: The TRN to get history for
-        limit: Maximum number of records to return (default 20)
+        limit: Maximum number of records to return (default 20, max 100)
 
     Returns:
         list of validation log records
     """
+    frappe.has_permission("TRN Validation Log", throw=True)
+
     if not trn:
         frappe.throw(_("TRN is required"))
+
+    # Cap the limit to prevent abuse
+    limit = min(int(limit or 20), 100)
 
     # Clean the TRN
     clean_trn = trn.replace(" ", "").replace("-", "")
@@ -132,6 +137,8 @@ def get_latest_validation(trn):
     Returns:
         dict with latest validation details or None
     """
+    frappe.has_permission("TRN Validation Log", throw=True)
+
     if not trn:
         return None
 
