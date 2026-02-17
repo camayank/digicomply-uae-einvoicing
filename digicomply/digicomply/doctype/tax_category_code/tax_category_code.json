@@ -1,0 +1,105 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "field:code",
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "code",
+        "name_en",
+        "name_ar",
+        "description",
+        "tax_type",
+        "default_rate",
+        "requires_exemption_reason",
+        "enabled"
+    ],
+    "fields": [
+        {
+            "fieldname": "code",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Code",
+            "reqd": 1,
+            "unique": 1,
+            "description": "UN/CEFACT Tax Category Code"
+        },
+        {
+            "fieldname": "name_en",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Name (English)",
+            "reqd": 1
+        },
+        {
+            "fieldname": "name_ar",
+            "fieldtype": "Data",
+            "label": "Name (Arabic)"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        },
+        {
+            "default": "VAT",
+            "fieldname": "tax_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Tax Type",
+            "options": "VAT\nExcise\nExempt\nZero Rated\nOut of Scope"
+        },
+        {
+            "default": "5",
+            "fieldname": "default_rate",
+            "fieldtype": "Percent",
+            "in_list_view": 1,
+            "label": "Default Rate (%)"
+        },
+        {
+            "default": "0",
+            "fieldname": "requires_exemption_reason",
+            "fieldtype": "Check",
+            "label": "Requires Exemption Reason"
+        },
+        {
+            "default": "1",
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Enabled"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Tax Category Code",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "read": 1,
+            "role": "Accounts User"
+        }
+    ],
+    "sort_field": "code",
+    "sort_order": "ASC",
+    "states": [],
+    "track_changes": 1
+}

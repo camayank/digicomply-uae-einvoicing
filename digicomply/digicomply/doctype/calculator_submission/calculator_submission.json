@@ -1,0 +1,157 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "CALC-.#####",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_company",
+        "company_name",
+        "email",
+        "column_break_company",
+        "trn_count",
+        "invoice_volume",
+        "section_compliance",
+        "filing_status",
+        "trn_validated_pct",
+        "column_break_compliance",
+        "reconciled_pct",
+        "section_results",
+        "penalty_exposure",
+        "risk_level",
+        "column_break_results",
+        "converted_to_trial",
+        "conversion_date"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_company",
+            "fieldtype": "Section Break",
+            "label": "Company Information"
+        },
+        {
+            "fieldname": "company_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Company Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "email",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Email",
+            "options": "Email"
+        },
+        {
+            "fieldname": "column_break_company",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "trn_count",
+            "fieldtype": "Int",
+            "label": "Number of TRNs",
+            "default": "1"
+        },
+        {
+            "fieldname": "invoice_volume",
+            "fieldtype": "Select",
+            "label": "Monthly Invoice Volume",
+            "options": "<500\n500-2K\n2K-10K\n10K+"
+        },
+        {
+            "fieldname": "section_compliance",
+            "fieldtype": "Section Break",
+            "label": "Compliance Inputs"
+        },
+        {
+            "fieldname": "filing_status",
+            "fieldtype": "Select",
+            "label": "Filing Status",
+            "options": "All on time\nSome late\nPending returns"
+        },
+        {
+            "fieldname": "trn_validated_pct",
+            "fieldtype": "Percent",
+            "label": "TRNs Validated (%)"
+        },
+        {
+            "fieldname": "column_break_compliance",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "reconciled_pct",
+            "fieldtype": "Percent",
+            "label": "Invoices Reconciled (%)"
+        },
+        {
+            "fieldname": "section_results",
+            "fieldtype": "Section Break",
+            "label": "Calculator Results"
+        },
+        {
+            "fieldname": "penalty_exposure",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "Penalty Exposure (AED)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "risk_level",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Risk Level",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_results",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "converted_to_trial",
+            "fieldtype": "Check",
+            "label": "Converted to Trial"
+        },
+        {
+            "fieldname": "conversion_date",
+            "fieldtype": "Date",
+            "label": "Conversion Date",
+            "depends_on": "eval:doc.converted_to_trial"
+        }
+    ],
+    "index_web_pages_for_search": 0,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Calculator Submission",
+    "naming_rule": "Expression (old style)",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "export": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager"
+        }
+    ],
+    "search_fields": "company_name,email,risk_level",
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "company_name",
+    "track_changes": 1
+}

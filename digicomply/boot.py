@@ -62,11 +62,16 @@ def boot_session(bootinfo):
         bootinfo["sysdefaults"] = {}
     bootinfo["sysdefaults"]["app_name"] = "DigiComply"
 
-    # DigiComply specific data
+    # DigiComply specific data - Purple theme matching CSS
     bootinfo["digicomply"] = {
-        "version": "0.1.0",
-        "brand_color": "#1e40af",
+        "version": "1.0.0",
+        "brand_color": "#a404e4",
+        "brand_color_dark": "#8501b9",
+        "brand_color_light": "#c44df7",
+        "app_title": "DigiComply",
+        "app_tagline": "UAE E-Invoicing Compliance & Reconciliation Platform",
         "allowed_workspaces": ALLOWED_WORKSPACES,
+        "hide_frappe_branding": True,
     }
 
 

@@ -1,0 +1,224 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "format:SYNC-{YYYY}{MM}{DD}-{####}",
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "run_section",
+        "asp_connection",
+        "sync_schedule",
+        "sync_direction",
+        "column_break_1",
+        "run_status",
+        "trigger_type",
+        "triggered_by",
+        "timing_section",
+        "started_at",
+        "completed_at",
+        "column_break_2",
+        "duration_seconds",
+        "progress_percent",
+        "results_section",
+        "records_fetched",
+        "records_pushed",
+        "records_created",
+        "column_break_3",
+        "records_updated",
+        "records_failed",
+        "records_skipped",
+        "summary_section",
+        "summary",
+        "error_details",
+        "sync_errors"
+    ],
+    "fields": [
+        {
+            "fieldname": "run_section",
+            "fieldtype": "Section Break",
+            "label": "Run Details"
+        },
+        {
+            "fieldname": "asp_connection",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "ASP Connection",
+            "options": "ASP Connection",
+            "reqd": 1
+        },
+        {
+            "fieldname": "sync_schedule",
+            "fieldtype": "Link",
+            "label": "Sync Schedule",
+            "options": "Sync Schedule"
+        },
+        {
+            "fieldname": "sync_direction",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Direction",
+            "options": "Pull\nPush\nBidirectional"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "Pending",
+            "fieldname": "run_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Pending\nRunning\nCompleted\nCompleted with Errors\nFailed\nCancelled"
+        },
+        {
+            "fieldname": "trigger_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Trigger Type",
+            "options": "Manual\nScheduled\nWebhook\nAPI"
+        },
+        {
+            "fieldname": "triggered_by",
+            "fieldtype": "Link",
+            "label": "Triggered By",
+            "options": "User"
+        },
+        {
+            "fieldname": "timing_section",
+            "fieldtype": "Section Break",
+            "label": "Timing"
+        },
+        {
+            "fieldname": "started_at",
+            "fieldtype": "Datetime",
+            "in_list_view": 1,
+            "label": "Started At"
+        },
+        {
+            "fieldname": "completed_at",
+            "fieldtype": "Datetime",
+            "label": "Completed At"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "duration_seconds",
+            "fieldtype": "Int",
+            "label": "Duration (seconds)",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "progress_percent",
+            "fieldtype": "Percent",
+            "label": "Progress"
+        },
+        {
+            "fieldname": "results_section",
+            "fieldtype": "Section Break",
+            "label": "Results"
+        },
+        {
+            "default": "0",
+            "fieldname": "records_fetched",
+            "fieldtype": "Int",
+            "label": "Records Fetched"
+        },
+        {
+            "default": "0",
+            "fieldname": "records_pushed",
+            "fieldtype": "Int",
+            "label": "Records Pushed"
+        },
+        {
+            "default": "0",
+            "fieldname": "records_created",
+            "fieldtype": "Int",
+            "label": "Records Created"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "records_updated",
+            "fieldtype": "Int",
+            "label": "Records Updated"
+        },
+        {
+            "default": "0",
+            "fieldname": "records_failed",
+            "fieldtype": "Int",
+            "label": "Records Failed"
+        },
+        {
+            "default": "0",
+            "fieldname": "records_skipped",
+            "fieldtype": "Int",
+            "label": "Records Skipped"
+        },
+        {
+            "fieldname": "summary_section",
+            "fieldtype": "Section Break",
+            "label": "Summary"
+        },
+        {
+            "fieldname": "summary",
+            "fieldtype": "Small Text",
+            "label": "Summary"
+        },
+        {
+            "fieldname": "error_details",
+            "fieldtype": "Code",
+            "label": "Error Details",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "sync_errors",
+            "fieldtype": "Table",
+            "label": "Sync Errors",
+            "options": "Sync Error"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Sync Run",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1
+        }
+    ],
+    "sort_field": "started_at",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

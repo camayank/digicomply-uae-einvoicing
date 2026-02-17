@@ -1,45 +1,82 @@
-<div class="digicomply-setup-wizard">
-    <div class="setup-container">
-        <div class="setup-logo">
-            <img src="/assets/digicomply/images/logo-full.svg" alt="DigiComply" />
+<link id="dc-google-fonts" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="dc-setup-wizard">
+    <div class="dc-setup-container">
+        <!-- Logo -->
+        <div class="dc-setup-logo">
+            <div class="dc-logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <circle cx="12" cy="12" r="10"/>
+                </svg>
+            </div>
+            <span class="dc-logo-text">DigiComply</span>
         </div>
 
-        <div class="setup-progress">
-            <div class="step active" data-step="1"><span>1</span> Company</div>
-            <div class="step" data-step="2"><span>2</span> Currency</div>
-            <div class="step" data-step="3"><span>3</span> ASP</div>
-            <div class="step" data-step="4"><span>4</span> Users</div>
-            <div class="step" data-step="5"><span>5</span> Complete</div>
+        <!-- Progress Steps -->
+        <div class="dc-setup-progress">
+            <div class="dc-progress-step active" data-step="1">
+                <div class="dc-step-number"><span>1</span></div>
+                <div class="dc-step-label">Company</div>
+            </div>
+            <div class="dc-progress-line"></div>
+            <div class="dc-progress-step" data-step="2">
+                <div class="dc-step-number"><span>2</span></div>
+                <div class="dc-step-label">Settings</div>
+            </div>
+            <div class="dc-progress-line"></div>
+            <div class="dc-progress-step" data-step="3">
+                <div class="dc-step-number"><span>3</span></div>
+                <div class="dc-step-label">ASP</div>
+            </div>
+            <div class="dc-progress-line"></div>
+            <div class="dc-progress-step" data-step="4">
+                <div class="dc-step-number"><span>4</span></div>
+                <div class="dc-step-label">Team</div>
+            </div>
+            <div class="dc-progress-line"></div>
+            <div class="dc-progress-step" data-step="5">
+                <div class="dc-step-number"><span>5</span></div>
+                <div class="dc-step-label">Done</div>
+            </div>
         </div>
 
-        <div class="setup-content">
-            <div class="setup-step" data-step="1">
-                <h2>Welcome to DigiComply</h2>
-                <p>Let's set up your UAE e-invoicing compliance platform.</p>
-                <div class="form-group">
-                    <label>Company Name *</label>
-                    <input type="text" class="form-control" id="company_name" required />
+        <!-- Step Content -->
+        <div class="dc-setup-content">
+            <!-- Step 1: Company -->
+            <div class="dc-setup-step" data-step="1">
+                <div class="dc-step-header">
+                    <h2 class="dc-step-title">Welcome to DigiComply</h2>
+                    <p class="dc-step-desc">Let's set up your UAE e-invoicing compliance platform.</p>
                 </div>
-                <div class="form-group">
-                    <label>Tax Registration Number (TRN) *</label>
-                    <input type="text" class="form-control" id="trn" placeholder="100000000000003" maxlength="15" required />
-                    <small>15-digit UAE TRN</small>
+                <div class="dc-form-group">
+                    <label class="dc-label">Company Name <span class="dc-required">*</span></label>
+                    <input type="text" class="dc-input" id="company_name" placeholder="Enter your company name" required />
+                </div>
+                <div class="dc-form-group">
+                    <label class="dc-label">Tax Registration Number (TRN) <span class="dc-required">*</span></label>
+                    <input type="text" class="dc-input" id="trn" placeholder="100000000000003" maxlength="15" required />
+                    <span class="dc-input-hint">15-digit UAE TRN issued by FTA</span>
                 </div>
             </div>
 
-            <div class="setup-step" data-step="2" style="display: none;">
-                <h2>Financial Settings</h2>
-                <div class="form-group">
-                    <label>Default Currency</label>
-                    <select class="form-control" id="currency">
+            <!-- Step 2: Settings -->
+            <div class="dc-setup-step" data-step="2" style="display: none;">
+                <div class="dc-step-header">
+                    <h2 class="dc-step-title">Financial Settings</h2>
+                    <p class="dc-step-desc">Configure your currency and fiscal year preferences.</p>
+                </div>
+                <div class="dc-form-group">
+                    <label class="dc-label">Default Currency</label>
+                    <select class="dc-select" id="currency">
                         <option value="AED" selected>AED - UAE Dirham</option>
                         <option value="USD">USD - US Dollar</option>
                         <option value="EUR">EUR - Euro</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Fiscal Year Start</label>
-                    <select class="form-control" id="fiscal_year_start">
+                <div class="dc-form-group">
+                    <label class="dc-label">Fiscal Year Start</label>
+                    <select class="dc-select" id="fiscal_year_start">
                         <option value="January" selected>January</option>
                         <option value="April">April</option>
                         <option value="July">July</option>
@@ -47,13 +84,16 @@
                 </div>
             </div>
 
-            <div class="setup-step" data-step="3" style="display: none;">
-                <h2>ASP Connection</h2>
-                <p>Select your Accredited Service Provider for e-invoicing.</p>
-                <div class="form-group">
-                    <label>ASP Provider</label>
-                    <select class="form-control" id="asp_provider">
-                        <option value="">-- Select ASP --</option>
+            <!-- Step 3: ASP -->
+            <div class="dc-setup-step" data-step="3" style="display: none;">
+                <div class="dc-step-header">
+                    <h2 class="dc-step-title">ASP Connection</h2>
+                    <p class="dc-step-desc">Connect your Accredited Service Provider for e-invoicing.</p>
+                </div>
+                <div class="dc-form-group">
+                    <label class="dc-label">ASP Provider</label>
+                    <select class="dc-select" id="asp_provider">
+                        <option value="">-- Select ASP Provider --</option>
                         <option value="ClearTax">ClearTax</option>
                         <option value="Zoho">Zoho</option>
                         <option value="Cygnet">Cygnet</option>
@@ -61,194 +101,465 @@
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>ASP API Key (Optional)</label>
-                    <input type="password" class="form-control" id="asp_api_key" />
-                    <small>You can configure this later in Settings</small>
+                <div class="dc-form-group">
+                    <label class="dc-label">ASP API Key <span class="dc-optional">(Optional)</span></label>
+                    <input type="password" class="dc-input" id="asp_api_key" placeholder="Enter API key" />
+                    <span class="dc-input-hint">You can configure this later in Settings</span>
                 </div>
             </div>
 
-            <div class="setup-step" data-step="4" style="display: none;">
-                <h2>Add Team Members</h2>
-                <p>Invite users who will manage compliance.</p>
+            <!-- Step 4: Team -->
+            <div class="dc-setup-step" data-step="4" style="display: none;">
+                <div class="dc-step-header">
+                    <h2 class="dc-step-title">Add Team Members</h2>
+                    <p class="dc-step-desc">Invite users who will manage compliance.</p>
+                </div>
                 <div id="users-container">
-                    <div class="user-row">
-                        <input type="email" class="form-control" placeholder="Email address" />
-                        <select class="form-control">
+                    <div class="dc-user-row">
+                        <input type="email" class="dc-input dc-user-email" placeholder="Email address" />
+                        <select class="dc-select dc-user-role">
                             <option value="Accounts User">Accounts User</option>
                             <option value="Accounts Manager">Accounts Manager</option>
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-sm btn-secondary" id="add-user">+ Add Another User</button>
+                <button class="dc-btn dc-btn-outline" id="add-user">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/>
+                    </svg>
+                    Add Another User
+                </button>
             </div>
 
-            <div class="setup-step" data-step="5" style="display: none;">
-                <h2>You're All Set!</h2>
-                <div class="setup-complete">
-                    <div class="check-icon">✓</div>
-                    <p>DigiComply is ready to ensure your UAE e-invoicing compliance.</p>
-                    <ul>
-                        <li>Upload ASP data via CSV Import</li>
-                        <li>Run reconciliation against your Book invoices</li>
-                        <li>Generate audit-ready compliance reports</li>
-                    </ul>
+            <!-- Step 5: Complete -->
+            <div class="dc-setup-step" data-step="5" style="display: none;">
+                <div class="dc-complete-card">
+                    <div class="dc-complete-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M9 12l2 2 4-4"/>
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                    </div>
+                    <h2 class="dc-complete-title">You're All Set!</h2>
+                    <p class="dc-complete-desc">DigiComply is ready to ensure your UAE e-invoicing compliance.</p>
+                    <div class="dc-feature-list">
+                        <div class="dc-feature-item">
+                            <div class="dc-feature-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span>Upload ASP data via CSV Import</span>
+                        </div>
+                        <div class="dc-feature-item">
+                            <div class="dc-feature-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span>Run reconciliation against your Book invoices</span>
+                        </div>
+                        <div class="dc-feature-item">
+                            <div class="dc-feature-icon">
+                                <svg viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span>Generate audit-ready compliance reports</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="setup-nav">
-            <button class="btn btn-secondary" id="prev-btn" style="display: none;">Previous</button>
-            <button class="btn btn-primary" id="next-btn">Next</button>
+        <!-- Navigation -->
+        <div class="dc-setup-nav">
+            <button class="dc-btn dc-btn-secondary" id="prev-btn" style="display: none;">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Previous
+            </button>
+            <button class="dc-btn dc-btn-primary" id="next-btn">
+                Next
+                <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
         </div>
     </div>
 </div>
 
 <style>
-.digicomply-setup-wizard {
+:root {
+    --dc-primary: #a404e4;
+    --dc-primary-dark: #8501b9;
+    --dc-primary-light: #f3e8ff;
+    --dc-text-dark: #1e293b;
+    --dc-text-muted: #64748b;
+    --dc-border: #e2e8f0;
+    --dc-success: #10b981;
+    --dc-warning: #f59e0b;
+    --dc-danger: #ef4444;
+    --dc-radius: 12px;
+    --dc-radius-lg: 16px;
+    --dc-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.dc-setup-wizard {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, #f8fafc 0%, #ede9fe 50%, #faf5ff 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 24px;
 }
 
-.setup-container {
+.dc-setup-container {
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    border-radius: var(--dc-radius-lg);
+    box-shadow: var(--dc-shadow);
+    max-width: 560px;
     width: 100%;
-    padding: 3rem;
+    padding: 40px;
 }
 
-.setup-logo {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.setup-logo img {
-    height: 60px;
-}
-
-.setup-progress {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.setup-progress .step {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #94a3b8;
-    font-size: 0.875rem;
-}
-
-.setup-progress .step.active {
-    color: #a404e4;
-    font-weight: 600;
-}
-
-.setup-progress .step.completed {
-    color: #10b981;
-}
-
-.setup-progress .step span {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #e2e8f0;
+/* Logo */
+.dc-setup-logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    gap: 12px;
+    margin-bottom: 32px;
 }
 
-.setup-progress .step.active span {
-    background: linear-gradient(135deg, #a404e4 0%, #8501b9 100%);
-    color: white;
-    box-shadow: 0 2px 8px rgba(164, 4, 228, 0.3);
-}
-
-.setup-progress .step.completed span {
-    background: #10b981;
-    color: white;
-}
-
-.setup-content h2 {
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-}
-
-.setup-content p {
-    color: #64748b;
-    margin-bottom: 1.5rem;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #334155;
-    font-weight: 500;
-}
-
-.form-group small {
-    color: #94a3b8;
-    font-size: 0.75rem;
-}
-
-.setup-nav {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e2e8f0;
-}
-
-.setup-complete {
-    text-align: center;
-    padding: 2rem 0;
-}
-
-.check-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #a404e4 0%, #8501b9 100%);
-    border-radius: 50%;
+.dc-logo-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.5rem;
     color: white;
-    margin: 0 auto 1.5rem;
     box-shadow: 0 4px 14px rgba(164, 4, 228, 0.3);
 }
 
-.setup-complete ul {
-    text-align: left;
-    max-width: 300px;
-    margin: 1rem auto;
+.dc-logo-icon svg {
+    width: 28px;
+    height: 28px;
 }
 
-.user-row {
+.dc-logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dc-text-dark);
+}
+
+/* Progress Steps */
+.dc-setup-progress {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    gap: 8px;
 }
 
-.user-row input {
+.dc-progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.dc-step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--dc-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dc-text-muted);
+    transition: all 0.3s ease;
+}
+
+.dc-progress-step.active .dc-step-number {
+    background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%);
+    color: white;
+    box-shadow: 0 2px 10px rgba(164, 4, 228, 0.3);
+}
+
+.dc-progress-step.completed .dc-step-number {
+    background: var(--dc-success);
+    color: white;
+}
+
+.dc-step-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--dc-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dc-progress-step.active .dc-step-label {
+    color: var(--dc-primary);
+}
+
+.dc-progress-step.completed .dc-step-label {
+    color: var(--dc-success);
+}
+
+.dc-progress-line {
+    width: 40px;
+    height: 2px;
+    background: var(--dc-border);
+    margin-bottom: 20px;
+}
+
+/* Step Content */
+.dc-setup-content {
+    min-height: 280px;
+}
+
+.dc-step-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.dc-step-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dc-text-dark);
+    margin: 0 0 8px 0;
+}
+
+.dc-step-desc {
+    font-size: 14px;
+    color: var(--dc-text-muted);
+    margin: 0;
+}
+
+/* Form Elements */
+.dc-form-group {
+    margin-bottom: 20px;
+}
+
+.dc-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dc-text-dark);
+    margin-bottom: 8px;
+}
+
+.dc-required {
+    color: var(--dc-danger);
+}
+
+.dc-optional {
+    color: var(--dc-text-muted);
+    font-weight: 400;
+}
+
+.dc-input,
+.dc-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 1px solid var(--dc-border);
+    border-radius: var(--dc-radius);
+    background: white;
+    color: var(--dc-text-dark);
+    transition: all 0.2s ease;
+}
+
+.dc-input:focus,
+.dc-select:focus {
+    outline: none;
+    border-color: var(--dc-primary);
+    box-shadow: 0 0 0 3px rgba(164, 4, 228, 0.1);
+}
+
+.dc-input::placeholder {
+    color: #94a3b8;
+}
+
+.dc-input-hint {
+    display: block;
+    font-size: 12px;
+    color: var(--dc-text-muted);
+    margin-top: 6px;
+}
+
+/* User Row */
+.dc-user-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.dc-user-email {
     flex: 2;
 }
 
-.user-row select {
+.dc-user-role {
     flex: 1;
+}
+
+/* Buttons */
+.dc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: var(--dc-radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.dc-btn-primary {
+    background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%);
+    color: white;
+    box-shadow: 0 2px 10px rgba(164, 4, 228, 0.3);
+}
+
+.dc-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(164, 4, 228, 0.4);
+}
+
+.dc-btn-secondary {
+    background: white;
+    color: var(--dc-text-dark);
+    border: 1px solid var(--dc-border);
+}
+
+.dc-btn-secondary:hover {
+    background: #f8fafc;
+    border-color: var(--dc-primary);
+    color: var(--dc-primary);
+}
+
+.dc-btn-outline {
+    background: transparent;
+    color: var(--dc-primary);
+    border: 1px dashed var(--dc-primary);
+    padding: 10px 16px;
+    font-size: 13px;
+}
+
+.dc-btn-outline:hover {
+    background: var(--dc-primary-light);
+}
+
+/* Navigation */
+.dc-setup-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--dc-border);
+}
+
+.dc-setup-nav .dc-btn-primary {
+    margin-left: auto;
+}
+
+/* Complete Card */
+.dc-complete-card {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.dc-complete-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--dc-primary) 0%, var(--dc-primary-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(164, 4, 228, 0.3);
+}
+
+.dc-complete-icon svg {
+    width: 40px;
+    height: 40px;
+}
+
+.dc-complete-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dc-text-dark);
+    margin: 0 0 8px 0;
+}
+
+.dc-complete-desc {
+    font-size: 14px;
+    color: var(--dc-text-muted);
+    margin: 0 0 24px 0;
+}
+
+.dc-feature-list {
+    text-align: left;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.dc-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    font-size: 14px;
+    color: var(--dc-text-dark);
+}
+
+.dc-feature-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--dc-success);
+    flex-shrink: 0;
+}
+
+.dc-feature-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .dc-setup-container {
+        padding: 24px;
+    }
+
+    .dc-setup-progress {
+        gap: 4px;
+    }
+
+    .dc-progress-line {
+        width: 20px;
+    }
+
+    .dc-step-label {
+        font-size: 10px;
+    }
+
+    .dc-user-row {
+        flex-direction: column;
+    }
 }
 </style>

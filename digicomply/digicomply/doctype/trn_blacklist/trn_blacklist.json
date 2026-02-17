@@ -1,0 +1,165 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "field:trn",
+    "creation": "2024-01-20 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_warning",
+        "warning_html",
+        "section_trn_info",
+        "trn",
+        "reason",
+        "column_break_trn",
+        "entity_name",
+        "is_active",
+        "section_details",
+        "reported_date",
+        "reported_by",
+        "column_break_details",
+        "verified",
+        "section_notes",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_warning",
+            "fieldtype": "Section Break",
+            "hidden": 1
+        },
+        {
+            "fieldname": "warning_html",
+            "fieldtype": "HTML",
+            "label": "Warning",
+            "options": ""
+        },
+        {
+            "fieldname": "section_trn_info",
+            "fieldtype": "Section Break",
+            "label": "TRN Information"
+        },
+        {
+            "fieldname": "trn",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "TRN",
+            "reqd": 1,
+            "unique": 1,
+            "description": "15-digit UAE Tax Registration Number"
+        },
+        {
+            "fieldname": "reason",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Reason",
+            "options": "\nFraudulent\nCancelled by FTA\nDuplicate\nInvalid Format\nExpired - Not Renewed\nReported by User",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_trn",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "entity_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Entity Name",
+            "description": "Name of the entity associated with this TRN (if known)"
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Is Active",
+            "description": "Uncheck to disable blacklist checking for this TRN"
+        },
+        {
+            "fieldname": "section_details",
+            "fieldtype": "Section Break",
+            "label": "Reporting Details"
+        },
+        {
+            "default": "Today",
+            "fieldname": "reported_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Reported Date"
+        },
+        {
+            "fieldname": "reported_by",
+            "fieldtype": "Link",
+            "label": "Reported By",
+            "options": "User"
+        },
+        {
+            "fieldname": "column_break_details",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "verified",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Verified",
+            "description": "Checked when an administrator has verified this blacklist entry"
+        },
+        {
+            "fieldname": "section_notes",
+            "fieldtype": "Section Break",
+            "label": "Additional Notes",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes",
+            "description": "Additional information about why this TRN is blacklisted"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-20 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "TRN Blacklist",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 0,
+            "write": 0
+        }
+    ],
+    "search_fields": "trn,entity_name,reason",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "trn",
+    "track_changes": 1
+}

@@ -1,0 +1,229 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:rule_name",
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "rule_section",
+        "rule_name",
+        "asp_connector",
+        "entity_type",
+        "column_break_1",
+        "enabled",
+        "priority",
+        "direction",
+        "condition_section",
+        "condition_type",
+        "condition_field",
+        "condition_operator",
+        "condition_value",
+        "transform_section",
+        "transform_type",
+        "source_field",
+        "target_field",
+        "column_break_2",
+        "transform_function",
+        "transform_params",
+        "default_value",
+        "code_section",
+        "custom_code",
+        "test_section",
+        "test_input",
+        "test_output"
+    ],
+    "fields": [
+        {
+            "fieldname": "rule_section",
+            "fieldtype": "Section Break",
+            "label": "Rule Details"
+        },
+        {
+            "fieldname": "rule_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Rule Name",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "asp_connector",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "ASP Connector",
+            "options": "ASP Connector"
+        },
+        {
+            "fieldname": "entity_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Entity Type",
+            "options": "Invoice\nCustomer\nProduct\nPayment\nAll"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Enabled"
+        },
+        {
+            "default": "10",
+            "fieldname": "priority",
+            "fieldtype": "Int",
+            "label": "Priority",
+            "description": "Lower number = higher priority"
+        },
+        {
+            "default": "Both",
+            "fieldname": "direction",
+            "fieldtype": "Select",
+            "label": "Direction",
+            "options": "Inbound\nOutbound\nBoth"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "condition_section",
+            "fieldtype": "Section Break",
+            "label": "Condition (Optional)"
+        },
+        {
+            "fieldname": "condition_type",
+            "fieldtype": "Select",
+            "label": "Condition Type",
+            "options": "\nField Value\nRecord Type\nCustom"
+        },
+        {
+            "depends_on": "eval:doc.condition_type=='Field Value'",
+            "fieldname": "condition_field",
+            "fieldtype": "Data",
+            "label": "Condition Field"
+        },
+        {
+            "depends_on": "eval:doc.condition_type=='Field Value'",
+            "fieldname": "condition_operator",
+            "fieldtype": "Select",
+            "label": "Operator",
+            "options": "equals\nnot equals\ncontains\nstarts with\nends with\ngreater than\nless than\nis empty\nis not empty"
+        },
+        {
+            "depends_on": "eval:doc.condition_type=='Field Value'",
+            "fieldname": "condition_value",
+            "fieldtype": "Data",
+            "label": "Condition Value"
+        },
+        {
+            "fieldname": "transform_section",
+            "fieldtype": "Section Break",
+            "label": "Transformation"
+        },
+        {
+            "fieldname": "transform_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Transform Type",
+            "options": "Field Mapping\nValue Mapping\nFormat\nCalculation\nConcatenate\nSplit\nLookup\nCustom Code",
+            "reqd": 1
+        },
+        {
+            "fieldname": "source_field",
+            "fieldtype": "Data",
+            "label": "Source Field"
+        },
+        {
+            "fieldname": "target_field",
+            "fieldtype": "Data",
+            "label": "Target Field"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "depends_on": "eval:doc.transform_type=='Format'",
+            "fieldname": "transform_function",
+            "fieldtype": "Select",
+            "label": "Transform Function",
+            "options": "\nUppercase\nLowercase\nTrim\nDate Format\nNumber Format\nCurrency Format\nPhone Format\nGSTIN Format"
+        },
+        {
+            "fieldname": "transform_params",
+            "fieldtype": "Code",
+            "label": "Parameters",
+            "options": "JSON",
+            "description": "JSON object with transformation parameters"
+        },
+        {
+            "fieldname": "default_value",
+            "fieldtype": "Data",
+            "label": "Default Value",
+            "description": "Value to use if source is empty"
+        },
+        {
+            "collapsible": 1,
+            "depends_on": "eval:doc.transform_type=='Custom Code'",
+            "fieldname": "code_section",
+            "fieldtype": "Section Break",
+            "label": "Custom Code"
+        },
+        {
+            "fieldname": "custom_code",
+            "fieldtype": "Code",
+            "label": "Custom Code",
+            "options": "Python",
+            "description": "def transform(value, record, context):\n    return transformed_value"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "test_section",
+            "fieldtype": "Section Break",
+            "label": "Test"
+        },
+        {
+            "fieldname": "test_input",
+            "fieldtype": "Code",
+            "label": "Test Input",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "test_output",
+            "fieldtype": "Code",
+            "label": "Test Output",
+            "options": "JSON",
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Transform Rule",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "priority",
+    "sort_order": "ASC",
+    "states": [],
+    "track_changes": 1
+}

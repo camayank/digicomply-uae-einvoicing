@@ -1,0 +1,294 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "general_section",
+        "enable_e_invoicing",
+        "default_asp_connection",
+        "default_invoice_type",
+        "column_break_general",
+        "auto_create_e_invoice",
+        "auto_submit_to_asp",
+        "submission_delay_minutes",
+        "validation_section",
+        "validate_trn_format",
+        "validate_amounts",
+        "require_buyer_trn_threshold",
+        "column_break_validation",
+        "block_invalid_invoices",
+        "allow_manual_override",
+        "retry_section",
+        "max_retry_attempts",
+        "retry_interval_minutes",
+        "column_break_retry",
+        "retry_on_network_error",
+        "retry_on_validation_error",
+        "notification_section",
+        "notify_on_success",
+        "notify_on_failure",
+        "column_break_notify",
+        "notification_recipients",
+        "peppol_section",
+        "peppol_participant_id",
+        "peppol_access_point",
+        "column_break_peppol",
+        "peppol_process_id",
+        "peppol_document_type_id",
+        "archival_section",
+        "archive_signed_documents",
+        "archival_folder",
+        "column_break_archival",
+        "retention_years",
+        "compress_archives"
+    ],
+    "fields": [
+        {
+            "fieldname": "general_section",
+            "fieldtype": "Section Break",
+            "label": "General Settings"
+        },
+        {
+            "default": "1",
+            "fieldname": "enable_e_invoicing",
+            "fieldtype": "Check",
+            "label": "Enable E-Invoicing"
+        },
+        {
+            "fieldname": "default_asp_connection",
+            "fieldtype": "Link",
+            "label": "Default ASP Connection",
+            "options": "ASP Connection"
+        },
+        {
+            "default": "380",
+            "fieldname": "default_invoice_type",
+            "fieldtype": "Link",
+            "label": "Default Invoice Type",
+            "options": "Invoice Type Code"
+        },
+        {
+            "fieldname": "column_break_general",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "fieldname": "auto_create_e_invoice",
+            "fieldtype": "Check",
+            "label": "Auto Create E-Invoice on Submit",
+            "description": "Automatically create E-Invoice when Sales Invoice is submitted"
+        },
+        {
+            "default": "0",
+            "fieldname": "auto_submit_to_asp",
+            "fieldtype": "Check",
+            "label": "Auto Submit to ASP",
+            "description": "Automatically submit to ASP after validation"
+        },
+        {
+            "default": "0",
+            "depends_on": "auto_submit_to_asp",
+            "fieldname": "submission_delay_minutes",
+            "fieldtype": "Int",
+            "label": "Submission Delay (minutes)",
+            "description": "Wait time before auto-submission"
+        },
+        {
+            "fieldname": "validation_section",
+            "fieldtype": "Section Break",
+            "label": "Validation Settings"
+        },
+        {
+            "default": "1",
+            "fieldname": "validate_trn_format",
+            "fieldtype": "Check",
+            "label": "Validate TRN Format"
+        },
+        {
+            "default": "1",
+            "fieldname": "validate_amounts",
+            "fieldtype": "Check",
+            "label": "Validate Amount Calculations"
+        },
+        {
+            "default": "10000",
+            "fieldname": "require_buyer_trn_threshold",
+            "fieldtype": "Currency",
+            "label": "Require Buyer TRN Above (AED)",
+            "description": "Require buyer TRN for invoices above this amount"
+        },
+        {
+            "fieldname": "column_break_validation",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "block_invalid_invoices",
+            "fieldtype": "Check",
+            "label": "Block Invalid Invoices",
+            "description": "Prevent submission of invalid invoices"
+        },
+        {
+            "default": "1",
+            "fieldname": "allow_manual_override",
+            "fieldtype": "Check",
+            "label": "Allow Manual Override",
+            "description": "Allow users to override validation warnings"
+        },
+        {
+            "fieldname": "retry_section",
+            "fieldtype": "Section Break",
+            "label": "Retry Settings"
+        },
+        {
+            "default": "3",
+            "fieldname": "max_retry_attempts",
+            "fieldtype": "Int",
+            "label": "Max Retry Attempts"
+        },
+        {
+            "default": "15",
+            "fieldname": "retry_interval_minutes",
+            "fieldtype": "Int",
+            "label": "Retry Interval (minutes)"
+        },
+        {
+            "fieldname": "column_break_retry",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "fieldname": "retry_on_network_error",
+            "fieldtype": "Check",
+            "label": "Retry on Network Error"
+        },
+        {
+            "default": "0",
+            "fieldname": "retry_on_validation_error",
+            "fieldtype": "Check",
+            "label": "Retry on Validation Error"
+        },
+        {
+            "fieldname": "notification_section",
+            "fieldtype": "Section Break",
+            "label": "Notifications"
+        },
+        {
+            "default": "0",
+            "fieldname": "notify_on_success",
+            "fieldtype": "Check",
+            "label": "Notify on Success"
+        },
+        {
+            "default": "1",
+            "fieldname": "notify_on_failure",
+            "fieldtype": "Check",
+            "label": "Notify on Failure"
+        },
+        {
+            "fieldname": "column_break_notify",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "notification_recipients",
+            "fieldtype": "Small Text",
+            "label": "Notification Recipients",
+            "description": "Comma-separated email addresses"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "peppol_section",
+            "fieldtype": "Section Break",
+            "label": "Peppol Settings"
+        },
+        {
+            "fieldname": "peppol_participant_id",
+            "fieldtype": "Data",
+            "label": "Peppol Participant ID",
+            "description": "Your organization's Peppol participant identifier"
+        },
+        {
+            "fieldname": "peppol_access_point",
+            "fieldtype": "Data",
+            "label": "Peppol Access Point",
+            "description": "ASP's Peppol access point URL"
+        },
+        {
+            "fieldname": "column_break_peppol",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+            "fieldname": "peppol_process_id",
+            "fieldtype": "Data",
+            "label": "Process ID"
+        },
+        {
+            "default": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice",
+            "fieldname": "peppol_document_type_id",
+            "fieldtype": "Data",
+            "label": "Document Type ID"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "archival_section",
+            "fieldtype": "Section Break",
+            "label": "Archival Settings"
+        },
+        {
+            "default": "1",
+            "fieldname": "archive_signed_documents",
+            "fieldtype": "Check",
+            "label": "Archive Signed Documents"
+        },
+        {
+            "fieldname": "archival_folder",
+            "fieldtype": "Data",
+            "label": "Archival Folder",
+            "description": "Path for storing archived e-invoices"
+        },
+        {
+            "fieldname": "column_break_archival",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "5",
+            "fieldname": "retention_years",
+            "fieldtype": "Int",
+            "label": "Retention Period (years)",
+            "description": "Minimum 5 years per UAE FTA requirements"
+        },
+        {
+            "default": "1",
+            "fieldname": "compress_archives",
+            "fieldtype": "Check",
+            "label": "Compress Archives"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "issingle": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "E-Invoice Settings",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

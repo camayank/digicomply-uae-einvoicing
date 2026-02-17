@@ -1,0 +1,77 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "source_field",
+        "target_field",
+        "field_type",
+        "transform_function",
+        "default_value",
+        "required",
+        "description"
+    ],
+    "fields": [
+        {
+            "fieldname": "source_field",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Source Field",
+            "reqd": 1
+        },
+        {
+            "fieldname": "target_field",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Target Field",
+            "reqd": 1
+        },
+        {
+            "fieldname": "field_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Field Type",
+            "options": "String\nNumber\nDate\nDatetime\nBoolean\nJSON\nArray"
+        },
+        {
+            "fieldname": "transform_function",
+            "fieldtype": "Select",
+            "label": "Transform Function",
+            "options": "\nUppercase\nLowercase\nTrim\nDate Format\nNumber Format\nCustom"
+        },
+        {
+            "fieldname": "default_value",
+            "fieldtype": "Data",
+            "label": "Default Value"
+        },
+        {
+            "default": "0",
+            "fieldname": "required",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Required"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "istable": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Field Mapping",
+    "naming_rule": "Random",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

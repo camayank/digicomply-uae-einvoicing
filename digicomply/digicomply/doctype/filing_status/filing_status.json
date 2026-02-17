@@ -1,0 +1,156 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "FS-.YYYY.-.#####",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_details",
+        "compliance_calendar",
+        "status",
+        "column_break_details",
+        "status_date",
+        "filed_by",
+        "section_fta",
+        "fta_reference",
+        "fta_response",
+        "column_break_fta",
+        "acknowledged_date",
+        "rejection_reason",
+        "section_notes",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_details",
+            "fieldtype": "Section Break",
+            "label": "Filing Status Details"
+        },
+        {
+            "fieldname": "compliance_calendar",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Compliance Calendar",
+            "options": "Compliance Calendar",
+            "reqd": 1
+        },
+        {
+            "default": "Draft",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Draft\nPrepared\nFiled\nAcknowledged\nRejected",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_details",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "status_date",
+            "fieldtype": "Datetime",
+            "in_list_view": 1,
+            "label": "Status Date"
+        },
+        {
+            "fieldname": "filed_by",
+            "fieldtype": "Link",
+            "label": "Filed By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_fta",
+            "fieldtype": "Section Break",
+            "label": "FTA Response"
+        },
+        {
+            "description": "FTA acknowledgment or transaction reference number",
+            "fieldname": "fta_reference",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "FTA Reference"
+        },
+        {
+            "description": "Response message from FTA",
+            "fieldname": "fta_response",
+            "fieldtype": "Text",
+            "label": "FTA Response"
+        },
+        {
+            "fieldname": "column_break_fta",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "acknowledged_date",
+            "fieldtype": "Datetime",
+            "label": "Acknowledged Date"
+        },
+        {
+            "description": "Reason for rejection if applicable",
+            "fieldname": "rejection_reason",
+            "fieldtype": "Text",
+            "label": "Rejection Reason"
+        },
+        {
+            "fieldname": "section_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Filing Status",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User"
+        }
+    ],
+    "sort_field": "status_date",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "compliance_calendar",
+    "track_changes": 1
+}

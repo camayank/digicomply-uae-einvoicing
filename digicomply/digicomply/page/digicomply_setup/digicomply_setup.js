@@ -82,9 +82,9 @@ class DigiComplySetup {
             this.data.asp_api_key = $("#asp_api_key").val();
         } else if (this.current_step === 4) {
             this.data.users = [];
-            $(".user-row").each(function() {
-                const email = $(this).find("input").val();
-                const role = $(this).find("select").val();
+            $(".dc-user-row").each(function() {
+                const email = $(this).find(".dc-user-email").val();
+                const role = $(this).find(".dc-user-role").val();
                 if (email) {
                     self.data.users.push({ email, role });
                 }
@@ -95,7 +95,7 @@ class DigiComplySetup {
     update_ui() {
         const self = this;
         // Update progress
-        $(".setup-progress .step").each(function() {
+        $(".dc-progress-step").each(function() {
             const step = $(this).data("step");
             $(this).removeClass("active completed");
             if (step < self.current_step) {
@@ -106,19 +106,23 @@ class DigiComplySetup {
         });
 
         // Show current step
-        $(".setup-step").hide();
-        $(`.setup-step[data-step="${this.current_step}"]`).show();
+        $(".dc-setup-step").hide();
+        $(`.dc-setup-step[data-step="${this.current_step}"]`).show();
 
         // Update buttons
         $("#prev-btn").toggle(this.current_step > 1);
-        $("#next-btn").text(this.current_step === this.total_steps ? "Go to Dashboard" : "Next");
+        if (this.current_step === this.total_steps) {
+            $("#next-btn").html('Go to Dashboard <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>');
+        } else {
+            $("#next-btn").html('Next <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>');
+        }
     }
 
     add_user_row() {
         const row = `
-            <div class="user-row">
-                <input type="email" class="form-control" placeholder="Email address" />
-                <select class="form-control">
+            <div class="dc-user-row">
+                <input type="email" class="dc-input dc-user-email" placeholder="Email address" />
+                <select class="dc-select dc-user-role">
                     <option value="Accounts User">Accounts User</option>
                     <option value="Accounts Manager">Accounts Manager</option>
                 </select>

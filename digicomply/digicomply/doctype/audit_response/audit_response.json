@@ -1,0 +1,151 @@
+{
+    "name": "Audit Response",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 1,
+    "engine": "InnoDB",
+    "naming_rule": "Expression",
+    "autoname": "AUDRES-.YYYY.-.#####",
+    "title_field": "response_subject",
+    "search_fields": "audit_request,response_subject",
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "description": "Responses to audit requests",
+    "fields": [
+        {
+            "fieldname": "response_section",
+            "fieldtype": "Section Break",
+            "label": "Response Details"
+        },
+        {
+            "fieldname": "audit_request",
+            "fieldtype": "Link",
+            "label": "Audit Request",
+            "options": "Audit Request",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "response_subject",
+            "fieldtype": "Data",
+            "label": "Subject",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "response_by",
+            "fieldtype": "Link",
+            "label": "Response By",
+            "options": "User",
+            "default": "__user"
+        },
+        {
+            "fieldname": "response_date",
+            "fieldtype": "Datetime",
+            "label": "Response Date",
+            "default": "Now"
+        },
+        {
+            "fieldname": "content_section",
+            "fieldtype": "Section Break",
+            "label": "Content"
+        },
+        {
+            "fieldname": "response_content",
+            "fieldtype": "Text Editor",
+            "label": "Response",
+            "reqd": 1
+        },
+        {
+            "fieldname": "attachments_section",
+            "fieldtype": "Section Break",
+            "label": "Attachments"
+        },
+        {
+            "fieldname": "attachment_1",
+            "fieldtype": "Attach",
+            "label": "Attachment 1"
+        },
+        {
+            "fieldname": "attachment_2",
+            "fieldtype": "Attach",
+            "label": "Attachment 2"
+        },
+        {
+            "fieldname": "attachment_3",
+            "fieldtype": "Attach",
+            "label": "Attachment 3"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "exported_data",
+            "fieldtype": "Attach",
+            "label": "Exported Data"
+        },
+        {
+            "fieldname": "report_reference",
+            "fieldtype": "Link",
+            "label": "Related Report",
+            "options": "FTA Report"
+        },
+        {
+            "fieldname": "approval_section",
+            "fieldtype": "Section Break",
+            "label": "Approval",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "requires_approval",
+            "fieldtype": "Check",
+            "label": "Requires Approval"
+        },
+        {
+            "fieldname": "approved_by",
+            "fieldtype": "Link",
+            "label": "Approved By",
+            "options": "User",
+            "depends_on": "requires_approval"
+        },
+        {
+            "fieldname": "approval_date",
+            "fieldtype": "Datetime",
+            "label": "Approval Date",
+            "depends_on": "requires_approval"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        },
+        {
+            "role": "External Auditor",
+            "read": 1,
+            "write": 0,
+            "create": 0,
+            "delete": 0
+        }
+    ]
+}

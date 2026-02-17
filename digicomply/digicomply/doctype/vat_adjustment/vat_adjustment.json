@@ -1,0 +1,199 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "VAT-ADJ-.YYYY.-.#####",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_details",
+        "company",
+        "adjustment_date",
+        "adjustment_type",
+        "column_break_details",
+        "status",
+        "vat_return",
+        "section_adjustment",
+        "description",
+        "reference_document",
+        "column_break_adjustment",
+        "base_amount",
+        "vat_rate",
+        "vat_amount",
+        "section_approval",
+        "approved_by",
+        "approved_date",
+        "section_notes",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_details",
+            "fieldtype": "Section Break",
+            "label": "Adjustment Details"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "default": "Today",
+            "fieldname": "adjustment_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Adjustment Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "adjustment_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Adjustment Type",
+            "options": "Output VAT Correction\nInput VAT Correction\nBad Debt Relief\nBad Debt Recovery\nError Correction\nReverse Charge\nOther",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_details",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "Draft",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Draft\nApproved\nApplied\nCancelled",
+            "read_only": 1
+        },
+        {
+            "fieldname": "vat_return",
+            "fieldtype": "Link",
+            "label": "VAT Return",
+            "options": "VAT Return",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_adjustment",
+            "fieldtype": "Section Break",
+            "label": "Adjustment Amount"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description",
+            "reqd": 1
+        },
+        {
+            "fieldname": "reference_document",
+            "fieldtype": "Data",
+            "label": "Reference Document"
+        },
+        {
+            "fieldname": "column_break_adjustment",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "base_amount",
+            "fieldtype": "Currency",
+            "label": "Base Amount (Taxable)"
+        },
+        {
+            "default": "5",
+            "fieldname": "vat_rate",
+            "fieldtype": "Percent",
+            "label": "VAT Rate"
+        },
+        {
+            "default": "0",
+            "fieldname": "vat_amount",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "VAT Amount",
+            "reqd": 1
+        },
+        {
+            "collapsible": 1,
+            "collapsible_depends_on": "eval:doc.status === 'Approved' || doc.status === 'Applied'",
+            "fieldname": "section_approval",
+            "fieldtype": "Section Break",
+            "label": "Approval Details"
+        },
+        {
+            "fieldname": "approved_by",
+            "fieldtype": "Link",
+            "label": "Approved By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "approved_date",
+            "fieldtype": "Datetime",
+            "label": "Approved Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "VAT Adjustment",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User"
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "adjustment_type",
+    "track_changes": 1
+}

@@ -1,0 +1,49 @@
+{% extends "templates/emails/standard_email.html" %}
+
+{% block content %}
+<h2>VAT Filing Deadline Approaching</h2>
+
+<p>Hi {{ recipient_name or "there" }},</p>
+
+<div class="alert-box warning">
+    <strong>Reminder:</strong> Your VAT return filing deadline is approaching.
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>Detail</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Tax Period</td>
+        <td>{{ tax_period }}</td>
+    </tr>
+    <tr>
+        <td>Filing Deadline</td>
+        <td><strong style="color: #ef4444;">{{ deadline_date }}</strong></td>
+    </tr>
+    <tr>
+        <td>Days Remaining</td>
+        <td>{{ days_remaining }} days</td>
+    </tr>
+    <tr>
+        <td>Company</td>
+        <td>{{ company }}</td>
+    </tr>
+</table>
+
+<h3 style="margin-top: 24px;">Checklist Before Filing</h3>
+<ul style="color: #475569;">
+    <li>Run reconciliation for all invoices in this period</li>
+    <li>Resolve any mismatches identified</li>
+    <li>Verify TRN validation for all suppliers/customers</li>
+    <li>Generate and review VAT Return report</li>
+    <li>Prepare FAF (FTA Audit File) if required</li>
+</ul>
+
+<a href="{{ dashboard_url }}" class="btn-primary">Go to Dashboard</a>
+
+<p style="color: #94a3b8; font-size: 13px; margin-top: 24px;">
+    Stay compliant with UAE FTA requirements. Late filing may result in penalties.
+</p>
+{% endblock %}

@@ -1,0 +1,222 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "TRNVAL-.YYYY.-.#####",
+    "creation": "2024-01-15 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_trn_info",
+        "trn",
+        "trn_registry",
+        "column_break_trn",
+        "company",
+        "validation_date",
+        "section_validation",
+        "validation_type",
+        "validation_source",
+        "column_break_validation",
+        "validation_status",
+        "response_code",
+        "response_message",
+        "section_fta_response",
+        "fta_entity_name",
+        "fta_status",
+        "column_break_fta",
+        "fta_registration_date",
+        "fta_expiry_date",
+        "section_raw_response",
+        "raw_response"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_trn_info",
+            "fieldtype": "Section Break",
+            "label": "TRN Information"
+        },
+        {
+            "fieldname": "trn",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "TRN",
+            "reqd": 1,
+            "description": "Tax Registration Number being validated"
+        },
+        {
+            "fieldname": "trn_registry",
+            "fieldtype": "Link",
+            "in_standard_filter": 1,
+            "label": "TRN Registry",
+            "options": "TRN Registry",
+            "description": "Link to TRN Registry record if applicable"
+        },
+        {
+            "fieldname": "column_break_trn",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company"
+        },
+        {
+            "fieldname": "validation_date",
+            "fieldtype": "Datetime",
+            "in_list_view": 1,
+            "label": "Validation Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "section_validation",
+            "fieldtype": "Section Break",
+            "label": "Validation Details"
+        },
+        {
+            "fieldname": "validation_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Validation Type",
+            "options": "\nFormat Check\nFTA API\nBulk Validation\nManual Override"
+        },
+        {
+            "fieldname": "validation_source",
+            "fieldtype": "Select",
+            "in_standard_filter": 1,
+            "label": "Validation Source",
+            "options": "\nTRN Registry\nCustomer\nSupplier\nBulk Import\nManual"
+        },
+        {
+            "fieldname": "column_break_validation",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "validation_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Validation Status",
+            "options": "\nValid\nInvalid\nExpired\nNot Found\nAPI Error\nPending",
+            "default": "Pending"
+        },
+        {
+            "fieldname": "response_code",
+            "fieldtype": "Data",
+            "label": "Response Code",
+            "description": "API response code if applicable"
+        },
+        {
+            "fieldname": "response_message",
+            "fieldtype": "Small Text",
+            "label": "Response Message",
+            "description": "Validation result message or error details"
+        },
+        {
+            "fieldname": "section_fta_response",
+            "fieldtype": "Section Break",
+            "label": "FTA Response Data",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "fta_entity_name",
+            "fieldtype": "Data",
+            "label": "FTA Entity Name",
+            "description": "Entity name returned by FTA"
+        },
+        {
+            "fieldname": "fta_status",
+            "fieldtype": "Data",
+            "label": "FTA Status",
+            "description": "Registration status from FTA"
+        },
+        {
+            "fieldname": "column_break_fta",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "fta_registration_date",
+            "fieldtype": "Date",
+            "label": "FTA Registration Date"
+        },
+        {
+            "fieldname": "fta_expiry_date",
+            "fieldtype": "Date",
+            "label": "FTA Expiry Date"
+        },
+        {
+            "fieldname": "section_raw_response",
+            "fieldtype": "Section Break",
+            "label": "Raw API Response",
+            "collapsible": 1,
+            "collapsible_depends_on": "eval:!doc.raw_response"
+        },
+        {
+            "fieldname": "raw_response",
+            "fieldtype": "Code",
+            "label": "Raw Response",
+            "options": "JSON",
+            "description": "Complete API response in JSON format"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [
+        {
+            "link_doctype": "TRN Registry",
+            "link_fieldname": "trn_registry"
+        }
+    ],
+    "modified": "2024-01-15 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "TRN Validation Log",
+    "naming_rule": "Expression (old style)",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 0
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 0
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User",
+            "share": 0,
+            "write": 0
+        }
+    ],
+    "search_fields": "trn,validation_status,validation_type,fta_entity_name",
+    "sort_field": "validation_date",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "trn",
+    "track_changes": 0
+}

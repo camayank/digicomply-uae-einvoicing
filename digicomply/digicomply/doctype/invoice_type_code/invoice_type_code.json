@@ -1,0 +1,104 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "field:code",
+    "creation": "2026-02-17 00:00:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "code",
+        "name_en",
+        "name_ar",
+        "description",
+        "document_type",
+        "is_credit_note",
+        "is_debit_note",
+        "enabled"
+    ],
+    "fields": [
+        {
+            "fieldname": "code",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Code",
+            "reqd": 1,
+            "unique": 1,
+            "description": "UN/CEFACT Invoice Type Code"
+        },
+        {
+            "fieldname": "name_en",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Name (English)",
+            "reqd": 1
+        },
+        {
+            "fieldname": "name_ar",
+            "fieldtype": "Data",
+            "label": "Name (Arabic)"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        },
+        {
+            "default": "Invoice",
+            "fieldname": "document_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Document Type",
+            "options": "Invoice\nCredit Note\nDebit Note\nSelf-Billed Invoice\nPrepayment Invoice"
+        },
+        {
+            "default": "0",
+            "fieldname": "is_credit_note",
+            "fieldtype": "Check",
+            "label": "Is Credit Note"
+        },
+        {
+            "default": "0",
+            "fieldname": "is_debit_note",
+            "fieldtype": "Check",
+            "label": "Is Debit Note"
+        },
+        {
+            "default": "1",
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Enabled"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-02-17 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Invoice Type Code",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "read": 1,
+            "role": "Accounts User"
+        }
+    ],
+    "sort_field": "code",
+    "sort_order": "ASC",
+    "states": [],
+    "track_changes": 1
+}

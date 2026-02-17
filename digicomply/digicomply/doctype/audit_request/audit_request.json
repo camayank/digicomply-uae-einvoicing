@@ -1,0 +1,197 @@
+{
+    "name": "Audit Request",
+    "module": "DigiComply",
+    "doctype": "DocType",
+    "custom": 0,
+    "istable": 0,
+    "issingle": 0,
+    "is_tree": 0,
+    "editable_grid": 0,
+    "track_changes": 1,
+    "engine": "InnoDB",
+    "naming_rule": "Expression",
+    "autoname": "AUDREQ-.YYYY.-.#####",
+    "title_field": "request_subject",
+    "search_fields": "request_subject,auditor_access,status",
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "description": "Audit requests from external auditors",
+    "fields": [
+        {
+            "fieldname": "request_section",
+            "fieldtype": "Section Break",
+            "label": "Request Details",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "auditor_access",
+            "fieldtype": "Link",
+            "label": "Auditor Access",
+            "options": "Auditor Access",
+            "reqd": 1,
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "request_subject",
+            "fieldtype": "Data",
+            "label": "Subject",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Open\nIn Progress\nPending Information\nCompleted\nClosed",
+            "default": "Open",
+            "in_list_view": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "priority",
+            "fieldtype": "Select",
+            "label": "Priority",
+            "options": "Low\nMedium\nHigh\nUrgent",
+            "default": "Medium"
+        },
+        {
+            "fieldname": "request_date",
+            "fieldtype": "Datetime",
+            "label": "Request Date",
+            "default": "Now"
+        },
+        {
+            "fieldname": "description_section",
+            "fieldtype": "Section Break",
+            "label": "Description",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "request_type",
+            "fieldtype": "Select",
+            "label": "Request Type",
+            "options": "Document Request\nData Export\nClarification\nReconciliation\nReport Generation\nOther"
+        },
+        {
+            "fieldname": "request_description",
+            "fieldtype": "Text Editor",
+            "label": "Description",
+            "reqd": 1
+        },
+        {
+            "fieldname": "scope_section",
+            "fieldtype": "Section Break",
+            "label": "Scope",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "document_types",
+            "fieldtype": "Small Text",
+            "label": "Document Types Requested"
+        },
+        {
+            "fieldname": "date_from",
+            "fieldtype": "Date",
+            "label": "Date From"
+        },
+        {
+            "fieldname": "date_to",
+            "fieldtype": "Date",
+            "label": "Date To"
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "specific_documents",
+            "fieldtype": "Small Text",
+            "label": "Specific Documents",
+            "description": "List of specific document names"
+        },
+        {
+            "fieldname": "filters",
+            "fieldtype": "Code",
+            "label": "Filters (JSON)",
+            "options": "JSON"
+        },
+        {
+            "fieldname": "response_section",
+            "fieldtype": "Section Break",
+            "label": "Response",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "assigned_to",
+            "fieldtype": "Link",
+            "label": "Assigned To",
+            "options": "User"
+        },
+        {
+            "fieldname": "due_date",
+            "fieldtype": "Date",
+            "label": "Due Date"
+        },
+        {
+            "fieldname": "column_break_3",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "response_count",
+            "fieldtype": "Int",
+            "label": "Response Count",
+            "read_only": 1
+        },
+        {
+            "fieldname": "completed_date",
+            "fieldtype": "Datetime",
+            "label": "Completed Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "attachments_section",
+            "fieldtype": "Section Break",
+            "label": "Attachments",
+            "collapsible": 1
+        },
+        {
+            "fieldname": "request_attachments",
+            "fieldtype": "Text",
+            "label": "Request Attachments",
+            "description": "Supporting documents from auditor"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        },
+        {
+            "role": "DigiComply Admin",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        },
+        {
+            "role": "External Auditor",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 0
+        }
+    ],
+    "links": [],
+    "actions": [],
+    "default_print_format": "",
+    "show_preview_popup": 0,
+    "make_attachments_public": 0
+}

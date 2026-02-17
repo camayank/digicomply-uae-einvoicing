@@ -1,0 +1,342 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "VAT-RET-.YYYY.-.#####",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_header",
+        "company",
+        "trn",
+        "tax_period",
+        "column_break_header",
+        "from_date",
+        "to_date",
+        "section_status",
+        "status",
+        "prepared_by",
+        "column_break_status",
+        "prepared_date",
+        "filed_date",
+        "fta_reference",
+        "section_output_vat",
+        "total_sales_standard",
+        "total_sales_zero_rated",
+        "total_sales_exempt",
+        "column_break_output",
+        "output_vat_amount",
+        "section_input_vat",
+        "total_purchases_standard",
+        "total_purchases_zero_rated",
+        "total_purchases_exempt",
+        "column_break_input",
+        "input_vat_recoverable",
+        "input_vat_non_recoverable",
+        "section_reverse_charge",
+        "reverse_charge_amount",
+        "reverse_charge_vat",
+        "section_adjustments",
+        "adjustments",
+        "total_adjustments",
+        "section_summary",
+        "net_vat_due",
+        "section_notes",
+        "notes",
+        "amended_from"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_header",
+            "fieldtype": "Section Break",
+            "label": "VAT Return Details"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "depends_on": "company",
+            "fetch_from": "company.tax_id",
+            "fieldname": "trn",
+            "fieldtype": "Data",
+            "label": "TRN (Tax Registration Number)",
+            "read_only": 1
+        },
+        {
+            "default": "Quarterly",
+            "fieldname": "tax_period",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Tax Period",
+            "options": "Monthly\nQuarterly",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_header",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "from_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "From Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "to_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "To Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "section_status",
+            "fieldtype": "Section Break",
+            "label": "Status"
+        },
+        {
+            "default": "Draft",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Draft\nPrepared\nUnder Review\nFiled\nAcknowledged",
+            "read_only": 1
+        },
+        {
+            "fieldname": "prepared_by",
+            "fieldtype": "Link",
+            "label": "Prepared By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_status",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "prepared_date",
+            "fieldtype": "Datetime",
+            "label": "Prepared Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "filed_date",
+            "fieldtype": "Date",
+            "label": "Filed Date",
+            "read_only": 1
+        },
+        {
+            "fieldname": "fta_reference",
+            "fieldtype": "Data",
+            "label": "FTA Reference"
+        },
+        {
+            "fieldname": "section_output_vat",
+            "fieldtype": "Section Break",
+            "label": "Output VAT (Sales)"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_sales_standard",
+            "fieldtype": "Currency",
+            "label": "Standard Rated Sales (5%)"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_sales_zero_rated",
+            "fieldtype": "Currency",
+            "label": "Zero Rated Sales"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_sales_exempt",
+            "fieldtype": "Currency",
+            "label": "Exempt Sales"
+        },
+        {
+            "fieldname": "column_break_output",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "output_vat_amount",
+            "fieldtype": "Currency",
+            "label": "Output VAT Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_input_vat",
+            "fieldtype": "Section Break",
+            "label": "Input VAT (Purchases)"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_purchases_standard",
+            "fieldtype": "Currency",
+            "label": "Standard Rated Purchases (5%)"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_purchases_zero_rated",
+            "fieldtype": "Currency",
+            "label": "Zero Rated Purchases"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_purchases_exempt",
+            "fieldtype": "Currency",
+            "label": "Exempt Purchases"
+        },
+        {
+            "fieldname": "column_break_input",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "input_vat_recoverable",
+            "fieldtype": "Currency",
+            "label": "Input VAT Recoverable",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "input_vat_non_recoverable",
+            "fieldtype": "Currency",
+            "label": "Input VAT Non-Recoverable"
+        },
+        {
+            "fieldname": "section_reverse_charge",
+            "fieldtype": "Section Break",
+            "label": "Reverse Charge (Article 37)",
+            "description": "VAT on imports of services from outside UAE"
+        },
+        {
+            "default": "0",
+            "fieldname": "reverse_charge_amount",
+            "fieldtype": "Currency",
+            "label": "Reverse Charge Purchases",
+            "description": "Total value of imports subject to reverse charge",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "reverse_charge_vat",
+            "fieldtype": "Currency",
+            "label": "Reverse Charge VAT",
+            "description": "VAT self-assessed on reverse charge purchases (appears in both output and input VAT)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_adjustments",
+            "fieldtype": "Section Break",
+            "label": "Adjustments"
+        },
+        {
+            "fieldname": "adjustments",
+            "fieldtype": "Table",
+            "label": "Adjustments",
+            "options": "VAT Return Line"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_adjustments",
+            "fieldtype": "Currency",
+            "label": "Total Adjustments",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_summary",
+            "fieldtype": "Section Break",
+            "label": "Summary"
+        },
+        {
+            "default": "0",
+            "fieldname": "net_vat_due",
+            "fieldtype": "Currency",
+            "label": "Net VAT Due (Payable/Refundable)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "amended_from",
+            "fieldtype": "Link",
+            "hidden": 1,
+            "label": "Amended From",
+            "no_copy": 1,
+            "options": "VAT Return",
+            "print_hide": 1,
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "is_submittable": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "VAT Return",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "amend": 1,
+            "cancel": 1,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 1,
+            "write": 1
+        },
+        {
+            "amend": 1,
+            "cancel": 1,
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "submit": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User"
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "company",
+    "track_changes": 1
+}

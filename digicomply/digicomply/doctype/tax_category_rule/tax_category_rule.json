@@ -1,0 +1,202 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:rule_name",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_basic",
+        "rule_name",
+        "company",
+        "column_break_basic",
+        "is_active",
+        "priority",
+        "section_conditions",
+        "apply_to",
+        "item_group",
+        "column_break_conditions",
+        "customer_group",
+        "supplier_group",
+        "emirate",
+        "section_action",
+        "tax_category",
+        "column_break_action",
+        "tax_template",
+        "section_notes",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_basic",
+            "fieldtype": "Section Break",
+            "label": "Rule Details"
+        },
+        {
+            "fieldname": "rule_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Rule Name",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_basic",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Is Active"
+        },
+        {
+            "default": "10",
+            "description": "Lower number = higher priority. Rules with lower priority values are evaluated first.",
+            "fieldname": "priority",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Priority"
+        },
+        {
+            "fieldname": "section_conditions",
+            "fieldtype": "Section Break",
+            "label": "Conditions"
+        },
+        {
+            "default": "Both",
+            "fieldname": "apply_to",
+            "fieldtype": "Select",
+            "in_standard_filter": 1,
+            "label": "Apply To",
+            "options": "Sales Invoice\nPurchase Invoice\nBoth",
+            "reqd": 1
+        },
+        {
+            "description": "Leave blank to apply to all item groups",
+            "fieldname": "item_group",
+            "fieldtype": "Link",
+            "label": "Item Group",
+            "options": "Item Group"
+        },
+        {
+            "fieldname": "column_break_conditions",
+            "fieldtype": "Column Break"
+        },
+        {
+            "description": "Leave blank to apply to all customer groups",
+            "fieldname": "customer_group",
+            "fieldtype": "Link",
+            "label": "Customer Group",
+            "options": "Customer Group"
+        },
+        {
+            "description": "Leave blank to apply to all supplier groups",
+            "fieldname": "supplier_group",
+            "fieldtype": "Link",
+            "label": "Supplier Group",
+            "options": "Supplier Group"
+        },
+        {
+            "description": "Leave blank to apply to all emirates",
+            "fieldname": "emirate",
+            "fieldtype": "Select",
+            "in_standard_filter": 1,
+            "label": "Emirate",
+            "options": "\nAbu Dhabi\nDubai\nSharjah\nAjman\nUmm Al Quwain\nRas Al Khaimah\nFujairah"
+        },
+        {
+            "fieldname": "section_action",
+            "fieldtype": "Section Break",
+            "label": "Action"
+        },
+        {
+            "fieldname": "tax_category",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Tax Category",
+            "options": "Standard Rate (5%)\nZero Rate\nExempt\nOut of Scope\nReverse Charge",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_action",
+            "fieldtype": "Column Break"
+        },
+        {
+            "description": "Optional: Select a tax template to apply. The template should match the Apply To document type.",
+            "fieldname": "tax_template",
+            "fieldtype": "Dynamic Link",
+            "label": "Tax Template",
+            "options": "get_tax_template_doctype"
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text",
+            "label": "Notes"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Tax Category Rule",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts User"
+        }
+    ],
+    "sort_field": "priority",
+    "sort_order": "ASC",
+    "states": [],
+    "title_field": "rule_name",
+    "track_changes": 1
+}
