@@ -61,14 +61,20 @@ def get_trn_health_data(company=None):
         order_by="company asc, entity_name asc"
     )
 
-    # Check for expired TRNs and update status
+    # Batch update expired TRNs
     today_date = getdate(today())
+    expired_names = []
     for trn in trns:
-        if trn.fta_expiry_date and getdate(trn.fta_expiry_date) < today_date:
-            if trn.validation_status != "Expired":
-                # Update status in database
-                frappe.db.set_value("TRN Registry", trn.name, "validation_status", "Expired")
-                trn.validation_status = "Expired"
+        if trn.fta_expiry_date and getdate(trn.fta_expiry_date) < today_date and trn.validation_status != "Expired":
+            expired_names.append(trn.name)
+            trn.validation_status = "Expired"  # Update in-memory
+
+    if expired_names:
+        frappe.db.sql("""
+            UPDATE `tabTRN Registry`
+            SET validation_status = 'Expired'
+            WHERE name IN %s
+        """, (expired_names,))
 
     # Calculate summary
     summary = {
@@ -184,13 +190,10 @@ def bulk_validate_all(company=None):
         }
 
     except Exception as e:
-        frappe.log_error(
-            title="Bulk TRN Validation Error",
-            message=f"Error during bulk validation: {str(e)}"
-        )
+        frappe.log_error(title="Bulk TRN Validation Error", message=str(e))
         return {
             "success": False,
-            "message": _("Error during validation: {0}").format(str(e)),
+            "message": _("An error occurred while validating TRNs. Please check the error log."),
             "results": {
                 "total": len(trns),
                 "valid": 0,
@@ -216,7 +219,13 @@ def validate_single_trn(trn_name):
         frappe.throw(_("You do not have permission to validate TRNs"), frappe.PermissionError)
 
     # Get the TRN document
-    trn_doc = frappe.get_doc("TRN Registry", trn_name)
+    try:
+        trn_doc = frappe.get_doc("TRN Registry", trn_name)
+    except frappe.DoesNotExistError:
+        return {
+            "success": False,
+            "message": _("TRN Registry document not found")
+        }
 
     # Import validation function
     from digicomply.digicomply.api.fta_api import validate_trn_with_fta
