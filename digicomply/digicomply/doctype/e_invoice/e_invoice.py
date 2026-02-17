@@ -16,6 +16,17 @@ try:
 except ImportError:
     HAS_QRCODE = False
 
+# Cryptography imports for signature validation
+try:
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.asymmetric import padding
+    from cryptography.x509 import load_pem_x509_certificate, load_der_x509_certificate
+    from cryptography.hazmat.backends import default_backend
+    from cryptography.exceptions import InvalidSignature
+    HAS_CRYPTOGRAPHY = True
+except ImportError:
+    HAS_CRYPTOGRAPHY = False
+
 
 class EInvoice(Document):
     def validate(self):
@@ -378,6 +389,13 @@ class EInvoice(Document):
         self.irn_status = "Generated" if self.irn else "Pending"
         self.irn_generation_date = now_datetime()
 
+        # Log if IRN is missing
+        if not self.irn:
+            frappe.log_error(
+                f"No IRN received for E-Invoice {self.name}",
+                "E-Invoice IRN Missing"
+            )
+
         # Acknowledgement
         self.ack_number = response_data.get("ack_number") or response_data.get("acknowledgement_number")
         self.ack_date = response_data.get("ack_date")
@@ -390,12 +408,26 @@ class EInvoice(Document):
         if qr_code:
             self.qr_code_data = qr_code
             self.qr_code_text = response_data.get("qr_code_text")
+            self.qr_code_generated_locally = 0  # QR from ASP, not locally generated
 
         # Signed document
         self.signed_invoice_xml = response_data.get("signed_xml") or response_data.get("signed_invoice")
         self.signed_invoice_json = response_data.get("signed_json")
         self.document_hash = response_data.get("document_hash") or response_data.get("hash")
         self.signature_value = response_data.get("signature") or response_data.get("digital_signature")
+
+        # Signing certificate for signature validation
+        self.signing_certificate = response_data.get("certificate") or response_data.get("signing_certificate")
+
+        # Validate the signature if we have both signature and certificate
+        if self.signature_value and self.signing_certificate:
+            try:
+                self.validate_signature()
+            except Exception as e:
+                frappe.log_error(
+                    f"Failed to validate signature for E-Invoice {self.name}: {str(e)}",
+                    "E-Invoice Signature Validation Error"
+                )
 
         # Peppol details
         self.peppol_message_id = response_data.get("peppol_message_id")
@@ -542,6 +574,131 @@ class EInvoice(Document):
                     f"Failed to generate QR code for {self.name}: {str(e)}",
                     "E-Invoice QR Generation Error"
                 )
+
+    @frappe.whitelist()
+    def validate_signature(self):
+        """
+        Validate XADES-EPES digital signature from ASP
+        Returns True if valid, raises exception if invalid
+
+        The signature is validated against:
+        1. The signing certificate
+        2. The document hash
+        """
+        if not HAS_CRYPTOGRAPHY:
+            frappe.throw("cryptography library is required for signature validation. Please install it using: pip install cryptography")
+
+        if not self.signature_value:
+            frappe.throw("No signature to validate")
+
+        if not self.signing_certificate:
+            frappe.throw("No signing certificate available for validation")
+
+        if not self.document_hash:
+            # Generate hash if not present
+            self.generate_document_hash()
+
+        try:
+            # Decode the certificate (try PEM first, then DER)
+            cert_data = self.signing_certificate
+
+            # Remove PEM headers if present
+            if '-----BEGIN CERTIFICATE-----' in cert_data:
+                certificate = load_pem_x509_certificate(
+                    cert_data.encode('utf-8'),
+                    default_backend()
+                )
+            else:
+                # Assume Base64-encoded DER
+                try:
+                    cert_bytes = base64.b64decode(cert_data)
+                    certificate = load_der_x509_certificate(cert_bytes, default_backend())
+                except Exception:
+                    # Try as raw PEM-encoded bytes
+                    certificate = load_pem_x509_certificate(
+                        base64.b64decode(cert_data),
+                        default_backend()
+                    )
+
+            # Get public key from certificate
+            public_key = certificate.public_key()
+
+            # Decode signature
+            signature = base64.b64decode(self.signature_value)
+
+            # Get the signed data (document hash as bytes)
+            signed_data = self.document_hash.encode('utf-8')
+
+            # Verify signature using PKCS1v15 padding with SHA256
+            # This is the common signature scheme for XADES-EPES
+            public_key.verify(
+                signature,
+                signed_data,
+                padding.PKCS1v15(),
+                hashes.SHA256()
+            )
+
+            # Signature is valid
+            self.signature_valid = 1
+            self.signature_validation_time = now_datetime()
+            self.signature_validation_error = None
+
+            # Extract certificate info
+            self.certificate_info = self._extract_certificate_info(certificate)
+
+            return True
+
+        except InvalidSignature:
+            self.signature_valid = 0
+            self.signature_validation_error = "Signature verification failed - signature does not match document"
+            self.signature_validation_time = now_datetime()
+            frappe.log_error(
+                f"Signature validation failed for E-Invoice {self.name}: Invalid signature",
+                "E-Invoice Signature Validation"
+            )
+            return False
+
+        except Exception as e:
+            self.signature_valid = 0
+            self.signature_validation_error = str(e)[:500]
+            self.signature_validation_time = now_datetime()
+            frappe.log_error(
+                f"Signature validation error for E-Invoice {self.name}: {str(e)}",
+                "E-Invoice Signature Validation"
+            )
+            return False
+
+    def _extract_certificate_info(self, certificate):
+        """Extract human-readable information from X.509 certificate"""
+        try:
+            info_parts = []
+
+            # Subject
+            subject = certificate.subject
+            for attr in subject:
+                info_parts.append(f"{attr.oid._name}: {attr.value}")
+
+            # Issuer
+            issuer = certificate.issuer
+            issuer_cn = None
+            for attr in issuer:
+                if attr.oid._name == 'commonName':
+                    issuer_cn = attr.value
+                    break
+            if issuer_cn:
+                info_parts.append(f"Issuer: {issuer_cn}")
+
+            # Validity
+            info_parts.append(f"Valid From: {certificate.not_valid_before_utc}")
+            info_parts.append(f"Valid Until: {certificate.not_valid_after_utc}")
+
+            # Serial number
+            info_parts.append(f"Serial Number: {certificate.serial_number}")
+
+            return "\n".join(info_parts)
+
+        except Exception as e:
+            return f"Error extracting certificate info: {str(e)}"
 
 
 @frappe.whitelist()

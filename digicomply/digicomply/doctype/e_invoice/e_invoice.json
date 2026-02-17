@@ -71,7 +71,11 @@
         "column_break_signed",
         "document_hash",
         "signature_value",
+        "signing_certificate",
         "certificate_info",
+        "signature_valid",
+        "signature_validation_time",
+        "signature_validation_error",
         "asp_section",
         "asp_connection",
         "asp_provider",
@@ -471,9 +475,36 @@
             "options": "Text"
         },
         {
+            "fieldname": "signing_certificate",
+            "fieldtype": "Code",
+            "label": "Signing Certificate (Base64)",
+            "options": "Text",
+            "description": "X.509 certificate used to sign the document"
+        },
+        {
             "fieldname": "certificate_info",
             "fieldtype": "Small Text",
             "label": "Certificate Information",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "signature_valid",
+            "fieldtype": "Check",
+            "label": "Signature Valid",
+            "read_only": 1,
+            "description": "Indicates if the digital signature has been validated"
+        },
+        {
+            "fieldname": "signature_validation_time",
+            "fieldtype": "Datetime",
+            "label": "Signature Validation Time",
+            "read_only": 1
+        },
+        {
+            "fieldname": "signature_validation_error",
+            "fieldtype": "Small Text",
+            "label": "Signature Validation Error",
             "read_only": 1
         },
         {
