@@ -1,0 +1,52 @@
+{% extends "templates/emails/standard_email.html" %}
+
+{% block content %}
+<h2>Reconciliation Complete</h2>
+
+<p>Hi {{ recipient_name or "there" }},</p>
+
+<p>Your reconciliation run has been completed successfully. Here's a summary:</p>
+
+<div class="alert-box {% if match_percentage >= 95 %}success{% elif match_percentage >= 80 %}warning{% else %}error{% endif %}">
+    <strong>Match Rate: {{ match_percentage }}%</strong>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>Metric</th>
+        <th>Count</th>
+    </tr>
+    <tr>
+        <td>Total Invoices</td>
+        <td>{{ total_invoices }}</td>
+    </tr>
+    <tr>
+        <td style="color: #22c55e;">Matched</td>
+        <td>{{ matched_count }}</td>
+    </tr>
+    <tr>
+        <td style="color: #eab308;">Mismatched</td>
+        <td>{{ mismatched_count }}</td>
+    </tr>
+    <tr>
+        <td style="color: #ef4444;">Missing in ASP</td>
+        <td>{{ missing_in_asp }}</td>
+    </tr>
+    <tr>
+        <td style="color: #ef4444;">Missing in Books</td>
+        <td>{{ missing_in_erp }}</td>
+    </tr>
+</table>
+
+{% if mismatched_count > 0 or missing_in_asp > 0 or missing_in_erp > 0 %}
+<p><strong>Action Required:</strong> Please review the discrepancies and take corrective action before your next FTA filing.</p>
+{% endif %}
+
+<a href="{{ doc_url }}" class="btn-primary">View Full Report</a>
+
+<p style="color: #94a3b8; font-size: 13px; margin-top: 24px;">
+    Reconciliation Run: {{ doc_name }}<br>
+    Period: {{ from_date }} to {{ to_date }}<br>
+    Company: {{ company }}
+</p>
+{% endblock %}

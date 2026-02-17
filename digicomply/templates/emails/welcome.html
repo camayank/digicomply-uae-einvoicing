@@ -1,0 +1,55 @@
+{% extends "templates/emails/standard_email.html" %}
+
+{% block content %}
+<h2>Welcome to DigiComply!</h2>
+
+<p>Hi {{ first_name or user_name }},</p>
+
+<p>Welcome to <strong>DigiComply</strong> - your UAE E-Invoicing Compliance Platform. We're excited to have you on board!</p>
+
+<div class="alert-box success">
+    Your account has been successfully created.
+</div>
+
+<h3>Getting Started</h3>
+
+<table class="data-table">
+    <tr>
+        <th>Step</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td><strong>Complete Setup</strong> - Configure your company details and ASP connection</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td><strong>Upload ASP Data</strong> - Import your CSV export from your ASP provider</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td><strong>Run Reconciliation</strong> - Match your invoices with ASP records</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td><strong>Review & Fix</strong> - Resolve any discrepancies before FTA deadlines</td>
+    </tr>
+</table>
+
+<a href="{{ setup_url or site_url }}" class="btn-primary">Start Setup Wizard</a>
+
+<h3 style="margin-top: 24px;">Your Login Details</h3>
+<p>
+    <strong>Email:</strong> {{ user_email }}<br>
+    <strong>Portal:</strong> <a href="{{ site_url }}">{{ site_url }}</a>
+</p>
+
+<p style="margin-top: 24px;">
+    Need help? Our support team is here for you at
+    <a href="mailto:support@digicomply.ae">support@digicomply.ae</a>
+</p>
+
+<p style="color: #94a3b8; font-size: 13px; margin-top: 24px;">
+    Stay compliant with UAE FTA e-invoicing requirements with DigiComply.
+</p>
+{% endblock %}

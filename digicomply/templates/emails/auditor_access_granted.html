@@ -1,0 +1,60 @@
+{% extends "templates/emails/standard_email.html" %}
+
+{% block content %}
+<h2>Auditor Portal Access Granted</h2>
+
+<p>Hi {{ auditor_name }},</p>
+
+<p>You have been granted access to the DigiComply Auditor Portal for <strong>{{ company }}</strong>.</p>
+
+<div class="alert-box">
+    <strong>Access Details</strong>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>Detail</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Company</td>
+        <td>{{ company }}</td>
+    </tr>
+    <tr>
+        <td>Access Level</td>
+        <td>{{ access_level }}</td>
+    </tr>
+    <tr>
+        <td>Valid From</td>
+        <td>{{ valid_from }}</td>
+    </tr>
+    <tr>
+        <td>Valid Until</td>
+        <td>{{ valid_until }}</td>
+    </tr>
+    <tr>
+        <td>Granted By</td>
+        <td>{{ granted_by }}</td>
+    </tr>
+</table>
+
+<h3 style="margin-top: 24px;">What You Can Access</h3>
+<ul style="color: #475569;">
+    {% if can_view_invoices %}<li>Sales and Purchase Invoices</li>{% endif %}
+    {% if can_view_reconciliations %}<li>Reconciliation Reports</li>{% endif %}
+    {% if can_view_vat_returns %}<li>VAT Return Documents</li>{% endif %}
+    {% if can_download_faf %}<li>FTA Audit Files (FAF)</li>{% endif %}
+</ul>
+
+<a href="{{ portal_url }}" class="btn-primary">Access Auditor Portal</a>
+
+<p style="color: #94a3b8; font-size: 13px; margin-top: 24px;">
+    This access is time-limited and will expire on {{ valid_until }}.
+    Please complete your audit activities before the expiration date.
+</p>
+
+<div class="alert-box warning" style="margin-top: 16px;">
+    <strong>Security Notice:</strong> Do not share these access credentials.
+    All activities are logged for compliance purposes.
+</div>
+{% endblock %}
