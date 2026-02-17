@@ -226,9 +226,7 @@ def validate_trn_with_fta(trn, company=None, trn_registry=None):
             "valid": False,
             "status": "API Error",
             "message": _("Unable to validate with FTA API. Please try again later."),
-            "data": {
-                "error": error_message
-            }
+            "data": {}
         }
 
 
@@ -340,23 +338,8 @@ def call_fta_api(trn, settings):
     """
     # Mock implementation for now
     # In production, this would make an actual HTTP request to FTA API
-
-    # Simulate API call
-    # For demo purposes, we'll return success for valid format TRNs
-    # and simulate some edge cases
-
-    # Check if TRN passes format validation (should already be validated)
-    format_result = validate_trn_format(trn)
-    if not format_result["valid"]:
-        return {
-            "valid": False,
-            "status": "Invalid",
-            "message": _("TRN is not registered with FTA"),
-            "data": {
-                "fta_validated": True,
-                "response_code": "TRN_NOT_FOUND"
-            }
-        }
+    # Note: Format validation is performed by caller (validate_trn_with_fta)
+    # before this function is called, so we don't re-validate here
 
     # Mock successful response
     # In real implementation, this would parse the actual FTA API response
@@ -462,10 +445,13 @@ def update_trn_registry(trn_registry, status, data=None):
         trn_registry: Name of TRN Registry document
         status: New validation status
         data: Additional data from validation
+
+    Returns:
+        bool: True if update was successful, False otherwise
     """
     try:
         if not trn_registry:
-            return
+            return False
 
         data = data or {}
 
@@ -481,12 +467,14 @@ def update_trn_registry(trn_registry, status, data=None):
             update_values["fta_expiry_date"] = data.get("expiry_date")
 
         frappe.db.set_value("TRN Registry", trn_registry, update_values)
+        return True
 
     except Exception as e:
         frappe.log_error(
             title="TRN Registry Update Error",
             message=f"Error updating TRN Registry {trn_registry}: {str(e)}"
         )
+        return False
 
 
 @frappe.whitelist()
@@ -514,6 +502,11 @@ def bulk_validate_trns(trns, company=None):
 
     if not isinstance(trns, list):
         frappe.throw(_("TRNs must be a list"))
+
+    # Validate each TRN is a non-empty string
+    for i, trn in enumerate(trns):
+        if not isinstance(trn, str) or not trn.strip():
+            frappe.throw(_("TRN at position {0} must be a non-empty string").format(i+1))
 
     # Limit bulk validation to prevent abuse
     max_bulk = 100
