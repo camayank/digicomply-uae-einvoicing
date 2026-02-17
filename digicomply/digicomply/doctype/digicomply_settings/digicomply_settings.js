@@ -20,6 +20,10 @@ frappe.ui.form.on('DigiComply Settings', {
         frm.add_custom_button(__('Sync Now'), function() {
             frm.trigger('sync_now');
         }, __('Actions'));
+
+        frm.add_custom_button(__('Test FTA Connection'), function() {
+            frm.trigger('test_fta_connection');
+        }, __('Actions'));
     },
 
     add_custom_styles: function(frm) {
@@ -142,6 +146,15 @@ frappe.ui.form.on('DigiComply Settings', {
                     color: #a404e4;
                 }
 
+                /* Password field styling */
+                .dc-form-wrapper [data-fieldtype="Password"] .control-input {
+                    position: relative;
+                }
+
+                .dc-form-wrapper [data-fieldtype="Password"] input {
+                    padding-right: 40px;
+                }
+
                 /* Animation */
                 .dc-fade-in {
                     animation: dcFadeIn 0.3s ease-out;
@@ -187,6 +200,7 @@ frappe.ui.form.on('DigiComply Settings', {
         // Integration status badges
         let cleartax_status = frm.doc.cleartax_enabled ? 'enabled' : 'disabled';
         let cygnet_status = frm.doc.cygnet_enabled ? 'enabled' : 'disabled';
+        let fta_status = frm.doc.enable_fta_validation ? 'enabled' : 'disabled';
         let auto_sync_status = frm.doc.enable_auto_sync ? 'enabled' : 'disabled';
 
         // Build card
@@ -208,6 +222,15 @@ frappe.ui.form.on('DigiComply Settings', {
                     </div>
                     <div class="dc-settings-stat">
                         <div class="dc-settings-stat-value">
+                            <span class="dc-integration-badge ${fta_status}">
+                                <span class="dc-integration-dot ${fta_status}"></span>
+                                FTA API
+                            </span>
+                        </div>
+                        <div class="dc-settings-stat-label">Validation</div>
+                    </div>
+                    <div class="dc-settings-stat">
+                        <div class="dc-settings-stat-value">
                             <span class="dc-integration-badge ${cleartax_status}">
                                 <span class="dc-integration-dot ${cleartax_status}"></span>
                                 ClearTax
@@ -225,13 +248,8 @@ frappe.ui.form.on('DigiComply Settings', {
                         <div class="dc-settings-stat-label">Integration</div>
                     </div>
                     <div class="dc-settings-stat">
-                        <div class="dc-settings-stat-value">
-                            <span class="dc-integration-badge ${auto_sync_status}">
-                                <span class="dc-integration-dot ${auto_sync_status}"></span>
-                                ${frm.doc.sync_frequency || 'Off'}
-                            </span>
-                        </div>
-                        <div class="dc-settings-stat-label">Auto Sync</div>
+                        <div class="dc-settings-stat-value">${frm.doc.default_vat_rate || 5}%</div>
+                        <div class="dc-settings-stat-label">VAT Rate</div>
                     </div>
                 </div>
             </div>
@@ -247,6 +265,47 @@ frappe.ui.form.on('DigiComply Settings', {
             indicator: 'blue',
             message: __('ASP API connection testing will be available in Phase 2. ' +
                        'Currently, connections are validated when data is fetched.')
+        });
+    },
+
+    test_fta_connection: function(frm) {
+        if (!frm.doc.enable_fta_validation) {
+            frappe.msgprint({
+                title: __('FTA API Not Enabled'),
+                indicator: 'orange',
+                message: __('Please enable FTA API Validation first.')
+            });
+            return;
+        }
+
+        if (!frm.doc.fta_api_url || !frm.doc.fta_api_key) {
+            frappe.msgprint({
+                title: __('FTA API Configuration Incomplete'),
+                indicator: 'orange',
+                message: __('Please configure FTA API URL and API Key.')
+            });
+            return;
+        }
+
+        frappe.call({
+            method: 'digicomply.digicomply.doctype.digicomply_settings.digicomply_settings.test_fta_connection',
+            freeze: true,
+            freeze_message: __('Testing FTA API Connection...'),
+            callback: function(r) {
+                if (r.message && r.message.success) {
+                    frappe.msgprint({
+                        title: __('Connection Successful'),
+                        indicator: 'green',
+                        message: __('FTA API connection test passed.')
+                    });
+                } else {
+                    frappe.msgprint({
+                        title: __('Connection Failed'),
+                        indicator: 'red',
+                        message: r.message ? r.message.error : __('Unable to connect to FTA API.')
+                    });
+                }
+            }
         });
     },
 
@@ -266,5 +325,15 @@ frappe.ui.form.on('DigiComply Settings', {
             message: __('Manual ASP sync will be available in Phase 2. ' +
                        'Currently, use CSV Import to bring in ASP data.')
         });
+    },
+
+    // Update card when FTA validation toggle changes
+    enable_fta_validation: function(frm) {
+        frm.trigger('show_settings_card');
+    },
+
+    // Update card when VAT rate changes
+    default_vat_rate: function(frm) {
+        frm.trigger('show_settings_card');
     }
 });

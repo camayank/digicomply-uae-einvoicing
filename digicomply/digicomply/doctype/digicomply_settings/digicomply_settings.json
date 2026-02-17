@@ -21,6 +21,20 @@
         "cygnet_username",
         "cygnet_password",
         "cygnet_endpoint",
+        "section_fta_api",
+        "enable_fta_validation",
+        "fta_api_url",
+        "column_break_fta",
+        "fta_api_key",
+        "fta_api_timeout",
+        "section_vat",
+        "default_vat_rate",
+        "vat_filing_frequency",
+        "column_break_vat",
+        "enable_penalty_calculator",
+        "section_reminders",
+        "enable_filing_reminders",
+        "reminder_email_template",
         "section_notifications",
         "enable_email_alerts",
         "alert_recipients",
@@ -130,6 +144,95 @@
             "label": "API Endpoint"
         },
         {
+            "fieldname": "section_fta_api",
+            "fieldtype": "Section Break",
+            "label": "FTA API Configuration"
+        },
+        {
+            "default": "0",
+            "description": "Enable validation against FTA API for TRN verification",
+            "fieldname": "enable_fta_validation",
+            "fieldtype": "Check",
+            "label": "Enable FTA API Validation"
+        },
+        {
+            "depends_on": "enable_fta_validation",
+            "description": "FTA API endpoint URL for TRN validation",
+            "fieldname": "fta_api_url",
+            "fieldtype": "Data",
+            "label": "FTA API URL"
+        },
+        {
+            "fieldname": "column_break_fta",
+            "fieldtype": "Column Break"
+        },
+        {
+            "depends_on": "enable_fta_validation",
+            "description": "API key for FTA authentication",
+            "fieldname": "fta_api_key",
+            "fieldtype": "Password",
+            "label": "FTA API Key"
+        },
+        {
+            "default": "30",
+            "depends_on": "enable_fta_validation",
+            "description": "Timeout in seconds for FTA API requests",
+            "fieldname": "fta_api_timeout",
+            "fieldtype": "Int",
+            "label": "API Timeout (seconds)"
+        },
+        {
+            "fieldname": "section_vat",
+            "fieldtype": "Section Break",
+            "label": "VAT Settings"
+        },
+        {
+            "default": "5",
+            "description": "UAE standard VAT rate",
+            "fieldname": "default_vat_rate",
+            "fieldtype": "Percent",
+            "label": "Default VAT Rate %"
+        },
+        {
+            "default": "Quarterly",
+            "description": "How often VAT returns are filed",
+            "fieldname": "vat_filing_frequency",
+            "fieldtype": "Select",
+            "label": "VAT Filing Frequency",
+            "options": "Monthly\nQuarterly"
+        },
+        {
+            "fieldname": "column_break_vat",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "description": "Enable calculation of potential FTA penalties",
+            "fieldname": "enable_penalty_calculator",
+            "fieldtype": "Check",
+            "label": "Enable Penalty Calculator"
+        },
+        {
+            "fieldname": "section_reminders",
+            "fieldtype": "Section Break",
+            "label": "Reminder Settings"
+        },
+        {
+            "default": "1",
+            "description": "Send email reminders before VAT filing deadlines",
+            "fieldname": "enable_filing_reminders",
+            "fieldtype": "Check",
+            "label": "Enable Filing Reminders"
+        },
+        {
+            "depends_on": "enable_filing_reminders",
+            "description": "Email template to use for filing reminders",
+            "fieldname": "reminder_email_template",
+            "fieldtype": "Link",
+            "label": "Reminder Email Template",
+            "options": "Email Template"
+        },
+        {
             "fieldname": "section_notifications",
             "fieldtype": "Section Break",
             "label": "Notifications"
@@ -186,7 +289,7 @@
     "index_web_pages_for_search": 1,
     "issingle": 1,
     "links": [],
-    "modified": "2024-01-01 00:00:00.000000",
+    "modified": "2026-02-17 00:00:00.000000",
     "modified_by": "Administrator",
     "module": "DigiComply",
     "name": "DigiComply Settings",
