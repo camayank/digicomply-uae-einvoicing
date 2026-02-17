@@ -1,0 +1,167 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "autoname": "hash",
+    "creation": "2024-01-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "section_basic",
+        "company",
+        "score_date",
+        "column_break_basic",
+        "total_score",
+        "risk_level",
+        "section_scores",
+        "trn_health_score",
+        "reconciliation_score",
+        "column_break_scores",
+        "filing_compliance_score",
+        "data_integrity_score",
+        "section_details",
+        "penalty_exposure",
+        "column_break_details",
+        "score_breakdown"
+    ],
+    "fields": [
+        {
+            "fieldname": "section_basic",
+            "fieldtype": "Section Break",
+            "label": "Score Information"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Company",
+            "options": "Company",
+            "reqd": 1
+        },
+        {
+            "fieldname": "score_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Score Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_basic",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "total_score",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Total Score",
+            "reqd": 1,
+            "description": "DigiComply Score (0-100)"
+        },
+        {
+            "fieldname": "risk_level",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Risk Level",
+            "options": "Critical Risk\nAt Risk\nImproving\nCompliant\nFully Compliant"
+        },
+        {
+            "fieldname": "section_scores",
+            "fieldtype": "Section Break",
+            "label": "Score Breakdown"
+        },
+        {
+            "fieldname": "trn_health_score",
+            "fieldtype": "Int",
+            "label": "TRN Health",
+            "default": "0",
+            "description": "Max 30 points"
+        },
+        {
+            "fieldname": "reconciliation_score",
+            "fieldtype": "Int",
+            "label": "Reconciliation Health",
+            "default": "0",
+            "description": "Max 30 points"
+        },
+        {
+            "fieldname": "column_break_scores",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "filing_compliance_score",
+            "fieldtype": "Int",
+            "label": "Filing Compliance",
+            "default": "0",
+            "description": "Max 25 points"
+        },
+        {
+            "fieldname": "data_integrity_score",
+            "fieldtype": "Int",
+            "label": "Data Integrity",
+            "default": "0",
+            "description": "Max 15 points"
+        },
+        {
+            "fieldname": "section_details",
+            "fieldtype": "Section Break",
+            "label": "Details"
+        },
+        {
+            "fieldname": "penalty_exposure",
+            "fieldtype": "Currency",
+            "label": "Penalty Exposure (AED)",
+            "description": "Estimated penalty exposure based on compliance gaps"
+        },
+        {
+            "fieldname": "column_break_details",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "score_breakdown",
+            "fieldtype": "JSON",
+            "label": "Score Breakdown Details",
+            "hidden": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2024-01-01 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "DigiComply",
+    "name": "Compliance Score",
+    "naming_rule": "Random",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Accounts Manager",
+            "share": 1,
+            "write": 0
+        }
+    ],
+    "search_fields": "company,risk_level",
+    "sort_field": "score_date",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "company",
+    "track_changes": 1
+}
