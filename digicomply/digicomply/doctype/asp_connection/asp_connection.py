@@ -6,6 +6,17 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime, add_to_date
 import requests
 import json
+import tempfile
+import os
+
+# Certificate handling imports
+try:
+    from cryptography.hazmat.primitives.serialization import pkcs12
+    from cryptography.hazmat.backends import default_backend
+    from cryptography.hazmat.primitives import serialization
+    HAS_CRYPTOGRAPHY = True
+except ImportError:
+    HAS_CRYPTOGRAPHY = False
 
 
 class ASPConnection(Document):
@@ -52,6 +63,11 @@ class ASPConnection(Document):
         elif self.auth_type == "Basic Auth":
             if not self.api_key or not self.api_secret:
                 frappe.throw("Username and Password are required for Basic Auth")
+        elif self.auth_type == "Certificate":
+            if not HAS_CRYPTOGRAPHY:
+                frappe.throw("cryptography library is required for Certificate authentication. Please install it using: pip install cryptography")
+            if not self.certificate_file:
+                frappe.throw("Certificate file is required for Certificate authentication")
 
     def before_save(self):
         # Set redirect URI for OAuth
@@ -72,14 +88,21 @@ class ASPConnection(Document):
     @frappe.whitelist()
     def test_connection(self):
         """Test the connection to the ASP"""
+        cert = None
         try:
             headers = self._get_auth_headers()
             test_endpoint = self._get_test_endpoint()
 
+            # Get certificate for Certificate auth type
+            if self.auth_type == "Certificate":
+                cert = self._get_certificate_auth()
+
             response = requests.get(
                 f"{self.base_url}{test_endpoint}",
                 headers=headers,
-                timeout=self.timeout_seconds or 30
+                cert=cert,
+                timeout=self.timeout_seconds or 30,
+                verify=True  # SSL verification enabled
             )
 
             if response.status_code in [200, 201]:
@@ -119,6 +142,11 @@ class ASPConnection(Document):
             self.save()
             return {"success": False, "message": str(e)}
 
+        finally:
+            # Clean up temp certificate files
+            if cert:
+                self._cleanup_cert_files(cert)
+
     def _get_auth_headers(self):
         """Get authentication headers based on auth type"""
         headers = {
@@ -147,7 +175,102 @@ class ASPConnection(Document):
             credentials = base64.b64encode(f"{username}:{password}".encode()).decode()
             headers["Authorization"] = f"Basic {credentials}"
 
+        elif self.auth_type == "Certificate":
+            # Certificate auth uses cert parameter in requests, not headers
+            # Headers are still needed for content type
+            pass
+
         return headers
+
+    def _get_certificate_auth(self):
+        """
+        Handle PFX certificate authentication for Tabadul
+        Returns tuple (cert_path, key_path) for requests library
+
+        The caller is responsible for cleaning up the temp files after use.
+        """
+        if not HAS_CRYPTOGRAPHY:
+            frappe.throw("cryptography library is required for Certificate authentication")
+
+        if not self.certificate_file:
+            frappe.throw("Certificate file is required for Tabadul authentication")
+
+        # Get certificate file content
+        file_doc = frappe.get_doc("File", {"file_url": self.certificate_file})
+        cert_content = file_doc.get_content()
+
+        # Get certificate password from settings
+        cert_password = self.get_password("certificate_password")
+
+        try:
+            # Load PFX and extract certificate + private key
+            private_key, certificate, chain = pkcs12.load_key_and_certificates(
+                cert_content,
+                cert_password.encode('utf-8') if cert_password else None,
+                default_backend()
+            )
+
+            if not private_key or not certificate:
+                frappe.throw("Invalid certificate file: missing private key or certificate")
+
+            # Write to temporary files for requests library
+            # Using delete=False because we need to pass paths to requests
+            cert_file = tempfile.NamedTemporaryFile(
+                mode='wb',
+                suffix='.pem',
+                delete=False
+            )
+            key_file = tempfile.NamedTemporaryFile(
+                mode='wb',
+                suffix='.pem',
+                delete=False
+            )
+
+            try:
+                # Serialize and write certificate
+                cert_file.write(certificate.public_bytes(serialization.Encoding.PEM))
+
+                # Include chain certificates if present
+                if chain:
+                    for chain_cert in chain:
+                        cert_file.write(chain_cert.public_bytes(serialization.Encoding.PEM))
+
+                cert_file.close()
+
+                # Serialize and write private key (unencrypted for requests)
+                key_file.write(private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.TraditionalOpenSSL,
+                    encryption_algorithm=serialization.NoEncryption()
+                ))
+                key_file.close()
+
+                return (cert_file.name, key_file.name)
+
+            except Exception as e:
+                # Clean up on error
+                self._cleanup_cert_files((cert_file.name, key_file.name))
+                raise
+
+        except Exception as e:
+            frappe.log_error(
+                title="Certificate Authentication Error",
+                message=f"Failed to load certificate: {str(e)}"
+            )
+            frappe.throw(f"Failed to load certificate: {str(e)}")
+
+    def _cleanup_cert_files(self, cert_tuple):
+        """Clean up temporary certificate files"""
+        if cert_tuple:
+            for path in cert_tuple:
+                try:
+                    if path and os.path.exists(path):
+                        os.remove(path)
+                except Exception as e:
+                    frappe.log_error(
+                        title="Certificate Cleanup Error",
+                        message=f"Failed to remove temp cert file {path}: {str(e)}"
+                    )
 
     def _get_test_endpoint(self):
         """Get test endpoint based on provider"""
