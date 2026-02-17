@@ -90,12 +90,11 @@ frappe.ui.form.on('TRN Validation Log', {
         const color_map = {
             'Valid': 'green',
             'Invalid': 'red',
-            'Expired': 'orange',
+            'Expired': 'yellow',
             'Not Found': 'grey',
-            'API Error': 'red',
             'Pending': 'blue'
         };
-        return color_map[status] || 'grey';
+        return color_map[status] || 'purple';
     },
 
     add_custom_styles: function(frm) {
@@ -123,8 +122,7 @@ frappe.ui.form.on('TRN Validation Log', {
                     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
                 }
 
-                .dc-validation-card.status-invalid,
-                .dc-validation-card.status-api-error {
+                .dc-validation-card.status-invalid {
                     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
                     box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25);
                 }
@@ -346,8 +344,7 @@ frappe.ui.form.on('TRN Validation Log', {
                 </svg>`;
                 break;
             case 'Invalid':
-            case 'API Error':
-                status_class = frm.doc.validation_status === 'Invalid' ? 'status-invalid' : 'status-api-error';
+                status_class = 'status-invalid';
                 status_icon = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                     <circle cx="12" cy="12" r="10"/>
                     <line x1="15" y1="9" x2="9" y2="15"/>
