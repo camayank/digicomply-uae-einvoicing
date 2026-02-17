@@ -114,10 +114,29 @@ class DCComplianceCalendar {
     }
 
     render() {
+        // Add Google Fonts
+        if (!$('#dc-google-fonts').length) {
+            $('head').append('<link id="dc-google-fonts" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">');
+        }
+
         this.wrapper.html(`
             <div class="dc-compliance-calendar">
                 <style>
+                    :root {
+                        --dc-primary: #a404e4;
+                        --dc-primary-dark: #8501b9;
+                        --dc-text-dark: #1e293b;
+                        --dc-text-muted: #64748b;
+                        --dc-border: #e2e8f0;
+                        --dc-success: #10b981;
+                        --dc-warning: #f59e0b;
+                        --dc-danger: #ef4444;
+                        --dc-radius: 12px;
+                        --dc-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                    }
+
                     .dc-compliance-calendar {
+                        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
                         padding: 20px;
                         max-width: 1400px;
                         margin: 0 auto;

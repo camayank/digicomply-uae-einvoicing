@@ -26,8 +26,26 @@ class TRNHealthCenter {
     }
 
     add_styles() {
+        // Add Google Fonts
+        if (!$('#dc-google-fonts').length) {
+            $('head').append('<link id="dc-google-fonts" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">');
+        }
+
         const styles = `
             <style>
+                :root {
+                    --dc-primary: #a404e4;
+                    --dc-primary-dark: #8501b9;
+                    --dc-text-dark: #1e293b;
+                    --dc-text-muted: #64748b;
+                    --dc-border: #e2e8f0;
+                    --dc-success: #10b981;
+                    --dc-warning: #f59e0b;
+                    --dc-danger: #ef4444;
+                    --dc-radius: 12px;
+                    --dc-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                }
+
                 /* TRN Health Center Styles */
                 .dc-trn-health-container {
                     padding: 20px;
